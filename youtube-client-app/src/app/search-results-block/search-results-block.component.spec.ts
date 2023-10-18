@@ -8,7 +8,7 @@ describe('SearchResultsBlockComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchResultsBlockComponent]
+      declarations: [SearchResultsBlockComponent],
     });
     fixture = TestBed.createComponent(SearchResultsBlockComponent);
     component = fixture.componentInstance;

@@ -18,13 +18,13 @@ import { SearchResultsItemComponent } from './search-results-block/search-result
     LoginComponent,
     FilterBlockComponent,
     SearchResultsBlockComponent,
-    SearchResultsItemComponent
+    SearchResultsItemComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -8,7 +8,7 @@ describe('FilterBlockComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FilterBlockComponent]
+      declarations: [FilterBlockComponent],
     });
     fixture = TestBed.createComponent(FilterBlockComponent);
     component = fixture.componentInstance;
