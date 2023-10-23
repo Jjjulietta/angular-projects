@@ -1,0 +1,41 @@
+import { Directive, ElementRef, Input } from '@angular/core';
+import { period, colors } from 'src/constants/constants';
+import { SearchItem } from '../models/search-item.model';
+
+@Directive({
+  selector: '[appHighlight]',
+})
+export class HighlightDirective {
+  @Input() card?: SearchItem;
+
+  @Input() date?: string;
+
+  constructor(private el: ElementRef) {
+    this.el.nativeElement.style.backgroundColor = 'blue';
+  }
+
+  ngOnChanges() {
+    if (this.date) {
+      console.log(this.date);
+      const time =
+        (+new Date() - new Date(this.date).getTime()) / (1000 * 60 * 60 * 24);
+      console.log(time);
+      if (time > period.sixMonth) {
+        this.highlight(colors.red);
+      }
+      if (time > period.month && time < period.sixMonth) {
+        this.highlight(colors.yellow);
+      }
+      if (time >= period.sevenDay && time < period.month) {
+        this.highlight(colors.green);
+      }
+      if (time < period.sevenDay) {
+        this.highlight(colors.blue);
+      }
+    }
+  }
+
+  private highlight(color: string) {
+    this.el.nativeElement.style.backgroundColor = color;
+  }
+}
