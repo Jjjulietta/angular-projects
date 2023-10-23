@@ -11,7 +11,10 @@ export class FilterWordPipe implements PipeTransform {
       return cards;
     }
     return cards.filter((item) => {
-      if (item.snippet.title.toLowerCase().indexOf(value) === 0) {
+      /* if (item.snippet.title.toLowerCase().indexOf(value) === 0) {
+        return item;
+      } */
+      if (item.snippet.title.toLowerCase().includes(value)) {
         return item;
       }
       return undefined;
