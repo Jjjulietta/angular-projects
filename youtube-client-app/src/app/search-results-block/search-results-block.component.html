@@ -1,1 +1,11 @@
-<p>search-results-block works!</p>
+<div class="search-result-container">
+  <app-search-results-item
+    *ngFor="
+      let card of cards
+        | sortingDate : sort
+        | sortingViews : sortView
+        | filterWord : word
+    "
+    [card]="card"
+  ></app-search-results-item>
+</div>

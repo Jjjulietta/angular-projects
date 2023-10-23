@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SearchItem } from '../models/search-item.model';
 
 @Component({
   selector: 'app-search-results-block',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./search-results-block.component.scss'],
 })
 export class SearchResultsBlockComponent {
-
+  @Input() cards: SearchItem[] = [];
+  @Input() sort: string = '';
+  @Input() sortView: string = '';
+  @Input() word: string = '';
 }
