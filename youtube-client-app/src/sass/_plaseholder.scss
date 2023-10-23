@@ -3,3 +3,12 @@
   align-items: center;
   justify-content: space-between;
 }
+
+%btn-primary {
+  background-color: #2f80ed;
+  border-radius: 5px;
+  box-shadow: 2px 1px 2px 2px #2f80ed;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
