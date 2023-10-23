@@ -1,0 +1,5 @@
+@import "./../../sass/plaseholder";
+
+.btn {
+  @extend %btn-primary;
+}

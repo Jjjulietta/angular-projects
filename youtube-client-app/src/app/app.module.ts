@@ -9,6 +9,11 @@ import { LoginComponent } from './header/login/login.component';
 import { FilterBlockComponent } from './header/filter-block/filter-block.component';
 import { SearchResultsBlockComponent } from './search-results-block/search-results-block.component';
 import { SearchResultsItemComponent } from './search-results-block/search-results-item/search-results-item.component';
+import { HighlightDirective } from './directives/highlight.directive';
+import { FilterWordPipe } from './pipes/filter-word.pipe';
+import { SortingDatePipe } from './pipes/sorting-date.pipe';
+import { SortingViewsPipe } from './pipes/sorting-views.pipe';
+import { CustomButtonComponent } from './custom-button/custom-button.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +24,13 @@ import { SearchResultsItemComponent } from './search-results-block/search-result
     FilterBlockComponent,
     SearchResultsBlockComponent,
     SearchResultsItemComponent,
+    HighlightDirective,
+    FilterWordPipe,
+    SortingDatePipe,
+    SortingViewsPipe,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, CustomButtonComponent],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
