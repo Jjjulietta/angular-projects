@@ -1,0 +1,33 @@
+@import "./../../sass/constants";
+@import "./../../sass/plaseholder";
+
+:host {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: $color-background-one;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 25%;
+}
+
+.search-container {
+  @extend %flex;
+  margin-right: 20%;
+  > * {
+    margin-right: 10px;
+  }
+}
+
+.header-setting-btn {
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+}

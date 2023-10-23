@@ -1,1 +1,21 @@
-<h1>{{ title.toUpperCase() }}</h1>
+<header class="header">
+  <div class="header-container">
+    <div class="search-container">
+      <img src="./../../assets/logo.svg" alt="header-logo" />
+      <app-search (submit)="clickSearch($event)"></app-search>
+      <button
+        type="button"
+        (click)="toggleFilterBlock()"
+        class="header-setting-btn"
+      >
+        <img
+          src="./../../assets/search_settings.svg"
+          alt="header-search-btn"
+          class="header-setting-img"
+        />
+      </button>
+    </div>
+    <app-login></app-login>
+  </div>
+  <app-filter-block *ngIf="isShown"></app-filter-block>
+</header>
