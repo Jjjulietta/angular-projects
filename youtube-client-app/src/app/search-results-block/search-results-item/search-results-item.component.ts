@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SearchItem } from 'src/app/models/search-item.model';
 
 @Component({
   selector: 'app-search-results-item',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./search-results-item.component.scss'],
 })
 export class SearchResultsItemComponent {
+  @Input() card?: SearchItem;
 
+  date?: string;
+  ngOnInit() {
+    if (this.card) this.date = this.card?.snippet.publishedAt;
+  }
 }
