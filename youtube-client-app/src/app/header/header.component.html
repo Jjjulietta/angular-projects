@@ -3,7 +3,7 @@
     <div class="search-container">
       <img src="./../../assets/logo.svg" alt="header-logo" />
       <app-search (submit)="clickSearch($event)"></app-search>
-      <button
+      <app-custom-button
         type="button"
         (click)="toggleFilterBlock()"
         class="header-setting-btn"
@@ -13,7 +13,18 @@
           alt="header-search-btn"
           class="header-setting-img"
         />
-      </button>
+      </app-custom-button>
+      <!--<button
+        type="button"
+        (click)="toggleFilterBlock()"
+        class="header-setting-btn"
+      >
+        <img
+          src="./../../assets/search_settings.svg"
+          alt="header-search-btn"
+          class="header-setting-img"
+        />
+      </button>-->
     </div>
     <app-login></app-login>
   </div>
