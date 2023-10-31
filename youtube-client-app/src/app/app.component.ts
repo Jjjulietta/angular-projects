@@ -8,14 +8,14 @@ import { SearchItem } from './youtube/models/search-item.model';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  public shown = false;
+  /* public shown = false;
   public sort = '';
   public sortView = '';
   public word = '';
-  public submit = '';
+  public submit = ''; */
   public resultsSearch: SearchItem[] = [];
 
-  toggleFilter(shown: boolean) {
+  /* toggleFilter(shown: boolean) {
     this.shown = shown;
   }
 
@@ -37,5 +37,5 @@ export class AppComponent {
 
   downloadResults(submit: string) {
     if (submit) this.resultsSearch = data;
-  }
+  } */
 }

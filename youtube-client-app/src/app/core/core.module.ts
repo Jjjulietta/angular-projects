@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { SearchComponent } from './components/search/search.component';
 import { FilterBlockComponent } from './pages/filter-block/filter-block.component';
+import { CustomButtonComponent } from '../custom-button/custom-button.component';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { FilterBlockComponent } from './pages/filter-block/filter-block.componen
     SearchComponent,
     FilterBlockComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, CustomButtonComponent],
   exports: [HeaderComponent],
 })
 export class CoreModule {}

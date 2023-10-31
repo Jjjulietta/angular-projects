@@ -1,13 +1,4 @@
-<app-header
-  (onClick)="toggleFilter($event)"
-  (onSubmit)="downloadResults($event)"
-  (onSortDate)="toggleSort($event)"
-  (onSortView)="toggleSortView($event)"
-  (onFilterWord)="inputWord($event)"
-></app-header>
-<app-search-results-block
-  [cards]="resultsSearch"
-  [sort]="sort"
-  [sortView]="sortView"
-  [word]="word"
-></app-search-results-block>
+<app-header></app-header>
+<main>
+  <router-outlet></router-outlet>
+</main>

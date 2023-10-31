@@ -7,23 +7,23 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderComponent {
   public isShown = false;
-  public inputSearch = '';
-  public sort = '';
-  public sortView = '';
+  // public inputSearch = '';
+  // public sort = '';
+  // public sortView = '';
   public word = '';
 
   @Output() onClick = new EventEmitter();
-  @Output() onSubmit = new EventEmitter();
-  @Output() onSortDate = new EventEmitter();
-  @Output() onSortView = new EventEmitter();
-  @Output() onFilterWord = new EventEmitter();
+  // @Output() onSubmit = new EventEmitter();
+  // @Output() onSortDate = new EventEmitter();
+  // @Output() onSortView = new EventEmitter();
+  // @Output() onFilterWord = new EventEmitter();
 
   toggleFilterBlock() {
     this.isShown = !this.isShown;
     this.onClick.emit(this.isShown);
   }
 
-  clickSearch(input: string) {
+  /*clickSearch(input: string) {
     this.inputSearch = input;
     this.onSubmit.emit(this.inputSearch);
   }
@@ -45,5 +45,5 @@ export class HeaderComponent {
     console.log(word);
     this.word = word;
     this.onFilterWord.emit(this.word);
-  }
+  } */
 }

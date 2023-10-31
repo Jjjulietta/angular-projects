@@ -7,6 +7,7 @@ import { SortingDatePipe } from './pipes/sorting-date.pipe';
 import { SortingViewsPipe } from './pipes/sorting-views.pipe';
 import { FilterWordPipe } from './pipes/filter-word.pipe';
 import { YoutubeRoutingModule } from './youtube-routing.module';
+import { CustomButtonComponent } from '../custom-button/custom-button.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,6 @@ import { YoutubeRoutingModule } from './youtube-routing.module';
     SortingViewsPipe,
     FilterWordPipe,
   ],
-  imports: [CommonModule, YoutubeRoutingModule],
+  imports: [CommonModule, YoutubeRoutingModule, CustomButtonComponent],
 })
 export class YoutubeModule {}
