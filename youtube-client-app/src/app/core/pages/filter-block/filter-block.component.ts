@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SortType } from '../../enums/sort-type';
 import { SortingService } from '../../services/sorting.service';
 
 @Component({
@@ -7,9 +8,9 @@ import { SortingService } from '../../services/sorting.service';
   styleUrls: ['./filter-block.component.scss'],
 })
 export class FilterBlockComponent {
-  public sort = 'default';
-  public sortView = 'default';
-  public inputWord = '';
+  public sort: SortType = SortType.Default;
+  public sortView: SortType = SortType.Default;
+  public inputWord = null;
   constructor(private SortingServise: SortingService) {}
   // @Output() onSortDate = new EventEmitter();
   // @Output() onSortView = new EventEmitter();
@@ -17,9 +18,9 @@ export class FilterBlockComponent {
 
   clickSortDate() {
     if (this.sort === 'default' || this.sort === 'desc') {
-      this.sort = 'asc';
+      this.sort = SortType.Asc;
     } else if (this.sort === 'asc') {
-      this.sort = 'desc';
+      this.sort = SortType.Desc;
     }
     console.log(this.sort);
     this.SortingServise.onSortDate.emit(this.sort);
@@ -27,9 +28,9 @@ export class FilterBlockComponent {
 
   clickSortView() {
     if (this.sortView === 'default' || this.sortView === 'desc') {
-      this.sortView = 'asc';
+      this.sortView = SortType.Asc;
     } else if (this.sortView === 'asc') {
-      this.sortView = 'desc';
+      this.sortView = SortType.Desc;
     }
     console.log(this.sortView);
     this.SortingServise.onSortView.emit(this.sortView);
