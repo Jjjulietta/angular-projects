@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
+import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 
 @Component({
   selector: 'app-search',
@@ -6,16 +8,15 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
-  public inputText: string = '';
-  YoutubeService: any;
-  router: any;
-  // @Output() submit = new EventEmitter();
+  public inputText: string | null = null;
+  constructor(private router: Router, private YoutubeService: YoutubeService) {}
 
-  ngOnChange(text: string) {
+  search(text: string) {
     this.inputText = text;
-    this.inputText = text;
-    this.YoutubeService.submit.next(this.inputText);
-    console.log(this.inputText);
-    this.router.navigate(['main']);
+    if (this.inputText !== null) {
+      this.YoutubeService.submit.next(this.inputText);
+      console.log(this.inputText);
+      this.router.navigate(['main']);
+    }
   }
 }
