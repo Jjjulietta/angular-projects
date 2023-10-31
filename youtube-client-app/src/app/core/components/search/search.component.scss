@@ -6,19 +6,19 @@
 }
 
 .search-input {
-  width: 396px;
-  height: 24px;
+  width: 24.75rem;
+  height: 1.5rem;
   background-color: $color-background-two;
   border: none;
 }
 
 .search-button {
-  width: 80px;
-  height: 24px;
+  width: 5rem;
+  height: 1.5rem;
   background-color: $color-primary;
   border: none;
-  border-radius: 0px 5px 5px 0px;
-  box-shadow: 1px 1px 1px 1px $color-primary;
+  border-radius: 0px 0.3rem 0.3rem 0px;
+  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem $color-primary;
   color: $color-white;
   cursor: pointer;
 }

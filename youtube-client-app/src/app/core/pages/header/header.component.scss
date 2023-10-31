@@ -13,8 +13,8 @@
   justify-content: center;
   flex-wrap: wrap;
   background-color: $color-background-one;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   padding-left: 25%;
 }
 
@@ -22,7 +22,7 @@
   @extend %flex;
   margin-right: 20%;
   > * {
-    margin-right: 10px;
+    margin-right: 0.62rem;
   }
 }
 

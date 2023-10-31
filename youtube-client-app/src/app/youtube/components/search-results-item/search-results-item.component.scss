@@ -13,17 +13,17 @@
   align-items: center;
   justify-content: space-around;
   font-family: $font-family, sans-serif;
-  width: 235px;
-  height: 327px;
+  width: 14.6rem;
+  height: 20.4rem;
   background-color: $color-background-one;
-  border-radius: 8px;
-  box-shadow: 2px 5px 4px rgba(0, 0, 0, 0.2);
-  padding: 10px;
+  border-radius: 0.5rem;
+  box-shadow: 0.125rem 0.3rem 0.25rem rgba(0, 0, 0, 0.2);
+  padding: 0.6rem;
 }
 
 .info-block {
   @extend %flex;
-  @include font(10px, regular);
+  @include font(0.625rem, regular);
   width: 80%;
 }
 
@@ -32,34 +32,35 @@
 }
 
 .card-img {
-  width: 180px;
-  height: 123px;
+  width: 11rem;
+  height: 8rem;
 }
 
 .card-title {
   text-align: center;
   color: $color-grey-dark;
-  @include font(15px, bold);
+  @include font(1rem, bold);
 }
 
 .card-btn {
-  width: 120px;
-  height: 32px;
-  background-color: $color-primary;
-  border-radius: 5px;
-  box-shadow: 2px 1px 2px 2px $color-primary;
-  border: none;
-  color: $color-white;
+  width: 7.5rem;
+  height: 2rem;
+  @extend %btn-primary;
+  transition: all 0.5s;
+  &:hover {
+    background-color: $color-second;
+    box-shadow: none;
+  }
 }
 
 .img-info {
-  margin-right: 3px;
+  margin-right: 0.2rem;
 }
 
 .line {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 5px;
-  border-radius: 0px 0px 8px 8px;
+  height: 0.3rem;
+  border-radius: 0px 0px 0.5rem 0.5rem;
 }

@@ -5,10 +5,10 @@
 :host {
   @extend %flex;
   font-family: $font-family, sans-serif;
-  @include font(12px, regular);
+  @include font(0.75rem, regular);
   color: $color-grey-dark;
   cursor: pointer;
   .login-name {
-    margin-right: 8px;
+    margin-right: 0.5rem;
   }
 }
