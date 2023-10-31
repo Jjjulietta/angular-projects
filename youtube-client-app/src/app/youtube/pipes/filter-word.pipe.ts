@@ -5,19 +5,18 @@ import { SearchItem } from '../models/search-item.model';
   name: 'filterWord',
 })
 export class FilterWordPipe implements PipeTransform {
-  transform(cards: SearchItem[], value: string): SearchItem[] {
+  transform(cards: SearchItem[], value: string | null): SearchItem[] {
     console.log(value);
-    if (!value) {
+    if (!value || value === null) {
       return cards;
     }
     return cards.filter((item) => {
       /* if (item.snippet.title.toLowerCase().indexOf(value) === 0) {
         return item;
       } */
-      if (item.snippet.title.toLowerCase().includes(value)) {
-        return item;
-      }
-      return undefined;
+      return item.snippet.title.toLowerCase().includes(value)
+        ? item
+        : undefined;
     });
   }
 }
