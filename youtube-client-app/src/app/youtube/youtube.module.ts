@@ -6,6 +6,7 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { SortingDatePipe } from './pipes/sorting-date.pipe';
 import { SortingViewsPipe } from './pipes/sorting-views.pipe';
 import { FilterWordPipe } from './pipes/filter-word.pipe';
+import { YoutubeRoutingModule } from './youtube-routing.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,6 @@ import { FilterWordPipe } from './pipes/filter-word.pipe';
     SortingViewsPipe,
     FilterWordPipe,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, YoutubeRoutingModule],
 })
 export class YoutubeModule {}
