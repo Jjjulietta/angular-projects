@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { data } from 'src/data/mock-data';
-import { SearchItem } from './models/search-item.model';
+import { SearchItem } from './youtube/models/search-item.model';
 
 @Component({
   selector: 'app-root',

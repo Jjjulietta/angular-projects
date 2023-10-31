@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SearchItem } from 'src/app/models/search-item.model';
+import { SearchItem } from 'src/app/youtube/models/search-item.model';
 
 @Component({
   selector: 'app-search-results-item',
