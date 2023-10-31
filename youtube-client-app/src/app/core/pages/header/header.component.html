@@ -1,20 +1,20 @@
-<header class="header">
-  <div class="header-container">
-    <div class="search-container">
-      <img src="./../../assets/logo.svg" alt="header-logo" />
-      <app-search></app-search>
-      <app-custom-button
-        type="button"
-        (click)="toggleFilterBlock()"
-        class="header-setting-btn"
-      >
-        <img
-          src="./../../assets/search_settings.svg"
-          alt="header-search-btn"
-          class="header-setting-img"
-        />
-      </app-custom-button>
-      <!--<button
+<!--<header class="header">-->
+<div class="header-container">
+  <div class="search-container">
+    <img src="./../../assets/logo.svg" alt="header-logo" />
+    <app-search></app-search>
+    <app-custom-button
+      type="button"
+      (click)="toggleFilterBlock()"
+      class="header-setting-btn"
+    >
+      <img
+        src="./../../assets/search_settings.svg"
+        alt="header-search-btn"
+        class="header-setting-img"
+      />
+    </app-custom-button>
+    <!--<button
         type="button"
         (click)="toggleFilterBlock()"
         class="header-setting-btn"
@@ -25,8 +25,8 @@
           class="header-setting-img"
         />
       </button>-->
-    </div>
-    <app-login></app-login>
   </div>
-  <app-filter-block *ngIf="isShown"></app-filter-block>
-</header>
+  <app-login></app-login>
+</div>
+<app-filter-block *ngIf="isShown"></app-filter-block>
+<!--</header>-->
