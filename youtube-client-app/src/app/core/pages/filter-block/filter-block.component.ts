@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { SortingService } from '../../services/sorting.service';
 
 @Component({
   selector: 'app-filter-block',
@@ -9,9 +10,10 @@ export class FilterBlockComponent {
   public sort = 'default';
   public sortView = 'default';
   public inputWord = '';
-  @Output() onSortDate = new EventEmitter();
-  @Output() onSortView = new EventEmitter();
-  @Output() onFilterWord = new EventEmitter();
+  constructor(private SortingServise: SortingService) {}
+  // @Output() onSortDate = new EventEmitter();
+  // @Output() onSortView = new EventEmitter();
+  // @Output() onFilterWord = new EventEmitter();
 
   clickSortDate() {
     if (this.sort === 'default' || this.sort === 'desc') {
@@ -20,7 +22,7 @@ export class FilterBlockComponent {
       this.sort = 'desc';
     }
     console.log(this.sort);
-    this.onSortDate.emit(this.sort);
+    this.SortingServise.onSortDate.emit(this.sort);
   }
 
   clickSortView() {
@@ -30,11 +32,11 @@ export class FilterBlockComponent {
       this.sortView = 'desc';
     }
     console.log(this.sortView);
-    this.onSortView.emit(this.sortView);
+    this.SortingServise.onSortView.emit(this.sortView);
   }
 
   ngOnChange(word: string) {
     console.log(word);
-    this.onFilterWord.emit(word);
+    this.SortingServise.onFilterWord.emit(word);
   }
 }
