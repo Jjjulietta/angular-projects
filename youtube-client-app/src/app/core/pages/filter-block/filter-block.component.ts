@@ -38,6 +38,6 @@ export class FilterBlockComponent {
 
   ngOnChange(word: string) {
     console.log(word);
-    this.SortingServise.onFilterWord.emit(word);
+    if (word !== null) this.SortingServise.onFilterWord.emit(word);
   }
 }
