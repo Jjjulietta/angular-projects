@@ -7,10 +7,15 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class SearchComponent {
   public inputText: string = '';
-  @Output() submit = new EventEmitter();
+  YoutubeService: any;
+  router: any;
+  // @Output() submit = new EventEmitter();
 
   ngOnChange(text: string) {
     this.inputText = text;
-    this.submit.emit(this.inputText);
+    this.inputText = text;
+    this.YoutubeService.submit.next(this.inputText);
+    console.log(this.inputText);
+    this.router.navigate(['main']);
   }
 }
