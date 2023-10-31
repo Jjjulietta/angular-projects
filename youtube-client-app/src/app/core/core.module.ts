@@ -5,6 +5,7 @@ import { HeaderComponent } from './pages/header/header.component';
 import { SearchComponent } from './components/search/search.component';
 import { FilterBlockComponent } from './pages/filter-block/filter-block.component';
 import { CustomButtonComponent } from '../custom-button/custom-button.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -12,8 +13,9 @@ import { CustomButtonComponent } from '../custom-button/custom-button.component'
     HeaderComponent,
     SearchComponent,
     FilterBlockComponent,
+    NotFoundPageComponent,
   ],
   imports: [CommonModule, CustomButtonComponent],
-  exports: [HeaderComponent],
+  exports: [HeaderComponent, NotFoundPageComponent],
 })
 export class CoreModule {}
