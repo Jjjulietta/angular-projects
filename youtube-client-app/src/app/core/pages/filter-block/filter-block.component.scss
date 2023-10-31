@@ -1,7 +1,7 @@
 @import "./../../../../sass/constants";
 @import "./../../../../sass/mixins";
 
-.filter-block {
+:host {
   display: flex;
   align-items: center;
   justify-content: center;

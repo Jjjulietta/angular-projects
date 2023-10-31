@@ -2,7 +2,7 @@
 @import "./../../../../sass/constants";
 @import "./../../../../sass/mixins";
 
-.login-container {
+:host {
   @extend %flex;
   font-family: $font-family, sans-serif;
   @include font(12px, regular);

@@ -1,6 +1,6 @@
 @import "./../../sass/constants";
 
-.search-result-container {
+:host {
   display: flex;
   align-items: center;
   justify-content: space-between;

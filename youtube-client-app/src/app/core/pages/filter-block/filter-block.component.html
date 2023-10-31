@@ -1,21 +1,19 @@
-<div class="filter-block">
-  <span class="filter-title">Sorting by:</span>
-  <app-custom-button (click)="clickSortDate()">date </app-custom-button>
-  <app-custom-button (click)="clickSortDate()"
-    >count of views</app-custom-button
-  >
-  <!--<button class="link date" (click)="clickSortDate()">date</button>
+<!--<div class="filter-block">-->
+<span class="filter-title">Sorting by:</span>
+<app-custom-button (click)="clickSortDate()">date </app-custom-button>
+<app-custom-button (click)="clickSortDate()">count of views</app-custom-button>
+<!--<button class="link date" (click)="clickSortDate()">date</button>
   <button class="link count-view" (click)="clickSortView()">
     count of views
   </button>-->
-  <div>
-    <label for="sorting">by word or sentance</label>
-    <input
-      type="text"
-      id="sorting"
-      class="filter-input"
-      (input)="ngOnChange(inputFilter.value)"
-      #inputFilter
-    />
-  </div>
+<div>
+  <label for="sorting">by word or sentance</label>
+  <input
+    type="text"
+    id="sorting"
+    class="filter-input"
+    (input)="ngOnChange(inputFilter.value)"
+    #inputFilter
+  />
 </div>
+<!--</div>-->
