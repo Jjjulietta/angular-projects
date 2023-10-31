@@ -1,0 +1,88 @@
+@import "./../../../../sass/plaseholder";
+@import "./../../../../sass/constants";
+@import "./../../../../sass/mixins";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  font-family: $font-family, sans-serif;
+}
+
+h1 {
+  @include font(20px, bold);
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.form {
+  background-color: $color-background-two;
+  width: 30%;
+  height: 25%;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+form {
+  @extend %flex;
+  flex-direction: column;
+  & > * {
+    margin-bottom: 10px;
+  }
+}
+
+.btn {
+  align-self: flex-end;
+  @extend %btn-primary;
+  width: 120px;
+  height: 25px;
+}
+
+.input {
+  background-color: $color-background-one;
+  border: none;
+  width: 100%;
+  height: 30px;
+}
+
+.label {
+  color: $color-grey-light;
+}
+
+.login {
+  align-self: flex-start;
+}
+
+.alert {
+  align-self: flex-start;
+  @include font(14px, regular);
+  color: $color-primary;
+}
+
+.alert-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.alert-invalid {
+  color: red;
+  @include font(12px, regular);
+  font-family: $font-family;
+}
+
+input.ng-pristine:not(form) {
+  border: none;
+}
+
+input.ng-valid:not(form) {
+  border-radius: 5px;
+  border: 2px solid green;
+}
+
+input.ng-touched.ng-invalid {
+  border-radius: 5px;
+  border: 2px solid red;
+}

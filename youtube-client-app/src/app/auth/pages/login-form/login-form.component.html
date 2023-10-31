@@ -1,0 +1,68 @@
+<div class="form login" *ngIf="authForm">
+  <h1>Login</h1>
+  <form [formGroup]="authForm" (ngSubmit)="authForm.valid && onSubmit()">
+    <div *ngIf="authForm.controls['login'].pristine" class="alert">
+      <div>Please enter a login email</div>
+    </div>
+    <label for="lodin-name" class="label login">login</label>
+    <input
+      type="text"
+      id="login"
+      formControlName="login"
+      class="input login"
+      required
+    />
+    <div
+      *ngIf="login?.invalid && (login?.dirty || login?.touched)"
+      class="alert-block"
+    >
+      <div
+        *ngIf="
+          login?.errors?.['required']"
+        class="alert-invalid"
+      >
+        Please enter a login email
+      </div>
+      <div
+        *ngIf="
+          login?.errors?.['email']"
+        class="alert-invalid"
+      >
+        The login email is invalid
+      </div>
+    </div>
+    <div *ngIf="authForm.controls['password'].pristine" class="alert">
+      <div>Please enter a password</div>
+    </div>
+    <label for="password" class="label login">password</label>
+    <input
+      type="text"
+      id="password"
+      formControlName="password"
+      class="input login"
+      required
+    />
+    <div
+      *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+      class="alert-block"
+    >
+      <div
+        *ngIf="
+          password?.errors?.['required']"
+        class="alert-invalid"
+      >
+        Please enter a password
+      </div>
+      <div
+        *ngIf="
+          password?.errors?.['forbiddenPassword']
+        "
+        class="alert-invalid"
+      >
+        {{password?.errors?.['forbiddenPassword']}}
+      </div>
+    </div>
+
+    <button type="submit" class="btn">Login</button>
+  </form>
+</div>
