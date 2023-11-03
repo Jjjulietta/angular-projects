@@ -4,7 +4,7 @@ export const data = [
     etag: '"Fznwjl6JEQdo1MGvHOGaz_YanRU/tmmI1yiRrmLWlKikXk1gD3TXsUI"',
     id: 'YN8zNnV0sK8',
     snippet: {
-      publishedAt: '2019-05-30T12:42:19.000Z',
+      publishedAt: '2022-05-30T12:42:19.000Z',
       channelId: 'UCg8ss4xW9jASrqWGP30jXiw',
       title: 'Angular 8 - Быстрый курс за 60 минут',
       description:
@@ -86,7 +86,7 @@ export const data = [
     etag: '"Fznwjl6JEQdo1MGvHOGaz_YanRU/uto79F2R8W05GFpiUAcLdFGs7PQ"',
     id: 'Fdf5aTYRW0E',
     snippet: {
-      publishedAt: '2019-01-23T17:46:58.000Z',
+      publishedAt: '2023-06-23T17:46:58.000Z',
       channelId: 'UC29ju8bIPH5as8OGnQzwJyA',
       title: 'Angular Crash Course',
       description:
@@ -142,7 +142,7 @@ export const data = [
     etag: '"Fznwjl6JEQdo1MGvHOGaz_YanRU/6e0k9ik7TThWpqueHGOhTRIN1-A"',
     id: 'k5E2AVpwsko',
     snippet: {
-      publishedAt: '2017-09-05T16:48:15.000Z',
+      publishedAt: '2023-10-05T16:48:15.000Z',
       channelId: 'UCWv7vMbMWH4-V0ZXdmDpPBA',
       title:
         'Angular Tutorial for Beginners: Learn Angular from Scratch | Mosh',
@@ -226,7 +226,7 @@ export const data = [
     etag: '"Fznwjl6JEQdo1MGvHOGaz_YanRU/cDwx4Ds5-J9CmiqmazUetzrLZKY"',
     id: 'Rf54BH35yrY',
     snippet: {
-      publishedAt: '2019-09-04T15:00:12.000Z',
+      publishedAt: '2023-09-04T15:00:12.000Z',
       channelId: 'UCg8ss4xW9jASrqWGP30jXiw',
       title: 'Angular 8 Основы. Полный Курс для начинающих',
       description:
