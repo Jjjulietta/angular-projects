@@ -1,0 +1,44 @@
+<div class="details-container">
+  <app-custom-button (click)="back()">
+    <img src="./../../../../assets/back_button.svg" alt="" />
+  </app-custom-button>
+  <div></div>
+  <div class="card-details" *ngIf="card">
+    <img [src]="card.snippet.thumbnails.standard.url" alt="" />
+    <div class="description-container">
+      <div class="details-title">
+        <h3>{{ card.snippet.localized.title }}</h3>
+        <span class="details-date">{{ date }}</span>
+      </div>
+      <p class="desc-title">Description:</p>
+      <p class="desc-text">{{ card.snippet.description }}</p>
+      <div class="info-block">
+        <div class="info views">
+          <img
+            src="./../../../assets/viewed.svg"
+            alt="img-viewed"
+            class="img-info"
+          />
+          <span class="info-count">{{ card.statistics.viewCount }}</span>
+        </div>
+        <div class="info likes">
+          <img
+            src="./../../../assets/liked.svg"
+            alt="img-liked"
+            class="img-info"
+          />
+          <span class="info-count">{{ card.statistics.likeCount }}</span>
+        </div>
+        <div class="info dislikes">
+          <img src="./../../../assets/dislike.svg" alt="" class="img-info" />
+          <span class="info-count">{{ card.statistics.dislikeCount }}</span>
+        </div>
+        <div class="info group">
+          <img src="./../../../assets/Group 9.svg" alt="" class="img-info" />
+          <span class="info-count">{{ card.statistics.commentCount }}</span>
+        </div>
+      </div>
+      <div appHighlight [date]="date" class="line"></div>
+    </div>
+  </div>
+</div>
