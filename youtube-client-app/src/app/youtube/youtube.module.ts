@@ -8,11 +8,15 @@ import { SortingViewsPipe } from './pipes/sorting-views.pipe';
 import { FilterWordPipe } from './pipes/filter-word.pipe';
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { CustomButtonComponent } from '../custom-button/custom-button.component';
+import { DetailedInfoPageComponent } from './pages/detailed-info-page/detailed-info-page.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
     SearchResultsBlockComponent,
     SearchResultsItemComponent,
+    DetailedInfoPageComponent,
+    NotFoundPageComponent,
     HighlightDirective,
     SortingDatePipe,
     SortingViewsPipe,
