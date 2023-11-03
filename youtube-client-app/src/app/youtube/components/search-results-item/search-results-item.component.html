@@ -1,5 +1,5 @@
 <div *ngIf="card" class="card-item">
-  <img [src]="card.snippet.thumbnails.default.url" alt="" class="card-img" />
+  <img [src]="card.snippet.thumbnails.standard.url" alt="" class="card-img" />
   <div class="info-block">
     <div class="info views">
       <img
@@ -24,6 +24,6 @@
   </div>
   <div class="card-title">{{ card.snippet.title }}</div>
   <!--<button class="card-btn">more...</button>-->
-  <app-custom-button>more..</app-custom-button>
+  <app-custom-button (click)="openCard()">more..</app-custom-button>
   <div appHighlight [date]="date" class="line"></div>
 </div>
