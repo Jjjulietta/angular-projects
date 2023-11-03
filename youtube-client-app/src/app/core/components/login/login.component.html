@@ -1,4 +1,6 @@
 <!--<div class="login-container">-->
-<span class="login-name">Your Name</span>
-<img src="./../../../assets/login.svg" alt="login-img" />
+<app-custom-button (click)="openLoginForm()">
+  <span class="login-name">{{ name }}</span>
+  <img src="./../../../assets/login.svg" alt="login-img" />
+</app-custom-button>
 <!--</div>-->
