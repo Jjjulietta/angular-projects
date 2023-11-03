@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuardGuard } from './auth/guards/auth-guard.guard';
-import { LoginFormComponent } from './auth/pages/login-form/login-form.component';
-import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
-import { SearchResultsBlockComponent } from './youtube/pages/search-results-block/search-results-block.component';
+import { NotFoundPageComponent } from './youtube/pages/not-found-page/not-found-page.component';
+import { DetailedInfoPageComponent } from './youtube/pages/detailed-info-page/detailed-info-page.component';
 
 const routes: Routes = [
   {
@@ -17,6 +16,7 @@ const routes: Routes = [
       import('./youtube/youtube.module').then((m) => m.YoutubeModule),
     canActivate: [authGuardGuard],
   },
+  { path: 'detailed/:id', component: DetailedInfoPageComponent },
   {
     path: '',
     redirectTo: '/main',
