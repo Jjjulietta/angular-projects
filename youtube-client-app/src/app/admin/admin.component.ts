@@ -31,7 +31,7 @@ export class AdminComponent {
       img: ['', [Validators.required]],
       link: ['', [Validators.required]],
       date: [Date, [Validators.required, Validators.max(+new Date())]],
-      tags: this.fb.array([this.fb.control('')]),
+      tags: this.fb.array([this.fb.control('', [Validators.required])]),
     });
   }
 
@@ -60,7 +60,7 @@ export class AdminComponent {
   }
 
   addTags() {
-    this.tags.push(this.fb.control(''));
+    this.tags.push(this.fb.control('', [Validators.required]));
   }
 
   resetAll() {
