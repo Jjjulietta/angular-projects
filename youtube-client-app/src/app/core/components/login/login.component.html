@@ -1,6 +1,7 @@
 <!--<div class="login-container">-->
-<app-custom-button (click)="openLoginForm()">
+<button type="button" (click)="openAdminPage()" class="btn">
   <span class="login-name">{{ name }}</span>
   <img src="./../../../assets/login.svg" alt="login-img" />
-</app-custom-button>
+</button>
+<app-custom-button (click)="openLoginForm()">{{ logged }}</app-custom-button>
 <!--</div>-->

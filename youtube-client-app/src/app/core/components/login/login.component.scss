@@ -4,6 +4,7 @@
 
 :host {
   @extend %flex;
+  flex-direction: column;
   font-family: $font-family, sans-serif;
   @include font(0.75rem, regular);
   color: $color-grey-dark;
@@ -11,4 +12,10 @@
   .login-name {
     margin-right: 0.5rem;
   }
+}
+
+.btn {
+  @extend %flex;
+  background-color: inherit;
+  border: none;
 }

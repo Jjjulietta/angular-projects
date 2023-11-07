@@ -6,9 +6,11 @@ import { Auth } from '../models/auth.model';
   providedIn: 'root',
 })
 export class AuthService {
-  isAuth: boolean | undefined;
+  //isAuth: boolean | undefined;
+  isAuth = new Subject<boolean>();
   name = new Subject<string>();
   user = new Subject<Auth>();
+  logged = new Subject<string>();
 
   constructor() {}
 
@@ -19,26 +21,32 @@ export class AuthService {
       token,
     };
     localStorage.setItem('user', JSON.stringify(user));
-    this.isAuth = true;
+    //this.isAuth = true;
     console.log(this.isAuth);
+    this.isAuth.next(true);
     this.user.next(user);
     this.name.next('User');
+    this.logged.next('Logout');
   }
 
   loggout() {
     localStorage.clear();
-    this.isAuth = false;
+    //this.isAuth = false;
+    this.isAuth.next(false);
     this.name.next('Your Name');
+    this.logged.next('Login');
   }
 
   checkAuth(): boolean {
     if (localStorage.getItem('user')) {
-      this.isAuth = true;
+      this.isAuth.next(true);
       this.name.next('User');
+      this.logged.next('Logout');
       return true;
     }
-    this.isAuth = false;
+    this.isAuth.next(false);
     this.name.next('Your Name');
+    this.logged.next('Login');
     return false;
   }
 }
