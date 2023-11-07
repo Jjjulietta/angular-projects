@@ -30,6 +30,9 @@ export class LoginFormComponent {
     password: new FormControl('', { nonNullable: true }),
   });
   private authToken: string = '';
+  private visibility: boolean = false;
+  type: string = 'password';
+  icon = '../../../../assets/visibility_off_FILL0_wght200_GRAD0_opsz20.svg';
   user: Auth | undefined;
 
   constructor(
@@ -88,6 +91,22 @@ export class LoginFormComponent {
       );
       // console.log(this.user);
       this.router.navigate(['']);
+    }
+  }
+
+  changeVisibility() {
+    if (this.visibility) {
+      console.log(this.visibility);
+      this.visibility = false;
+      this.type = 'password';
+      this.icon =
+        '../../../../assets/visibility_off_FILL0_wght200_GRAD0_opsz20.svg';
+    } else {
+      console.log(this.visibility);
+      this.visibility = true;
+      this.type = 'text';
+      this.icon =
+        '../../../../assets/visibility_FILL0_wght200_GRAD0_opsz20.svg';
     }
   }
 }

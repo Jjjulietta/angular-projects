@@ -6,7 +6,7 @@
     </div>
     <label for="lodin-name" class="label login">login</label>
     <input
-      type="text"
+      type="email"
       id="login"
       formControlName="login"
       class="input login"
@@ -34,14 +34,18 @@
     <div *ngIf="authForm.controls['password'].pristine" class="alert">
       <div>Please enter a password</div>
     </div>
-    <label for="password" class="label login">password</label>
-    <input
-      type="text"
-      id="password"
-      formControlName="password"
-      class="input login"
-      required
-    />
+    <div class="password-container">
+      <label for="password" class="label login">password </label>
+      <input
+        type="{{ type }}"
+        id="password"
+        formControlName="password"
+        class="input login password"
+        required
+      />
+      <img src="{{ icon }}" alt="" class="icon" (click)="changeVisibility()" />
+    </div>
+
     <div
       *ngIf="password?.invalid && (password?.dirty || password?.touched)"
       class="alert-block"
