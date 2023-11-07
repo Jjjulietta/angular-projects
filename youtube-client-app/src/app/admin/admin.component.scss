@@ -1,0 +1,108 @@
+@import "./../../sass/plaseholder";
+@import "./../../sass/constants";
+@import "./../../sass/mixins";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  font-family: $font-family, sans-serif;
+}
+
+h1 {
+  @include font(20px, bold);
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.form {
+  background-color: $color-background-two;
+  width: 30%;
+  height: 25%;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+form {
+  @extend %flex;
+  flex-direction: column;
+  & > * {
+    margin-bottom: 5px;
+  }
+}
+
+.btn {
+  align-self: flex-end;
+  @extend %btn-primary;
+  width: 120px;
+  height: 25px;
+}
+
+.submit {
+  justify-self: right;
+}
+
+.input {
+  align-self: flex-start;
+  background-color: $color-background-one;
+  border: none;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.label {
+  align-self: flex-start;
+  color: $color-grey-light;
+  @include font(12px, regular);
+}
+
+.alert {
+  @include font(14px, regular);
+  color: red;
+}
+
+.alert-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.alert-invalid {
+  align-self: flex-start;
+  padding: 4px;
+  color: red;
+  @include font(12px, regular);
+  font-family: $font-family;
+}
+
+.card-array {
+  align-self: flex-start;
+  @extend %flex;
+  flex-direction: column;
+  & > * {
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
+}
+
+.reset {
+  align-self: flex-start;
+  background-color: $color-grey-light;
+}
+
+input.ng-pristine:not(form) {
+  border: none;
+}
+
+input.ng-valid[required]:not(form) {
+  border-radius: 5px;
+  border: 2px solid green;
+}
+
+input.ng-touched.ng-invalid {
+  border-radius: 5px;
+  border: 2px solid red;
+}
