@@ -45,5 +45,9 @@ export class LoginComponent {
     this.router.navigate(['login']); */
   }
 
-  openAdminPage() {}
+  openAdminPage() {
+    if (this.isAuth) {
+      this.router.navigate(['admin']);
+    }
+  }
 }
