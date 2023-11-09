@@ -1,9 +1,6 @@
 <div class="form card">
   <h1>Create new card</h1>
   <form [formGroup]="cardForm">
-    <div *ngIf="cardForm.controls['title'].pristine" class="alert">
-      <div>Please enter a title</div>
-    </div>
     <label for="title" class="label card">Title *</label>
     <input formControlName="title" type="text" class="input card" required />
     <div
@@ -67,7 +64,7 @@
       <div *ngIf="date?.errors?.['required']" class="alert-invalid">
         Please enter a creation date
       </div>
-      <div *ngIf="date?.errors?.['max'] " class="alert-invalid">
+      <div *ngIf="date?.errors?.['forbiddenDate'] " class="alert-invalid">
         The date is invalid
       </div>
     </div>

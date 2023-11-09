@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  FormArray,
+  ValidatorFn,
+  ValidationErrors,
+  AbstractControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
@@ -15,6 +22,7 @@ export class AdminComponent {
     date: [Date],
     tags: this.fb.array([this.fb.control('')]),
   });
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -30,7 +38,7 @@ export class AdminComponent {
       description: ['', Validators.maxLength(255)],
       img: ['', [Validators.required]],
       link: ['', [Validators.required]],
-      date: [Date, [Validators.required, Validators.max(+new Date())]],
+      date: [Date, [Validators.required, this.dateValidator()]],
       tags: this.fb.array([this.fb.control('', [Validators.required])]),
     });
   }
@@ -68,5 +76,17 @@ export class AdminComponent {
     while (this.tags.length > 1) {
       this.tags.removeAt(0);
     }
+  }
+  dateValidator(): ValidatorFn {
+    return (control: AbstractControl<Date>): ValidationErrors | null => {
+      let dateNow = new Date();
+      const isDateValid = control.value ? control.value > dateNow : false;
+      if (!isDateValid) {
+        return {
+          forbiddenDate: 'The date is invalid',
+        };
+      }
+      return null;
+    };
   }
 }
