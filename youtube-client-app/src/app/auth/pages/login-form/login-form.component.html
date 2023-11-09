@@ -44,26 +44,25 @@
         required
       />
       <img src="{{ icon }}" alt="" class="icon" (click)="changeVisibility()" />
-    </div>
-
-    <div
-      *ngIf="password?.invalid && (password?.dirty || password?.touched)"
-      class="alert-block"
-    >
       <div
-        *ngIf="
-          password?.errors?.['required']"
-        class="alert-invalid"
+        *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+        class="alert-block"
       >
-        Please enter a password
-      </div>
-      <div
-        *ngIf="
+        <div
+          *ngIf="
+          password?.errors?.['required']"
+          class="alert-invalid"
+        >
+          Please enter a password
+        </div>
+        <div
+          *ngIf="
           password?.errors?.['forbiddenPassword']
         "
-        class="alert-invalid"
-      >
-        {{password?.errors?.['forbiddenPassword']}}
+          class="alert-invalid"
+        >
+          {{password?.errors?.['forbiddenPassword']}}
+        </div>
       </div>
     </div>
 

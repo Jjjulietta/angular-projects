@@ -90,11 +90,6 @@ input.ng-touched.ng-invalid {
   border: 0.15rem solid red;
 }
 
-/*.password {
-  background-image: url("../../../../assets/visibility_off_FILL0_wght200_GRAD0_opsz20.svg");
-  background-repeat: no-repeat;
-
-}*/
 label.label.login {
   margin-bottom: 0.65rem;
 }
@@ -103,5 +98,5 @@ label.label.login {
   cursor: pointer;
   position: relative;
   margin-left: 90%;
-  top: -30px;
+  top: -2rem;
 }
