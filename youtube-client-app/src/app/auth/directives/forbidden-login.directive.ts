@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 export function forbiddenValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
+  return (control: AbstractControl<string>): ValidationErrors | null => {
     const hasSimbol = /[!@#%&*]/g.test(control.value);
     const hasNumber = /[0-9]/.test(control.value);
     const hasCapitalLetter = /[A-Z]/.test(control.value);
@@ -11,20 +11,31 @@ export function forbiddenValidator(): ValidatorFn {
     if (!hasSimbol) {
       return {
         forbiddenPassword:
-          'inclusion of at least one special character, e.g., ! @ # ?',
+          "Your password isn't strong enough. The password must contain at least one special character, e.g., ! @ # ?",
       };
     }
     if (!hasNumber) {
-      return { forbiddenPassword: 'a mixture of letters and numbers' };
+      return {
+        forbiddenPassword:
+          "Your password isn't strong enough. The password must contain a mixture of letters and numbers",
+      };
     }
     if (!hasCapitalLetter) {
       return {
-        forbiddenPassword: 'a mixture of both uppercase and lowercase letters',
+        forbiddenPassword:
+          "Your password isn't strong enough. The password must contain a mixture of both uppercase and lowercase letters",
       };
     }
     if (!hasLowercaseLetter) {
       return {
-        forbiddenPassword: 'a mixture of both uppercase and lowercase letters',
+        forbiddenPassword:
+          "Your password isn't strong enough. The password must contain a mixture of both uppercase and lowercase letters",
+      };
+    }
+    if (!isLengthValid) {
+      return {
+        forbiddenPassword:
+          "Your password isn't strong enough. The password must contain at least 8 characters",
       };
     }
     return null;
