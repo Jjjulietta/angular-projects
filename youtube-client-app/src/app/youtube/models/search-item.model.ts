@@ -17,7 +17,7 @@ interface SearchItemLocalized {
   description: string;
 }
 
-interface SearchItemSnippet {
+interface VideoItemSnippet {
   publishedAt: string;
   channelId: string;
   title: string;
@@ -42,7 +42,25 @@ interface SearchItemStatistics {
 export interface SearchItem {
   kind: string;
   etag: string;
-  id: string;
+  id: { kind: string; videoId: string };
   snippet: SearchItemSnippet;
+}
+
+export interface SearchItemVideo {
+  kind: string;
+  etag: string;
+  id: string;
+  snippet: VideoItemSnippet;
   statistics: SearchItemStatistics;
+}
+
+interface SearchItemSnippet {
+  publishedAt: string;
+  channelId: string;
+  title: string;
+  description: string;
+  thumbnails: SearchItemThumbnails;
+  channelTitle: string;
+  liveBroadcastContent: string;
+  publishTime: string;
 }
