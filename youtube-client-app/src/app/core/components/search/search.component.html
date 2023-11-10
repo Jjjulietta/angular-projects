@@ -1,11 +1,10 @@
-<!--<div class="search-block">-->
-<input
-  type="text"
-  placeholder="What are you want to find out?"
-  class="search-input"
-  #inputSearch
-/>
-<button type="button" class="search-button" (click)="search(inputSearch.value)">
-  search
-</button>
-<!--</div>-->
+<form [formGroup]="searchForm" class="search-block">
+  <input
+    type="text"
+    placeholder="What are you want to find out?"
+    class="search-input"
+    id="search"
+    formControlName="search"
+    #inputSearch
+  />
+</form>
