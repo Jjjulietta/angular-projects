@@ -1,26 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {
+  BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  Subject,
+  switchMap,
+} from 'rxjs';
 import { data } from 'src/data/mock-data';
 import { Options } from '../models/option.model';
 import { SearchItem, SearchItemVideo } from '../models/search-item.model';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class YoutubeService {
-  public resultsSearch: SearchItemVideo[] = data;
+  public resultsSearch = new BehaviorSubject<SearchItemVideo[]>([]);
   public submit = new Subject<string>();
-  constructor() {}
+  cards!: SearchItemVideo[];
+  constructor(private httpService: HttpService) {
+    this.resultsSearch.subscribe((x) => {
+      console.log(x);
+      this.cards = x;
+    });
+  }
+  ngOnInit() {}
+
+  search() {
+    return this.submit.pipe(
+      debounceTime(500),
+      filter((val: string) => val.length > 3),
+      distinctUntilChanged(),
+      switchMap((val: string) => {
+        return this.httpService.searchData(val);
+      })
+    );
+  }
 
   getResultById(id: string): SearchItemVideo | undefined {
     console.log(this.submit);
     //if (this.submit) return (this.resultsSearch = data);
     // return undefined;
-    return this.resultsSearch.find((item) => item.id === id);
+    return this.cards.find((item) => item.id === id);
   }
 
   getDateById(id: string) {
-    const card: SearchItemVideo | undefined = this.resultsSearch.find(
+    const card: SearchItemVideo | undefined = this.cards.find(
       (item) => item.id === id
     );
     if (card) {

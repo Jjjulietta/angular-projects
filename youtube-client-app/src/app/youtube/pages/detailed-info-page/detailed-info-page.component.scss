@@ -62,6 +62,7 @@ h3 {
   @include font(0.8rem, regular);
   color: $color-grey-light;
   height: 280px;
+  overflow-y: scroll;
 }
 
 .info-block {

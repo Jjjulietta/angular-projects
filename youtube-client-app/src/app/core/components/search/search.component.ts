@@ -19,7 +19,7 @@ export class SearchComponent {
   ngOnInit() {
     this.searchForm.controls['search'].valueChanges.subscribe(
       (val) => {
-        if (debounceTime(500) && val.length > 3 && distinctUntilChanged()) {
+        if (debounceTime(600) && val.length > 3 && distinctUntilChanged()) {
           console.log(val);
           this.YoutubeService.submit.next(val);
         }
