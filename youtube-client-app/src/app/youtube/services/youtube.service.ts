@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { data } from 'src/data/mock-data';
 import { Options } from '../models/option.model';
-import { SearchItem } from '../models/search-item.model';
+import { SearchItem, SearchItemVideo } from '../models/search-item.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class YoutubeService {
-  public resultsSearch: SearchItem[] = data;
+  public resultsSearch: SearchItemVideo[] = data;
   public submit = new Subject<string>();
   constructor() {}
 
-  getResultById(id: string): SearchItem | undefined {
+  getResultById(id: string): SearchItemVideo | undefined {
     console.log(this.submit);
     //if (this.submit) return (this.resultsSearch = data);
     // return undefined;
@@ -20,7 +20,7 @@ export class YoutubeService {
   }
 
   getDateById(id: string) {
-    const card: SearchItem | undefined = this.resultsSearch.find(
+    const card: SearchItemVideo | undefined = this.resultsSearch.find(
       (item) => item.id === id
     );
     if (card) {

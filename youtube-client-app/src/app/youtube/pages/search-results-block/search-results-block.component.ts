@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SearchItem } from '../../models/search-item.model';
+import { SearchItem, SearchItemVideo } from '../../models/search-item.model';
 import { SortingService } from '../../../core/services/sorting.service';
 import { YoutubeService } from '../../services/youtube.service';
 import { SortType } from 'src/app/core/enums/sort-type';
@@ -10,7 +10,7 @@ import { SortType } from 'src/app/core/enums/sort-type';
   styleUrls: ['./search-results-block.component.scss'],
 })
 export class SearchResultsBlockComponent {
-  cards: SearchItem[] = [];
+  cards: SearchItemVideo[] = [];
   sort: SortType | string = SortType.Default;
   sortView: SortType = SortType.Default;
   word: string | null = null;

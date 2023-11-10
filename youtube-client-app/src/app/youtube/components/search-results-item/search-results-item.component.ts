@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { SearchItem } from 'src/app/youtube/models/search-item.model';
+import {
+  SearchItem,
+  SearchItemVideo,
+} from 'src/app/youtube/models/search-item.model';
 
 @Component({
   selector: 'app-search-results-item',
@@ -8,7 +11,7 @@ import { SearchItem } from 'src/app/youtube/models/search-item.model';
   styleUrls: ['./search-results-item.component.scss'],
 })
 export class SearchResultsItemComponent {
-  @Input() card?: SearchItem;
+  @Input() card?: SearchItemVideo;
 
   date?: string;
 
