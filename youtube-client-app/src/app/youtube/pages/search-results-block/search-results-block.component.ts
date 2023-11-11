@@ -51,4 +51,8 @@ export class SearchResultsBlockComponent {
       this.YoutubeService.resultsSearch.next(this.cards);
     });
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
