@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
   private URL = 'https://www.googleapis.com/youtube/v3';
+  private API_KEY = 'AIzaSyB8zQEc9EzWukDP-CpmnKs6y93sA84B90Y';
   constructor() {}
 
   intercept(
@@ -19,7 +20,7 @@ export class ApiInterceptor implements HttpInterceptor {
     return next.handle(
       request.clone({
         url: `${this.URL}/${request.url}`,
-        //setParams: { key: API_KEY },
+        setParams: { key: this.API_KEY },
       })
     );
   }
