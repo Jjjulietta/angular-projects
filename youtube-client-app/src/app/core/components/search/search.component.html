@@ -1,10 +1,11 @@
-<form [formGroup]="searchForm" class="search-block">
+<form class="search-block">
   <input
+    [(ngModel)]="search"
+    name="search"
     type="text"
     placeholder="What are you want to find out?"
     class="search-input"
     id="search"
-    formControlName="search"
-    #inputSearch
+    (change)="onChange()"
   />
 </form>
