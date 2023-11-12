@@ -29,7 +29,6 @@ export class LoginFormComponent {
     login: new FormControl('', { nonNullable: true }),
     password: new FormControl('', { nonNullable: true }),
   });
-  private authToken: string = '';
   private visibility: boolean = false;
   type: string = 'password';
   icon = '../../../../assets/visibility_off_FILL0_wght200_GRAD0_opsz20.svg';
@@ -38,9 +37,9 @@ export class LoginFormComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private AuthService: AuthService
+    private authService: AuthService
   ) {
-    this.AuthService.user.subscribe((val: Auth) => {
+    this.authService.user.subscribe((val: Auth) => {
       this.user = val;
     });
   }
@@ -69,25 +68,11 @@ export class LoginFormComponent {
   }
 
   onSubmit() {
-    //this.login = inputLogin;
-    //this.password = inputPassword;
-    //console.log(this.login);
-
-    let arr = [];
-    let n: number = 0;
-    while (n <= 7) {
-      arr.push(Math.floor(Math.random() * 10));
-      n += 1;
-    }
-    this.authToken = arr.join('');
-    console.log(this.authToken);
-    // console.log(this.login);
     if (this.authForm.value.login && this.authForm.value.password) {
       console.log(this.authForm.value.login);
-      this.AuthService.auth(
+      this.authService.auth(
         this.authForm?.value.login,
-        this.authForm?.value.password,
-        this.authToken
+        this.authForm?.value.password
       );
       // console.log(this.user);
       this.router.navigate(['']);

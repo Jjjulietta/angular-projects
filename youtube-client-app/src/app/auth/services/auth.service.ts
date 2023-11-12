@@ -11,14 +11,17 @@ export class AuthService {
   name = new Subject<string>();
   user = new Subject<Auth>();
   logged = new Subject<string>();
+  private authToken: string = '';
 
   constructor() {}
 
-  auth(password: string, login: string, token: string) {
+  auth(password: string, login: string) {
+    this.generateToken();
+    console.log(this.authToken);
     let user: Auth = {
       login,
       password,
-      token,
+      token: this.authToken,
     };
     localStorage.setItem('user', JSON.stringify(user));
     //this.isAuth = true;
@@ -27,6 +30,16 @@ export class AuthService {
     this.user.next(user);
     this.name.next('User');
     this.logged.next('Logout');
+  }
+
+  private generateToken() {
+    let arr = [];
+    let tokenLength: number = 0;
+    while (tokenLength <= 7) {
+      arr.push(Math.floor(Math.random() * 10));
+      tokenLength += 1;
+    }
+    this.authToken = arr.join('');
   }
 
   loggout() {
