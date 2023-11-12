@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule, isDevMode } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { CustomButtonComponent } from './custom-button/custom-button.component';
 import { ApiInterceptor } from './youtube/interceptors/api.interceptor';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,9 +15,11 @@ import { ApiInterceptor } from './youtube/interceptors/api.interceptor';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     CustomButtonComponent,
     CoreModule,
     ReactiveFormsModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
