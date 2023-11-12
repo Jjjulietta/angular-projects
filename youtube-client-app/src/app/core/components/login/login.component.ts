@@ -11,17 +11,15 @@ export class LoginComponent {
   name: string = 'User name';
   logged: string = 'LOGIN';
   isAuth: boolean = false;
-  constructor(private router: Router, private AuthService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    this.AuthService.name.subscribe((val) => {
+    this.authService.name.subscribe((val) => {
       this.name = val;
-      console.log(this.name);
     });
-    console.log(this.name);
-    this.AuthService.isAuth.subscribe((val) => (this.isAuth = val));
-    this.AuthService.logged.subscribe((val) => (this.logged = val));
-    if (!this.AuthService.checkAuth()) {
+    this.authService.isAuth.subscribe((val) => (this.isAuth = val));
+    this.authService.logged.subscribe((val) => (this.logged = val));
+    if (!this.authService.checkAuth()) {
       this.router.navigate(['login']);
     } else {
       this.router.navigate(['main']);
@@ -38,7 +36,7 @@ export class LoginComponent {
   openLoginForm() {
     console.log(this.isAuth);
     if (this.isAuth) {
-      this.AuthService.loggout();
+      this.authService.loggout();
       this.router.navigate(['login']);
     }
     /*if (this.AuthService.checkAuth()) this.AuthService.loggout();
