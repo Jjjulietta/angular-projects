@@ -27,15 +27,16 @@ export class YoutubeService {
   }
   ngOnInit() {}
 
-  search() {
-    return this.submit.pipe(
+  search(val: string) {
+    return this.httpService.searchData(val);
+    /*return this.submit.pipe(
       debounceTime(500),
       filter((val: string) => val.length > 3),
       distinctUntilChanged(),
       switchMap((val: string) => {
         return this.httpService.searchData(val);
       })
-    );
+    );*/
   }
 
   getResultById(id: string): SearchItemVideo | undefined {
