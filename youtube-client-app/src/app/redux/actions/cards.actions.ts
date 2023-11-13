@@ -1,5 +1,5 @@
 import { createActionGroup, props } from '@ngrx/store';
-import { SearchCards } from '../youtube/models/search-item.model';
+import { SearchCards } from '../../youtube/models/search-item.model';
 
 export const CustomCardsActions = createActionGroup({
   source: 'customCards',
