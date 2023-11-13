@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { CustomButtonComponent } from './custom-button/custom-button.component';
 import { ApiInterceptor } from './youtube/interceptors/api.interceptor';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     CoreModule,
     ReactiveFormsModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
