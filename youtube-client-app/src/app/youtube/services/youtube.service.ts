@@ -16,40 +16,38 @@ import { HttpService } from './http.service';
   providedIn: 'root',
 })
 export class YoutubeService {
-  public resultsSearch = new BehaviorSubject<SearchItemVideo[]>([]);
+  private resultsSearch = new BehaviorSubject<SearchItemVideo[]>([]);
   public submit = new Subject<string>();
   cards!: SearchItemVideo[];
-  constructor(private httpService: HttpService) {
-    this.resultsSearch.subscribe((x) => {
+  constructor(private httpService: HttpService) {}
+  ngOnInit() {
+    /*this.resultsSearch.subscribe((x) => {
       console.log(x);
       this.cards = x;
-    });
+    });*/
   }
-  ngOnInit() {}
 
-  search(val: string) {
+  getResultSearch$() {
+    return this.resultsSearch.asObservable();
+  }
+
+  set resultSearch$(val: SearchItemVideo[]) {
+    this.resultsSearch.next(val);
+  }
+
+  getSearchData(val: string) {
     return this.httpService.searchData(val);
-    /*return this.submit.pipe(
-      debounceTime(500),
-      filter((val: string) => val.length > 3),
-      distinctUntilChanged(),
-      switchMap((val: string) => {
-        return this.httpService.searchData(val);
-      })
-    );*/
   }
 
   getResultById(id: string): SearchItemVideo | undefined {
-    console.log(this.submit);
-    //if (this.submit) return (this.resultsSearch = data);
-    // return undefined;
-    return this.cards.find((item) => item.id === id);
+    //console.log(this.submit);
+    return this.resultsSearch.getValue().find((item) => item.id === id);
   }
 
   getDateById(id: string) {
-    const card: SearchItemVideo | undefined = this.cards.find(
-      (item) => item.id === id
-    );
+    const card: SearchItemVideo | undefined = this.resultsSearch
+      .getValue()
+      .find((item) => item.id === id);
     if (card) {
       const year = new Date(card.snippet.publishedAt).getFullYear();
       const month = new Date(card.snippet.publishedAt).getMonth();
