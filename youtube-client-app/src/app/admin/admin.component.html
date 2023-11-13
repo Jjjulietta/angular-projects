@@ -1,6 +1,6 @@
 <div class="form card">
   <h1>Create new card</h1>
-  <form [formGroup]="cardForm">
+  <form [formGroup]="cardForm" (ngSubmit)="createCard()">
     <label for="title" class="label card">Title *</label>
     <input formControlName="title" type="text" class="input card" required />
     <div
@@ -84,6 +84,8 @@
       </div>
     </div>
     <button type="button" class="btn reset" (click)="resetAll()">reset</button>
-    <button type="submit" class="btn submit">Create card</button>
+    <button type="submit" [disabled]="cardForm.invalid" class="btn submit">
+      Create card
+    </button>
   </form>
 </div>

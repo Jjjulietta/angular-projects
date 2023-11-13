@@ -7,6 +7,10 @@ import {
   ValidationErrors,
   AbstractControl,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { CustomCardsActions } from '../redux/actions/cards.actions';
+import { SearchCards } from '../youtube/models/search-item.model';
 
 @Component({
   selector: 'app-admin',
@@ -14,7 +18,10 @@ import {
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent {
+  private counter: number = 0;
+  newCard!: SearchCards;
   cardForm = this.fb.group({
+    id: [this.counter.toString()],
     title: [''],
     description: [''],
     img: [''],
@@ -23,10 +30,15 @@ export class AdminComponent {
     tags: this.fb.array([this.fb.control('')]),
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.cardForm = this.fb.group({
+      id: [this.counter.toString()],
       title: [
         '',
         [
@@ -80,7 +92,11 @@ export class AdminComponent {
   dateValidator(): ValidatorFn {
     return (control: AbstractControl<Date>): ValidationErrors | null => {
       let dateNow = new Date();
-      const isDateValid = control.value ? control.value > dateNow : false;
+      console.log(new Date(control.value));
+      console.log(dateNow);
+      const isDateValid = control.value
+        ? new Date(control.value) < dateNow
+        : false;
       if (!isDateValid) {
         return {
           forbiddenDate: 'The date is invalid',
@@ -88,5 +104,18 @@ export class AdminComponent {
       }
       return null;
     };
+  }
+
+  createCard() {
+    this.counter += 1;
+    console.log(this.counter);
+    if (this.cardForm.getRawValue() && this.cardForm.value.date !== null) {
+      this.newCard = this.cardForm.getRawValue();
+      console.log(this.newCard);
+      this.store.dispatch(CustomCardsActions.addCard({ card: this.newCard }));
+    }
+    this.resetAll();
+    this.router.navigate(['main']);
+    //return newCard;.
   }
 }

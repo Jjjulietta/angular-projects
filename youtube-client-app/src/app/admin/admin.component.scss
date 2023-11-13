@@ -106,3 +106,8 @@ input.ng-touched.ng-invalid {
   border-radius: 5px;
   border: 2px solid red;
 }
+
+button:disabled {
+  cursor: not-allowed;
+  background-color: $color-background-grey;
+}
