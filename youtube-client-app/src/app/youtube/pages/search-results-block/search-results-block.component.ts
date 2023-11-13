@@ -34,17 +34,20 @@ export class SearchResultsBlockComponent {
   ngOnInit() {
     // console.log(this.cards[0]);
     this.getCards();
-    this.sortingService.sort
+    this.sortingService
+      .getSortingState$()
       .pipe(takeUntil(this.subscription$))
       .subscribe((val) => (this.sort = val));
-    this.sortingService.sortView
+    this.sortingService
+      .getSortinViewgState$()
       .pipe(takeUntil(this.subscription$))
       .subscribe((val) => (this.sortView = val));
     /*this.SortingService.onSortDate.subscribe((val) => {
       this.sort = val;
     });*/
     //this.SortingService.onSortView.subscribe((val) => (this.sortView = val));
-    this.sortingService.filterWord
+    this.sortingService
+      .getWordState$()
       .pipe(takeUntil(this.subscription$))
       .subscribe((val) => {
         if (val !== null) this.word = val;

@@ -20,10 +20,10 @@ export class FilterBlockComponent {
 
   clickSortDate() {
     if (this.countSort === 0) {
-      this.sortingServise.sort.next(SortType.Asc);
+      this.sortingServise.sortingState$ = SortType.Asc; // sort.next(SortType.Asc);
       this.countSort += 1;
     } else if (this.countSort === 1) {
-      this.sortingServise.sort.next(SortType.Desc);
+      this.sortingServise.sortingState$ = SortType.Desc; //sort.next(SortType.Desc);
       this.countSort -= 1;
     }
 
@@ -39,11 +39,11 @@ export class FilterBlockComponent {
   clickSortView() {
     if (this.countSortView === 0) {
       console.log(this.countSortView);
-      this.sortingServise.sortView.next(SortType.Asc);
+      this.sortingServise.sortinViewgState$ = SortType.Asc; //sortView.next(SortType.Asc);
       this.countSortView += 1;
     } else if (this.countSortView === 1) {
       console.log(this.countSortView);
-      this.sortingServise.sortView.next(SortType.Desc);
+      this.sortingServise.sortinViewgState$ = SortType.Desc; //sortView.next(SortType.Desc);
       this.countSortView -= 1;
     }
     /*if (this.sortView === 'default' || this.sortView === 'desc') {
@@ -57,6 +57,6 @@ export class FilterBlockComponent {
 
   onChange(word: string) {
     console.log(word);
-    if (word !== null) this.sortingServise.filterWord.next(word);
+    if (word !== null) this.sortingServise.wordState$ = word; //.filterWord.next(word);
   }
 }
