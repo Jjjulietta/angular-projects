@@ -64,3 +64,13 @@ interface SearchItemSnippet {
   liveBroadcastContent: string;
   publishTime: string;
 }
+
+export interface SearchCards {
+  id: string | null;
+  title: string | null;
+  img: string | null;
+  link?: string | null;
+  description: string | null;
+  date: string | null;
+  statistics?: SearchItemStatistics;
+}
