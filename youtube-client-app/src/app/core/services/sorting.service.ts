@@ -19,11 +19,11 @@ export class SortingService {
     this.sort.next(val);
   }
 
-  getSortinViewgState$() {
+  getSortinViewState$() {
     return this.sortView.asObservable();
   }
 
-  set sortinViewgState$(val: SortType) {
+  set sortinViewState$(val: SortType) {
     this.sortView.next(val);
   }
 

@@ -21,31 +21,18 @@ export class SearchResultsBlockComponent {
   constructor(
     private sortingService: SortingService,
     private youtubeService: YoutubeService
-  ) {
-    /*this.YoutubeService.submit.subscribe((val: string) => {
-      this.submit = val;
-      console.log(this.submit);
-      if (val) { 
-        this.cards = this.YoutubeService.resultsSearch;
-      }
-    });*/
-  }
+  ) {}
 
   ngOnInit() {
-    // console.log(this.cards[0]);
     this.getCards();
     this.sortingService
       .getSortingState$()
       .pipe(takeUntil(this.subscription$))
       .subscribe((val) => (this.sort = val));
     this.sortingService
-      .getSortinViewgState$()
+      .getSortinViewState$()
       .pipe(takeUntil(this.subscription$))
       .subscribe((val) => (this.sortView = val));
-    /*this.SortingService.onSortDate.subscribe((val) => {
-      this.sort = val;
-    });*/
-    //this.SortingService.onSortView.subscribe((val) => (this.sortView = val));
     this.sortingService
       .getWordState$()
       .pipe(takeUntil(this.subscription$))
@@ -55,10 +42,6 @@ export class SearchResultsBlockComponent {
   }
 
   getCards() {
-    /*this.subscription = this.YoutubeService.search(this.onChange).subscribe((val) => {
-      this.cards = val;
-      this.YoutubeService.resultsSearch.next(this.cards);
-    });*/
     this.youtubeService.resultsSearch
       .pipe(takeUntil(this.subscription$))
       .subscribe((val) => (this.cards = val));
