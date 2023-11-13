@@ -25,5 +25,10 @@
   <div class="card-title">{{ card.title }}</div>
   <!--<button class="card-btn">more...</button>-->
   <app-custom-button (click)="openCard()">more..</app-custom-button>
+  <div *ngIf="card.link">
+    <button type="button" class="remove-btn" (click)="removeCard(card.id!)">
+      remove
+    </button>
+  </div>
   <div appHighlight [date]="date" class="line"></div>
 </div>

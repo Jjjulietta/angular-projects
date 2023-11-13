@@ -53,6 +53,18 @@
   }
 }
 
+.remove-btn {
+  width: 7.5rem;
+  height: 2rem;
+  @extend %btn-primary;
+  background-color: $color-grey-light;
+  transition: all 0.5s;
+  &:hover {
+    background-color: $color-second;
+    box-shadow: none;
+  }
+}
+
 .img-info {
   margin-right: 0.2rem;
 }
