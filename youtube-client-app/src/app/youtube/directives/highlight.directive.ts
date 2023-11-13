@@ -1,14 +1,14 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 import { period, colors } from 'src/constants/constants';
-import { SearchItem } from '../models/search-item.model';
+import { SearchCards } from '../models/search-item.model';
 
 @Directive({
   selector: '[appHighlight]',
 })
 export class HighlightDirective {
-  @Input() card?: SearchItem;
+  @Input() card?: SearchCards;
 
-  @Input() date?: string;
+  @Input() date?: string | Date;
 
   constructor(private el: ElementRef) {
     this.el.nativeElement.style.backgroundColor = 'blue';

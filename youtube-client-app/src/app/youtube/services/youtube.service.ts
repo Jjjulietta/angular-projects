@@ -1,37 +1,28 @@
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  Subject,
-  switchMap,
-} from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { data } from 'src/data/mock-data';
 import { Options } from '../models/option.model';
-import { SearchItem, SearchItemVideo } from '../models/search-item.model';
+import {
+  SearchCards,
+  SearchItem,
+  SearchItemVideo,
+} from '../models/search-item.model';
 import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class YoutubeService {
-  private resultsSearch = new BehaviorSubject<SearchItemVideo[]>([]);
+  private resultsSearch = new BehaviorSubject<SearchCards[]>([]);
   public submit = new Subject<string>();
-  cards!: SearchItemVideo[];
   constructor(private httpService: HttpService) {}
-  ngOnInit() {
-    /*this.resultsSearch.subscribe((x) => {
-      console.log(x);
-      this.cards = x;
-    });*/
-  }
+  ngOnInit() {}
 
   getResultSearch$() {
     return this.resultsSearch.asObservable();
   }
 
-  set resultSearch$(val: SearchItemVideo[]) {
+  set resultSearch$(val: SearchCards[]) {
     this.resultsSearch.next(val);
   }
 
@@ -39,20 +30,20 @@ export class YoutubeService {
     return this.httpService.searchData(val);
   }
 
-  getResultById(id: string): SearchItemVideo | undefined {
+  getResultById(id: string): SearchCards | undefined {
     //console.log(this.submit);
     return this.resultsSearch.getValue().find((item) => item.id === id);
   }
 
   getDateById(id: string) {
-    const card: SearchItemVideo | undefined = this.resultsSearch
+    const card: SearchCards | undefined = this.resultsSearch
       .getValue()
       .find((item) => item.id === id);
-    if (card) {
-      const year = new Date(card.snippet.publishedAt).getFullYear();
-      const month = new Date(card.snippet.publishedAt).getMonth();
-      const day = new Date(card.snippet.publishedAt).getDate();
-      const weekday = new Date(card.snippet.publishedAt).getDay();
+    if (card && card.date !== null) {
+      const year = new Date(card.date).getFullYear();
+      const month = new Date(card.date).getMonth();
+      const day = new Date(card.date).getDate();
+      const weekday = new Date(card.date).getDay();
       let options: Options = {
         weekday: 'long',
         year: 'numeric',

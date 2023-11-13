@@ -13,7 +13,7 @@ import {
   throwError,
   catchError,
 } from 'rxjs';
-import { SearchItemVideo } from './../models/search-item.model';
+import { SearchCards, SearchItemVideo } from './../models/search-item.model';
 import {
   SearchResponse,
   SearchResponseVideo,
@@ -30,7 +30,7 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) {}
 
-  searchData(query: string): Observable<SearchItemVideo[]> {
+  searchData(query: string): Observable<SearchCards[]> {
     const params = new HttpParams()
       //.set('key', this.API_KEY)
       .set('type', 'video')
@@ -56,7 +56,21 @@ export class HttpService {
                 part: 'snippet, statistics',
               },
             })
-            .pipe(map((r) => r.items))
+            .pipe(
+              map((r) =>
+                r.items.map((val) => {
+                  let itemCard: SearchCards;
+                  return (itemCard = {
+                    id: val.id,
+                    title: val.snippet.title,
+                    description: val.snippet.description,
+                    img: val.snippet.thumbnails.standard.url,
+                    date: val.snippet.publishedAt,
+                    statistics: val.statistics,
+                  });
+                })
+              )
+            )
         ),
         //tap(console.log),
         //map((x) => console.log(x.statistics)),

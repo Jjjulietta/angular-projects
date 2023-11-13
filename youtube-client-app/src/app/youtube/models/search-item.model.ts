@@ -71,6 +71,6 @@ export interface SearchCards {
   img: string | null;
   link?: string | null;
   description: string | null;
-  date: DateConstructor | string | null;
+  date: Date | string | null;
   statistics?: SearchItemStatistics;
 }

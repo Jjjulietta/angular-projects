@@ -1,9 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  SearchItem,
-  SearchItemVideo,
-} from 'src/app/youtube/models/search-item.model';
+import { SearchCards } from 'src/app/youtube/models/search-item.model';
 
 @Component({
   selector: 'app-search-results-item',
@@ -11,13 +8,13 @@ import {
   styleUrls: ['./search-results-item.component.scss'],
 })
 export class SearchResultsItemComponent {
-  @Input() card?: SearchItemVideo;
+  @Input() card?: SearchCards;
 
-  date?: string;
+  date!: string | Date;
 
   constructor(private router: Router) {}
   ngOnInit() {
-    if (this.card) this.date = this.card?.snippet.publishedAt;
+    if (this.card?.date && this.card.date !== null) this.date = this.card?.date;
   }
 
   openCard() {

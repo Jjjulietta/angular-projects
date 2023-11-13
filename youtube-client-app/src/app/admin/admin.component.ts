@@ -26,7 +26,7 @@ export class AdminComponent {
     description: [''],
     img: [''],
     link: [''],
-    date: [Date],
+    date: [''],
     tags: this.fb.array([this.fb.control('')]),
   });
 
@@ -50,7 +50,7 @@ export class AdminComponent {
       description: ['', Validators.maxLength(255)],
       img: ['', [Validators.required]],
       link: ['', [Validators.required]],
-      date: [Date, [Validators.required, this.dateValidator()]],
+      date: ['', [Validators.required, this.dateValidator()]],
       tags: this.fb.array([this.fb.control('', [Validators.required])]),
     });
   }

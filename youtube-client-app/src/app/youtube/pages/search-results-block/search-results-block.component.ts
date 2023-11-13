@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { SearchItem, SearchItemVideo } from '../../models/search-item.model';
+import { Component } from '@angular/core';
+import { SearchCards } from '../../models/search-item.model';
 import { SortingService } from '../../../core/services/sorting.service';
 import { YoutubeService } from '../../services/youtube.service';
 import { SortType } from 'src/app/core/enums/sort-type';
@@ -12,7 +12,7 @@ import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
   styleUrls: ['./search-results-block.component.scss'],
 })
 export class SearchResultsBlockComponent {
-  cards: SearchItemVideo[] = [];
+  cards: SearchCards[] = [];
   sort: SortType | string = SortType.Default;
   sortView: SortType = SortType.Default;
   word: string | null = null;
@@ -47,9 +47,4 @@ export class SearchResultsBlockComponent {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((val) => (this.cards = val));
   }
-
-  /*ngOnDestroy() {
-    this.subscription$.next();
-    this.subscription$.complete();
-  }*/
 }

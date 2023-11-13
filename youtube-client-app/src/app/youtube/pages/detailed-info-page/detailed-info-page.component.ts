@@ -1,10 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  SearchItem,
-  SearchItemVideo,
-} from 'src/app/youtube/models/search-item.model';
+import { SearchCards } from 'src/app/youtube/models/search-item.model';
 import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 
 @Component({
@@ -15,7 +12,7 @@ import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 export class DetailedInfoPageComponent {
   route = inject(ActivatedRoute);
   youtubeServices = inject(YoutubeService);
-  card: SearchItemVideo | undefined;
+  card: SearchCards | undefined;
   date?: string;
 
   constructor(private router: Router, private location: Location) {
@@ -23,10 +20,7 @@ export class DetailedInfoPageComponent {
     console.log(cardId);
     this.card = this.youtubeServices.getResultById(cardId);
     console.log(this.card);
-    if (this.card)
-      // this.date = new Date(this.card?.snippet.publishedAt).getDate();
-      // console.log(this.date);
-      this.date = this.youtubeServices.getDateById(cardId);
+    if (this.card) this.date = this.youtubeServices.getDateById(cardId);
     console.log(this.date);
   }
 
