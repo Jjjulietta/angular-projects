@@ -5,6 +5,9 @@ import { YoutubeService } from '../../services/youtube.service';
 import { SortType } from 'src/app/core/enums/sort-type';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
+import { Store } from '@ngrx/store';
+import { selectCards } from 'src/app/redux/selectors/cards.selector';
+import { CardsApiActions } from 'src/app/redux/actions/cards.actions';
 
 @Component({
   selector: 'app-search-results-block',
@@ -12,6 +15,7 @@ import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
   styleUrls: ['./search-results-block.component.scss'],
 })
 export class SearchResultsBlockComponent {
+  cards$ = this.store.select(selectCards);
   cards: SearchCards[] = [];
   sort: SortType | string = SortType.Default;
   sortView: SortType = SortType.Default;
@@ -20,7 +24,8 @@ export class SearchResultsBlockComponent {
   constructor(
     private sortingService: SortingService,
     private youtubeService: YoutubeService,
-    private unsubscribe$: UnsubscribeService
+    private unsubscribe$: UnsubscribeService,
+    private store: Store
   ) {}
 
   ngOnInit() {
@@ -45,6 +50,12 @@ export class SearchResultsBlockComponent {
     this.youtubeService
       .getResultSearch$()
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((val) => (this.cards = val));
+      .subscribe((val) => {
+        this.store.dispatch(CardsApiActions.retrievedCardsList({ cards: val }));
+        /*this.store.select(selectCards).subscribe((val) => {
+            this.cards = val;
+            console.log(this.cards);
+          });*/
+      });
   }
 }
