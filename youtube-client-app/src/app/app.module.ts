@@ -9,6 +9,9 @@ import { CustomButtonComponent } from './custom-button/custom-button.component';
 import { ApiInterceptor } from './youtube/interceptors/api.interceptor';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
+import { cardsReducer } from './redux/reducers/cards.reducer';
+import { customCardsReducer } from './redux/reducers/custom-cards.reducer';
+import { CustomButtonFavoriteComponent } from './custom-button-favorite/custom-button-favorite.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,10 +21,14 @@ import { StoreModule } from '@ngrx/store';
     HttpClientModule,
     FormsModule,
     CustomButtonComponent,
+    CustomButtonFavoriteComponent,
     CoreModule,
     ReactiveFormsModule,
+    StoreModule.forRoot(
+      { youtubeCards: cardsReducer, customCards: customCardsReducer },
+      {}
+    ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    StoreModule.forRoot({}, {}),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },

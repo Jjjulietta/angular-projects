@@ -27,6 +27,11 @@
       </button>-->
   </div>
   <app-login></app-login>
+  <app-custom-button-favorite
+    [favorite]="favorite"
+    [custom]="custom"
+    (click)="openFavoritePage()"
+  ></app-custom-button-favorite>
 </div>
 <app-filter-block *ngIf="isShown"></app-filter-block>
 <!--</header>-->

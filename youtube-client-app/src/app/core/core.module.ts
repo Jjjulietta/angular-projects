@@ -7,6 +7,7 @@ import { FilterBlockComponent } from './pages/filter-block/filter-block.componen
 import { CustomButtonComponent } from '../custom-button/custom-button.component';
 import { NotFoundPageComponent } from '../youtube/pages/not-found-page/not-found-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomButtonFavoriteComponent } from '../custom-button-favorite/custom-button-favorite.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     CustomButtonComponent,
+    CustomButtonFavoriteComponent,
     ReactiveFormsModule,
     FormsModule,
   ],
