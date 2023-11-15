@@ -1,0 +1,24 @@
+.favorite {
+  border: none;
+  background-color: inherit;
+}
+
+.svg {
+  color: red;
+  cursor: pointer;
+  & :hover {
+    color: blueviolet;
+    transition: all 0.5s;
+    transform: scale(1.1);
+  }
+}
+
+.inactive {
+  color: blue;
+  cursor: pointer;
+  & :hover {
+    color: red;
+    transition: all 0.5s;
+    transform: scale(1.1);
+  }
+}
