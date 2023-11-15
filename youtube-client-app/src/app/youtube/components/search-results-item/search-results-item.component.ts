@@ -11,6 +11,8 @@ import { SearchCards } from 'src/app/youtube/models/search-item.model';
 })
 export class SearchResultsItemComponent {
   @Input() card?: SearchCards;
+  favorite: string = 'inactive';
+  custom: string = 'favorite video';
 
   date!: string | Date;
 
@@ -26,5 +28,15 @@ export class SearchResultsItemComponent {
 
   removeCard(cardId: string) {
     this.store.dispatch(CustomCardsActions.removeCard({ cardId }));
+  }
+
+  changeFavorite() {
+    if (this.favorite === 'inactive') {
+      this.favorite = 'svg';
+      this.custom = 'remove favorite';
+    } else if (this.favorite === 'svg') {
+      this.favorite = 'inactive';
+      this.custom = 'add favorite';
+    }
   }
 }

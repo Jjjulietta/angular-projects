@@ -76,3 +76,10 @@
   height: 0.3rem;
   border-radius: 0px 0px 0.5rem 0.5rem;
 }
+
+.btn-container {
+  @extend %flex;
+  & > * {
+    margin-right: 10px;
+  }
+}
