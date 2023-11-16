@@ -3,7 +3,7 @@
   background-color: inherit;
 }
 
-.svg {
+.true {
   color: red;
   cursor: pointer;
   & :hover {
@@ -13,7 +13,7 @@
   }
 }
 
-.inactive {
+.false {
   color: blue;
   cursor: pointer;
   & :hover {

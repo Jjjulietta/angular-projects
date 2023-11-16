@@ -10,7 +10,7 @@ import { Route, Router } from '@angular/router';
 export class HeaderComponent {
   public isShown = false;
   public word = '';
-  favorite: string = 'inactive';
+  favorite: string = 'false';
   custom: string = 'favorite video';
 
   @Output() onClick = new EventEmitter();
@@ -23,12 +23,12 @@ export class HeaderComponent {
   }
 
   openFavoritePage() {
-    if (this.favorite === 'inactive') {
-      this.favorite = 'svg';
+    if (this.favorite === 'false') {
+      this.favorite = 'true';
       console.log(this.favorite);
       this.router.navigate(['favorite']);
-    } else if (this.favorite === 'svg') {
-      this.favorite = 'inactive';
+    } else if (this.favorite === 'true') {
+      this.favorite = 'false';
       console.log(this.favorite);
       this.router.navigate(['main']);
     }
