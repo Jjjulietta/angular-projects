@@ -73,4 +73,5 @@ export interface SearchCards {
   description: string | null;
   date: Date | string | null;
   statistics?: SearchItemStatistics;
+  favorite?: string;
 }

@@ -67,6 +67,7 @@ export class HttpService {
                     img: val.snippet.thumbnails.standard.url,
                     date: val.snippet.publishedAt,
                     statistics: val.statistics,
+                    favorite: 'false',
                   });
                 })
               )
