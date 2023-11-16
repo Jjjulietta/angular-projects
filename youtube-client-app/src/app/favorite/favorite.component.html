@@ -1,1 +1,11 @@
-<p>favorite works!</p>
+<div *ngIf="favoriteCards$ | async as favoriteCards">
+  <app-search-results-item
+    *ngFor="
+      let card of favoriteCards
+        | sortingDate : sort
+        | sortingViews : sortView
+        | filterWord : word
+    "
+    [card]="card"
+  ></app-search-results-item>
+</div>
