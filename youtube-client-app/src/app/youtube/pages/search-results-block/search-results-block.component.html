@@ -1,4 +1,7 @@
-<div class="search-result-container" *ngIf="cards$ | async as cards">
+<div
+  class="search-result-container"
+  *ngIf="cards$ | async as cards; else indicator"
+>
   <app-search-results-item
     *ngFor="
       let card of cards
@@ -9,3 +12,6 @@
     [card]="card"
   ></app-search-results-item>
 </div>
+<ng-template #indicator>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
