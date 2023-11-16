@@ -47,15 +47,15 @@ export class SearchResultsBlockComponent {
   }
 
   getCards() {
-    this.youtubeService
+    /*this.youtubeService
       .getResultSearch$()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((val) => {
-        this.store.dispatch(CardsApiActions.retrievedCardsList({ cards: val }));
-        /*this.store.select(selectCards).subscribe((val) => {
+        this.store.dispatch(CardsApiActions.retrievedCardsList({ cards: val }));*/
+    /*this.store.select(selectCards).subscribe((val) => {
             this.cards = val;
             console.log(this.cards);
           });*/
-      });
+    //});
   }
 }

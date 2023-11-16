@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import {
   BehaviorSubject,
@@ -7,6 +8,7 @@ import {
   Subject,
   takeUntil,
 } from 'rxjs';
+import { CardsApiActions } from 'src/app/redux/actions/cards.actions';
 import { SearchItemVideo } from 'src/app/youtube/models/search-item.model';
 import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 import { UnsubscribeService } from '../../services/unsubscribe.service';
@@ -25,7 +27,8 @@ export class SearchComponent {
   });*/
   constructor(
     private unsubscribe$: UnsubscribeService,
-    private youtubeService: YoutubeService
+    private youtubeService: YoutubeService,
+    private store: Store
   ) {}
 
   ngOnInit() {}
@@ -42,6 +45,9 @@ export class SearchComponent {
         .subscribe((val) => {
           console.log(val);
           this.youtubeService.resultSearch$ = val;
+          this.store.dispatch(
+            CardsApiActions.retrievedCardsList({ cards: val })
+          );
         });
     }
   }
