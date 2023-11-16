@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { cardsReducer } from './redux/reducers/cards.reducer';
 import { customCardsReducer } from './redux/reducers/custom-cards.reducer';
 import { CustomButtonFavoriteComponent } from './custom-button-favorite/custom-button-favorite.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { CustomButtonFavoriteComponent } from './custom-button-favorite/custom-b
     FormsModule,
     CustomButtonComponent,
     CustomButtonFavoriteComponent,
+    LoadingSpinnerComponent,
     CoreModule,
     ReactiveFormsModule,
     StoreModule.forRoot(

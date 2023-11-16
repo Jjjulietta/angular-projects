@@ -11,6 +11,7 @@ import { CustomButtonComponent } from '../custom-button/custom-button.component'
 import { DetailedInfoPageComponent } from './pages/detailed-info-page/detailed-info-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { CustomButtonFavoriteComponent } from '../custom-button-favorite/custom-button-favorite.component';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,13 @@ import { CustomButtonFavoriteComponent } from '../custom-button-favorite/custom-
     YoutubeRoutingModule,
     CustomButtonComponent,
     CustomButtonFavoriteComponent,
+    LoadingSpinnerComponent,
+  ],
+  exports: [
+    SearchResultsItemComponent,
+    FilterWordPipe,
+    SortingDatePipe,
+    SortingViewsPipe,
   ],
 })
 export class YoutubeModule {}
