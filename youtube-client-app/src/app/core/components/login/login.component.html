@@ -1,7 +1,17 @@
 <!--<div class="login-container">-->
-<button type="button" (click)="openAdminPage()" class="btn">
+<button
+  type="button"
+  (click)="openAdminPage()"
+  class="btn"
+  title="open admin page"
+>
   <span class="login-name">{{ name }}</span>
   <img src="./../../../assets/login.svg" alt="login-img" />
 </button>
-<app-custom-button (click)="openLoginForm()">{{ logged }}</app-custom-button>
+<app-custom-button *ngIf="!admin" (click)="openLoginForm()">{{
+  logged
+}}</app-custom-button>
+<app-custom-button *ngIf="admin" (click)="backMain()"
+  >Back to main</app-custom-button
+>
 <!--</div>-->

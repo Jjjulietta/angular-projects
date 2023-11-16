@@ -11,6 +11,7 @@ export class LoginComponent {
   name: string = 'User name';
   logged: string = 'LOGIN';
   isAuth: boolean = false;
+  public admin: boolean = false;
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
@@ -24,13 +25,6 @@ export class LoginComponent {
     } else {
       this.router.navigate(['main']);
     }
-    /*if (this.AuthService.checkAuth()) {
-      this.AuthService.name.subscribe((val) => (this.name = val));
-      console.log('init login');
-      this.router.navigate(['']);
-    } else {
-      this.router.navigate(['login']);
-    }*/
   }
 
   openLoginForm() {
@@ -39,13 +33,17 @@ export class LoginComponent {
       this.authService.loggout();
       this.router.navigate(['login']);
     }
-    /*if (this.AuthService.checkAuth()) this.AuthService.loggout();
-    this.router.navigate(['login']); */
   }
 
   openAdminPage() {
     if (this.isAuth) {
+      this.admin = true;
       this.router.navigate(['admin']);
     }
+  }
+
+  backMain() {
+    this.admin = false;
+    this.router.navigate(['main']);
   }
 }

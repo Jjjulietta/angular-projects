@@ -115,7 +115,7 @@ export class AdminComponent {
       this.store.dispatch(CustomCardsActions.addCard({ card: this.newCard }));
     }
     this.resetAll();
-    this.router.navigate(['main']);
+    //this.router.navigate(['main']);
     //return newCard;.
   }
 }
