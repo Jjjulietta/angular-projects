@@ -1,4 +1,4 @@
-<div *ngIf="favoriteCards$ | async as favoriteCards">
+<div *ngIf="favoriteCards$ | async as favoriteCards" class="favorite-container">
   <app-search-results-item
     *ngFor="
       let card of favoriteCards
