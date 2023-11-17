@@ -28,7 +28,12 @@ const routes: Routes = [
       import('./admin/admin.module').then((m) => m.AdminModule),
     canActivate: [authGuardGuard],
   },
-  { path: 'favorite', loadChildren: () => import('./favorite/favorite.module').then(m => m.FavoriteModule) },
+  {
+    path: 'favorite',
+    loadChildren: () =>
+      import('./favorite/favorite.module').then((m) => m.FavoriteModule),
+    canActivate: [authGuardGuard],
+  },
   {
     path: '**',
     component: NotFoundPageComponent,
