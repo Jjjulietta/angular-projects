@@ -65,6 +65,11 @@ interface SearchItemSnippet {
   publishTime: string;
 }
 
+export enum Favorite {
+  True = 'true',
+  False = 'false',
+}
+
 export interface SearchCards {
   id: string | null;
   title: string | null;
@@ -73,5 +78,5 @@ export interface SearchCards {
   description: string | null;
   date: Date | string | null;
   statistics?: SearchItemStatistics;
-  favorite?: string;
+  favorite?: Favorite;
 }

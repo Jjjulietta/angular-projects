@@ -13,7 +13,11 @@ import {
   throwError,
   catchError,
 } from 'rxjs';
-import { SearchCards, SearchItemVideo } from './../models/search-item.model';
+import {
+  Favorite,
+  SearchCards,
+  SearchItemVideo,
+} from './../models/search-item.model';
 import {
   SearchResponse,
   SearchResponseVideo,
@@ -59,16 +63,16 @@ export class HttpService {
             .pipe(
               map((r) =>
                 r.items.map((val) => {
-                  let itemCard: SearchCards;
-                  return (itemCard = {
+                  let itemCard: SearchCards = {
                     id: val.id,
                     title: val.snippet.title,
                     description: val.snippet.description,
                     img: val.snippet.thumbnails.standard.url,
                     date: val.snippet.publishedAt,
                     statistics: val.statistics,
-                    favorite: 'false',
-                  });
+                    favorite: Favorite.False,
+                  };
+                  return itemCard;
                 })
               )
             )
