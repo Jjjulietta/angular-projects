@@ -13,5 +13,9 @@ export const CardsApiActions = createActionGroup({
   source: 'youtubeCards',
   events: {
     'Retrieved Cards List': props<{ cards: SearchCards[] }>(),
+    'Add favorit card': props<{
+      cardId: string;
+    }>(),
+    'Remove favorit card': props<{ cardId: string }>(),
   },
 });
