@@ -6,8 +6,6 @@ import { SearchCards } from '../models/search-item.model';
 })
 export class SortingDatePipe implements PipeTransform {
   transform(cards: SearchCards[], value: string): SearchCards[] {
-    console.log(value);
-
     function sortCardsAsc() {
       return cards.sort((a, b) =>
         a.date !== null && b.date !== null

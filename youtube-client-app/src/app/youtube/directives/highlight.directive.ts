@@ -16,10 +16,8 @@ export class HighlightDirective {
 
   ngOnChanges() {
     if (this.date) {
-      console.log(this.date);
       const time =
         (+new Date() - new Date(this.date).getTime()) / (1000 * 60 * 60 * 24);
-      console.log(time);
       if (time > period.sixMonth) {
         this.highlight(colors.red);
       }
