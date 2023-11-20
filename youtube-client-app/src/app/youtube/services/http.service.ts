@@ -22,6 +22,7 @@ import {
   SearchResponse,
   SearchResponseVideo,
 } from './../models/search-response.model';
+import { limitPage } from 'src/constants/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -30,16 +31,21 @@ export class HttpService {
   private SEARCH = 'search';
   private VIDEO = 'videos';
   private URL = 'https://www.googleapis.com/youtube/v3';
-  private readonly LIMIT = 12;
+  private readonly LIMIT = limitPage.limitPerPage;
+  private pageToken: string = '';
 
   constructor(private httpClient: HttpClient) {}
 
-  searchData(query: string): Observable<SearchCards[]> {
+  searchData(query: string, num?: number): Observable<SearchCards[]> {
+    let numCards = 0;
+    num ? (numCards = this.LIMIT - num) : (numCards = this.LIMIT);
+    console.log(numCards);
     const params = new HttpParams()
       //.set('key', this.API_KEY)
       .set('type', 'video')
       .set('part', 'snippet')
-      .set('maxResults', this.LIMIT)
+      .set('pageToken', this.pageToken)
+      .set('maxResults', numCards)
       .set('q', query);
 
     if (!query.trim) {
@@ -49,7 +55,10 @@ export class HttpService {
     return this.httpClient
       .get<SearchResponse>(`${this.SEARCH}`, { params })
       .pipe(
-        tap((r) => console.log(r)),
+        tap((r) => {
+          console.log(r);
+          this.pageToken = r.nextPageToken;
+        }),
         map((r) => r.items),
         map((x) => x.map((item) => item.id.videoId).join(',')),
         mergeMap((v) =>

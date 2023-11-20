@@ -10,3 +10,8 @@ export const period = {
   month: 30,
   sevenDay: 7,
 };
+
+export const limitPage = {
+  limitPerPage: 20,
+  limitPage: 25,
+};
