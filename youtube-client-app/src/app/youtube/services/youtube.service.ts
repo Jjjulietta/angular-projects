@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { data } from 'src/data/mock-data';
 import { Options } from '../models/option.model';
@@ -14,7 +14,8 @@ import { HttpService } from './http.service';
 })
 export class YoutubeService {
   private resultsSearch = new BehaviorSubject<SearchCards[]>([]);
-  public submit = new Subject<string>();
+  private submit = new BehaviorSubject<string>('');
+  @Output() search = new EventEmitter<string>();
   constructor(private httpService: HttpService) {}
   ngOnInit() {}
 
@@ -26,8 +27,17 @@ export class YoutubeService {
     this.resultsSearch.next(val);
   }
 
-  getSearchData(val: string) {
-    return this.httpService.searchData(val);
+  getSearchData(val: string, num?: number) {
+    return this.httpService.searchData(val, num);
+  }
+
+  set submit$(val: string) {
+    console.log(val);
+    this.submit.next(val);
+  }
+
+  getSubmit$() {
+    return this.submit.asObservable();
   }
 
   getResultById(id: string): SearchCards | undefined {
