@@ -12,10 +12,21 @@ export const CustomCardsActions = createActionGroup({
 export const CardsApiActions = createActionGroup({
   source: 'youtubeCards',
   events: {
-    'Retrieved Cards List': props<{ cards: SearchCards[] }>(),
+    'Get Cards': props<{ search: string; num?: number; token: string }>(),
+    'Retrieved Cards List': props<{ cards: SearchCards[]; token: string }>(),
+    'Get Cards Error': props<{ error: string }>(),
+    //'Open Card': props<{cardId: string}>(),
     'Add favorit card': props<{
       cardId: string;
+      token: string;
     }>(),
-    'Remove favorit card': props<{ cardId: string }>(),
+    'Remove favorit card': props<{ cardId: string; token: string }>(),
+  },
+});
+
+export const cardsListsActions = createActionGroup({
+  source: 'cardsPage',
+  events: {
+    'Change page': props<{ token: string }>(),
   },
 });
