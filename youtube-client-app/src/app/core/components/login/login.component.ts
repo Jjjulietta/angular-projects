@@ -36,7 +36,7 @@ export class LoginComponent {
   }
 
   openAdminPage() {
-    if (this.isAuth) {
+    if (this.isAuth && !localStorage.getItem('search')) {
       this.admin = true;
       this.router.navigate(['admin']);
     }
