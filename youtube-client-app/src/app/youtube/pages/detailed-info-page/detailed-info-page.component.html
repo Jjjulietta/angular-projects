@@ -9,6 +9,12 @@
       <div class="details-title">
         <h3>{{ card.title }}</h3>
         <span class="details-date">{{ date }}</span>
+        <app-custom-button-favorite
+          *ngIf="card.statistics"
+          [favorite]="favorite"
+          [custom]="custom"
+          (click)="changeFavorite()"
+        ></app-custom-button-favorite>
       </div>
       <p class="desc-title">Description:</p>
       <p class="desc-text">{{ card.description }}</p>
