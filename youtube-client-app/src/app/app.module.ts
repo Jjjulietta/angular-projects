@@ -13,6 +13,10 @@ import { cardsReducer } from './redux/reducers/cards.reducer';
 import { customCardsReducer } from './redux/reducers/custom-cards.reducer';
 import { CustomButtonFavoriteComponent } from './custom-button-favorite/custom-button-favorite.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { PageReducer } from './redux/reducers/page.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CardsEffects } from './redux/effects/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,13 +28,19 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     CustomButtonComponent,
     CustomButtonFavoriteComponent,
     LoadingSpinnerComponent,
+    PaginationComponent,
     CoreModule,
     ReactiveFormsModule,
     StoreModule.forRoot(
-      { youtubeCards: cardsReducer, customCards: customCardsReducer },
+      {
+        youtubeCards: cardsReducer,
+        customCards: customCardsReducer,
+        cardsPage: PageReducer,
+      },
       {}
     ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([CardsEffects]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
