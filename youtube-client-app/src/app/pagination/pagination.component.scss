@@ -1,0 +1,52 @@
+@import "./../../sass/plaseholder";
+@import "./../../sass/constants";
+@import "./../../sass/mixins";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1.5rem;
+  //@include font(1rem, regular);
+}
+
+.pagination-container {
+  width: 20%;
+  @extend %flex;
+}
+
+.arrow {
+  border: none;
+  background-color: inherit;
+  color: $color-primary;
+  cursor: pointer;
+  & :hover {
+    color: darkblue;
+    transition: all 0.5s;
+  }
+}
+
+.arrow-left {
+  transform: rotate(180deg);
+}
+
+.arrow-right {
+}
+
+.number {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($color: lightblue, $alpha: 1);
+  border: 1px solid $color-primary;
+  color: blue;
+  font-weight: 700;
+  border-radius: 50%;
+}
+
+button:disabled {
+  color: $color-grey-light;
+  cursor: not-allowed;
+}

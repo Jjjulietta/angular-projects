@@ -3,10 +3,15 @@ import { SearchCards } from '../../models/search-item.model';
 import { SortingService } from '../../../core/services/sorting.service';
 import { YoutubeService } from '../../services/youtube.service';
 import { SortType } from 'src/app/core/enums/sort-type';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
 import { Store } from '@ngrx/store';
-import { selectCards } from 'src/app/redux/selectors/cards.selector';
+import {
+  selectAllCards,
+  selectCards,
+  selectCustomLength,
+  selectPageNumber,
+} from 'src/app/redux/selectors/cards.selector';
 import { CardsApiActions } from 'src/app/redux/actions/cards.actions';
 
 @Component({
@@ -15,11 +20,15 @@ import { CardsApiActions } from 'src/app/redux/actions/cards.actions';
   styleUrls: ['./search-results-block.component.scss'],
 })
 export class SearchResultsBlockComponent {
-  cards$ = this.store.select(selectCards);
+  cards$?: Observable<SearchCards[]> = this.store.select(selectAllCards);
   cards: SearchCards[] = [];
+  pageNumber$ = this.store.select(selectPageNumber);
   sort: SortType | string = SortType.Default;
   sortView: SortType = SortType.Default;
   word: string | null = null;
+  currentPage: number = 1;
+  cachingPage: string[] = ['1'];
+  search?: string;
 
   constructor(
     private sortingService: SortingService,
@@ -30,6 +39,9 @@ export class SearchResultsBlockComponent {
 
   ngOnInit() {
     this.getCards();
+    this.pageNumber$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => (this.currentPage = Number(val)));
     this.sortingService
       .getSortingState$()
       .pipe(takeUntil(this.unsubscribe$))
@@ -46,7 +58,18 @@ export class SearchResultsBlockComponent {
       });
   }
 
+  /*ngOnChange() {
+    this.getCards();
+  }*/
+
   getCards() {
+    if (this.currentPage === 1) {
+      console.log(this.currentPage);
+      this.cards$ = this.store.select(selectAllCards);
+    } else {
+      console.log(this.currentPage);
+      this.cards$ = this.store.select(selectCards);
+    }
     /*this.youtubeService
       .getResultSearch$()
       .pipe(takeUntil(this.unsubscribe$))
@@ -57,5 +80,40 @@ export class SearchResultsBlockComponent {
             console.log(this.cards);
           });*/
     //});
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
+    this.search = localStorage.getItem('search')?.toString();
+    //this.pageNumber$ = this.store.select(selectPageNumber).pipe(takeUntil(this.unsubscribe$))
+    if (this.search) {
+      if (this.cachingPage.includes(this.currentPage.toString())) {
+        console.log(this.cachingPage);
+        console.log(this.currentPage);
+        this.getCards();
+      } else {
+        //this.store.select(selectPageNumber).pipe(takeUntil(this.unsubscribe$))
+        /*this.youtubeService
+        .getSubmit$()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((val) => {
+          this.search = val;*/
+        console.log(this.search);
+
+        console.log(this.cachingPage);
+        this.cachingPage.push(this.currentPage.toString());
+        console.log(this.currentPage);
+
+        console.log(this.search);
+        this.store.dispatch(
+          CardsApiActions.getCards({
+            search: this.search,
+            num: undefined,
+            token: this.currentPage.toString(),
+          })
+        );
+        //this.getCards();
+      }
+    }
   }
 }

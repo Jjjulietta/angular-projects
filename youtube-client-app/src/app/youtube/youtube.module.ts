@@ -12,6 +12,7 @@ import { DetailedInfoPageComponent } from './pages/detailed-info-page/detailed-i
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { CustomButtonFavoriteComponent } from '../custom-button-favorite/custom-button-favorite.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
     CustomButtonComponent,
     CustomButtonFavoriteComponent,
     LoadingSpinnerComponent,
+    PaginationComponent,
   ],
   exports: [
     SearchResultsItemComponent,
