@@ -1,3 +1,5 @@
+import { isNgTemplate } from '@angular/compiler';
+import { ɵSSR_CONTENT_INTEGRITY_MARKER } from '@angular/core';
 import { createReducer, on } from '@ngrx/store';
 import { shareReplay } from 'rxjs';
 import { Favorite } from 'src/app/youtube/models/search-item.model';
@@ -28,6 +30,10 @@ export const cardsReducer = createReducer(
     ...state,
     isLoading: false,
     error: action.error,
+  })),
+  on(CardsApiActions.openCard, (state, { cardId, token }) => ({
+    ...state,
+    card: state.cards[token].find((item) => item.id === cardId),
   })),
   on(CardsApiActions.addFavoritCard, (state, { cardId, token }) => ({
     ...state,

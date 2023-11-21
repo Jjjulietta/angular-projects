@@ -7,6 +7,7 @@ export const selectYoutubeCards =
   createFeatureSelector<YotubeResultsInterface>('youtubeCards');
 export const selectCustomcards =
   createFeatureSelector<Pick<AppState, 'customCards'>>('customCards');
+
 export const selectCustomLength = createSelector(
   selectCustomcards,
   (s) => s.customCards.length
@@ -40,11 +41,13 @@ export const selectCards = createSelector(
   (s1, s2) => s1.cards[s2.cardsPage]
 );
 
+export const selectCard = createSelector(selectYoutubeCards, (s1) => s1.card);
+
 export const selectAllCards = createSelector(
   selectCustomcards,
   selectYoutubeCards,
   selectPage,
-  (s1, s2, s3) => s1.customCards.concat(s2.cards[s3.cardsPage]) /*{
+  (s1, s2, s3) => s1.customCards.concat(s2.cards[s3.cardsPage]).slice(0, 20) /*{
     if (s3.cardsPage === '1') {
       return s1.customCards.concat(s2.cards[s3.cardsPage]);
     } else {

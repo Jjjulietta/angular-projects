@@ -14,4 +14,5 @@ export interface YotubeResultsInterface {
   isLoading: boolean;
   cards: YoutubeResultsState;
   error: string | null;
+  card?: SearchCards;
 }

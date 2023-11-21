@@ -15,7 +15,7 @@ export const CardsApiActions = createActionGroup({
     'Get Cards': props<{ search: string; num?: number; token: string }>(),
     'Retrieved Cards List': props<{ cards: SearchCards[]; token: string }>(),
     'Get Cards Error': props<{ error: string }>(),
-    //'Open Card': props<{cardId: string}>(),
+    'Open Card': props<{ cardId: string; token: string }>(),
     'Add favorit card': props<{
       cardId: string;
       token: string;
