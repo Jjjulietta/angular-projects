@@ -50,23 +50,23 @@ export class SearchComponent {
 
   onChange() {
     this.youtubeService.submit$ = this.search;
-    localStorage.setItem('search', this.search);
+    sessionStorage.setItem('search', this.search);
+    //localStorage.setItem('search', this.search);
     console.log(this.search);
     this.store.dispatch(cardsListsActions.changePage({ token: '1' }));
     if (this.search.length > 3) {
-      this.customCardsQuantity$
-        .pipe(takeUntil(this.unsubscribe$))
+      /*this.customCardsQuantity$;
+      .pipe(takeUntil(this.unsubscribe$))
         .subscribe((value) => {
           console.log(value);
           /*this.pageNumber$.pipe(takeUntil(this.unsubscribe$)).subscribe((v) => {*/
-          this.store.dispatch(
-            CardsApiActions.getCards({
-              search: this.search,
-              num: value,
-              token: '1',
-            })
-          );
-        });
+      this.store.dispatch(
+        CardsApiActions.getCards({
+          search: this.search,
+          //num: value,
+          token: '1',
+        })
+      );
     }
   }
 }

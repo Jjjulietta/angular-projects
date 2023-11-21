@@ -37,15 +37,16 @@ export class HttpService {
   constructor(private httpClient: HttpClient) {}
 
   searchData(query: string, num?: number): Observable<SearchCards[]> {
-    let numCards = 0;
+    console.log(this.pageToken);
+    /*let numCards = 0;
     num ? (numCards = this.LIMIT - num) : (numCards = this.LIMIT);
-    console.log(numCards);
+    console.log(numCards);*/
     const params = new HttpParams()
       //.set('key', this.API_KEY)
       .set('type', 'video')
       .set('part', 'snippet')
       .set('pageToken', this.pageToken)
-      .set('maxResults', numCards)
+      .set('maxResults', this.LIMIT)
       .set('q', query);
 
     if (!query.trim) {
