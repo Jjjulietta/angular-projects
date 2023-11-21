@@ -34,16 +34,30 @@ export class SearchResultsItemComponent {
     private unsubscribe$: UnsubscribeService
   ) {}
   ngOnInit() {
+    this.store
+      .select(selectPageNumber)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => (this.pageNumber = val));
     if (this.card?.date && this.card.date !== null) this.date = this.card?.date;
     if (this.card?.favorite) this.favorite = this.card?.favorite;
   }
 
   openCard() {
     console.log(this.card?.id);
-    this.router.navigate([
-      `detailed/${this.card?.id}`,
-      { favorite: this.favorite },
-    ]);
+    console.log(this.pageNumber);
+    if (this.card.id) {
+      console.log(this.pageNumber);
+      this.store.dispatch(
+        CardsApiActions.openCard({
+          cardId: this.card.id,
+          token: this.pageNumber,
+        })
+      );
+      this.router.navigate([
+        `detailed/${this.card?.id}`,
+        { favorite: this.favorite },
+      ]);
+    }
   }
 
   removeCard(cardId: string) {
