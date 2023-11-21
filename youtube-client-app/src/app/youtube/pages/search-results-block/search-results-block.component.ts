@@ -12,7 +12,10 @@ import {
   selectCustomLength,
   selectPageNumber,
 } from 'src/app/redux/selectors/cards.selector';
-import { CardsApiActions } from 'src/app/redux/actions/cards.actions';
+import {
+  CardsApiActions,
+  cardsListsActions,
+} from 'src/app/redux/actions/cards.actions';
 
 @Component({
   selector: 'app-search-results-block',
@@ -38,10 +41,13 @@ export class SearchResultsBlockComponent {
   ) {}
 
   ngOnInit() {
-    this.getCards();
-    this.pageNumber$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((val) => (this.currentPage = Number(val)));
+    //this.getCards();
+    this.pageNumber$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+      this.currentPage = Number(val);
+      /*if (!this.cachingPage.includes(this.currentPage.toString())) {
+        this.cachingPage.push(this.currentPage.toString());
+      }*/
+    });
     this.sortingService
       .getSortingState$()
       .pipe(takeUntil(this.unsubscribe$))
@@ -68,7 +74,7 @@ export class SearchResultsBlockComponent {
       this.cards$ = this.store.select(selectAllCards);
     } else {
       console.log(this.currentPage);
-      this.cards$ = this.store.select(selectCards);
+      this.cards$ = this.store.select(selectAllCards);
     }
     /*this.youtubeService
       .getResultSearch$()
@@ -83,8 +89,19 @@ export class SearchResultsBlockComponent {
   }
 
   changePage(page: number) {
+    console.log(page);
+    console.log(this.currentPage);
+    if (!this.cachingPage.includes(this.currentPage.toString())) {
+      console.log(this.currentPage);
+      this.cachingPage.push(this.currentPage.toString());
+    }
+    console.log(this.cachingPage);
     this.currentPage = page;
-    this.search = localStorage.getItem('search')?.toString();
+    console.log(this.currentPage);
+    this.store.dispatch(
+      cardsListsActions.changePage({ token: this.currentPage.toString() })
+    );
+    this.search = sessionStorage.getItem('search')?.toString();
     //this.pageNumber$ = this.store.select(selectPageNumber).pipe(takeUntil(this.unsubscribe$))
     if (this.search) {
       if (this.cachingPage.includes(this.currentPage.toString())) {
@@ -102,6 +119,7 @@ export class SearchResultsBlockComponent {
 
         console.log(this.cachingPage);
         this.cachingPage.push(this.currentPage.toString());
+        console.log(this.cachingPage);
         console.log(this.currentPage);
 
         console.log(this.search);
