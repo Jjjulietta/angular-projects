@@ -18,6 +18,8 @@ export class CardsEffects {
   getCards$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CardsApiActions.getCards),
+      debounceTime(600),
+      distinctUntilChanged(),
       mergeMap(({ search, num, token }) => {
         console.log(search);
         console.log(token);
@@ -25,6 +27,8 @@ export class CardsEffects {
           debounceTime(600),
           distinctUntilChanged(),
           map((cards) => {
+            console.log(token);
+            console.log(cards);
             this.service.resultSearch$ = cards;
             return CardsApiActions.retrievedCardsList({ cards, token });
           }),
