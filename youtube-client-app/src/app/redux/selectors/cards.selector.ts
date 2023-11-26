@@ -21,6 +21,16 @@ export const selectPageNumber = createSelector(
   (s1) => s1.cardsPage
 );
 
+export const selectYotube = createSelector(
+  selectYoutubeCards,
+  (s1) => s1.cards
+);
+
+export const selectCustom = createSelector(
+  selectCustomcards,
+  (s1) => s1.customCards
+);
+
 export const isLoadingSelector = createSelector(
   selectYoutubeCards,
   (state) => state.isLoading
@@ -44,12 +54,12 @@ export const selectCards = createSelector(
 export const selectCard = createSelector(selectYoutubeCards, (s1) => s1.card);
 
 export const selectAllCards = createSelector(
-  selectCustomcards,
-  selectYoutubeCards,
+  selectCustom,
+  selectYotube,
   selectPage,
   (s1, s2, s3) =>
-    s1.customCards
-      .concat(s2.cards[s3.cardsPage])
+    s1
+      .concat(s2[s3.cardsPage])
       .slice(0, 20)
       .sort((a, b) => (a ? 1 : b ? -1 : 0)) /*{
     if (s3.cardsPage === '1') {
