@@ -3,7 +3,7 @@ import { Component, inject, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs';
-import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
+import { UnsubscribeService } from '../../../core/services/unsubscribe.service';
 import { CardsApiActions } from 'src/app/redux/actions/cards.actions';
 import {
   selectCard,

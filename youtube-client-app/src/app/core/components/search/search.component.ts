@@ -11,7 +11,7 @@ import {
 import {
   CardsApiActions,
   cardsListsActions,
-} from 'src/app/redux/actions/cards.actions';
+} from '../../../redux/actions/cards.actions';
 import {
   selectCards,
   selectCustomLength,

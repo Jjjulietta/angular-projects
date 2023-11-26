@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs';
-import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
+import { UnsubscribeService } from '../../../core/services/unsubscribe.service';
 import {
   CardsApiActions,
   CustomCardsActions,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SearchCards } from '../../models/search-item.model';
 import { SortingService } from '../../../core/services/sorting.service';
 import { YoutubeService } from '../../services/youtube.service';
-import { SortType } from 'src/app/core/enums/sort-type';
+import { SortType } from '../../../core/enums/sort-type';
 import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
 import { Store } from '@ngrx/store';
