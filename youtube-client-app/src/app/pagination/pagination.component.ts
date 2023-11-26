@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { limitPage } from 'src/constants/constants';
+import { limitPage } from '../../constants/constants';
 import {
   CardsApiActions,
   cardsListsActions,

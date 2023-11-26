@@ -22,7 +22,7 @@ import {
   SearchResponse,
   SearchResponseVideo,
 } from './../models/search-response.model';
-import { limitPage } from 'src/constants/constants';
+import { limitPage } from '../../../constants/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -82,6 +82,7 @@ export class HttpService {
                     statistics: val.statistics,
                     favorite: Favorite.False,
                   };
+                  console.log(itemCard);
                   return itemCard;
                 })
               )
