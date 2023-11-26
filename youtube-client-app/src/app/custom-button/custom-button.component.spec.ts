@@ -8,7 +8,7 @@ describe('CustomButtonComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CustomButtonComponent]
+      imports: [CustomButtonComponent],
     });
     fixture = TestBed.createComponent(CustomButtonComponent);
     component = fixture.componentInstance;
