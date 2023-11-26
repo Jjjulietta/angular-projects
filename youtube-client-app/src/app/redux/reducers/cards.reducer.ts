@@ -2,7 +2,7 @@ import { isNgTemplate } from '@angular/compiler';
 import { ɵSSR_CONTENT_INTEGRITY_MARKER } from '@angular/core';
 import { createReducer, on } from '@ngrx/store';
 import { shareReplay } from 'rxjs';
-import { Favorite } from 'src/app/youtube/models/search-item.model';
+import { Favorite } from '../../youtube/models/search-item.model';
 import { CardsApiActions } from '../actions/cards.actions';
 import { AppState, YotubeResultsInterface } from '../state.models';
 
