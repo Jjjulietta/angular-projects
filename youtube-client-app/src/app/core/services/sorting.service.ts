@@ -6,9 +6,9 @@ import { SortType } from '../enums/sort-type';
   providedIn: 'root',
 })
 export class SortingService {
-  private sortView = new BehaviorSubject<SortType>(SortType.Default);
-  private filterWord = new BehaviorSubject<string>('');
-  private sort = new BehaviorSubject<SortType>(SortType.Default);
+  sortView = new BehaviorSubject<SortType>(SortType.Default);
+  filterWord = new BehaviorSubject<string>('');
+  sort = new BehaviorSubject<SortType>(SortType.Default);
   constructor() {}
 
   getSortingState$() {
