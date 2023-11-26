@@ -24,8 +24,8 @@ export class CardsEffects {
         console.log(search);
         console.log(token);
         return this.service.getSearchData(search, num).pipe(
-          debounceTime(600),
-          distinctUntilChanged(),
+          //debounceTime(600),
+          //distinctUntilChanged(),
           map((cards) => {
             console.log(token);
             console.log(cards);

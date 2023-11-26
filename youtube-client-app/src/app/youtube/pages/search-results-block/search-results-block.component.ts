@@ -24,7 +24,7 @@ import {
 })
 export class SearchResultsBlockComponent {
   cards$?: Observable<SearchCards[]> = this.store.select(selectAllCards);
-  cards: SearchCards[] = [];
+  //cards: SearchCards[] = [];
   pageNumber$ = this.store.select(selectPageNumber);
   sort: SortType | string = SortType.Default;
   sortView: SortType = SortType.Default;
@@ -44,9 +44,6 @@ export class SearchResultsBlockComponent {
     //this.getCards();
     this.pageNumber$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
       this.currentPage = Number(val);
-      /*if (!this.cachingPage.includes(this.currentPage.toString())) {
-        this.cachingPage.push(this.currentPage.toString());
-      }*/
     });
     this.sortingService
       .getSortingState$()
@@ -69,13 +66,23 @@ export class SearchResultsBlockComponent {
   }*/
 
   getCards() {
-    if (this.currentPage === 1) {
-      console.log(this.currentPage);
-      this.cards$ = this.store.select(selectAllCards);
-    } else {
-      console.log(this.currentPage);
-      this.cards$ = this.store.select(selectAllCards);
-    }
+    this.pageNumber$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+      this.currentPage = Number(val);
+      if (this.currentPage === 1) {
+        console.log(this.currentPage);
+        this.cards$ = this.store.select(selectAllCards);
+      } else {
+        console.log(this.currentPage);
+        this.cards$ = this.store.select(selectCards);
+        this.cards$
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe((val) => console.log(val));
+      }
+      /*if (!this.cachingPage.includes(this.currentPage.toString())) {
+        this.cachingPage.push(this.currentPage.toString());
+      }*/
+    });
+
     /*this.youtubeService
       .getResultSearch$()
       .pipe(takeUntil(this.unsubscribe$))
