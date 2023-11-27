@@ -1,7 +1,4 @@
-<div
-  class="search-result-container"
-  *ngIf="cards$ | async as cards; else indicator"
->
+<div class="search-result-container">
   <app-search-results-item
     *ngFor="
       let card of cards

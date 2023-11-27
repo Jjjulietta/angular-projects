@@ -3,7 +3,7 @@ import { SearchCards } from '../../models/search-item.model';
 import { SortingService } from '../../../core/services/sorting.service';
 import { YoutubeService } from '../../services/youtube.service';
 import { SortType } from '../../../core/enums/sort-type';
-import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
 import { Store } from '@ngrx/store';
 import {
@@ -23,14 +23,14 @@ import {
   styleUrls: ['./search-results-block.component.scss'],
 })
 export class SearchResultsBlockComponent {
-  cards$?: Observable<SearchCards[]> = this.store.select(selectAllCards);
-  //cards: SearchCards[] = [];
+  cards$?: Observable<SearchCards[]>; //= this.store.select(selectAllCards);
+  cards: SearchCards[] = [];
   pageNumber$ = this.store.select(selectPageNumber);
   sort: SortType | string = SortType.Default;
   sortView: SortType = SortType.Default;
   word: string | null = null;
   currentPage: number = 1;
-  cachingPage: string[] = ['1'];
+  cachingPage: string[] = []; //JSON.parse(localStorage.getItem('cachingPage'));
   search?: string;
 
   constructor(
@@ -41,10 +41,10 @@ export class SearchResultsBlockComponent {
   ) {}
 
   ngOnInit() {
-    //this.getCards();
     this.pageNumber$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
       this.currentPage = Number(val);
     });
+    this.getCards();
     this.sortingService
       .getSortingState$()
       .pipe(takeUntil(this.unsubscribe$))
@@ -68,43 +68,42 @@ export class SearchResultsBlockComponent {
   getCards() {
     this.pageNumber$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
       this.currentPage = Number(val);
+      //console.log(this.currentPage);
       if (this.currentPage === 1) {
-        console.log(this.currentPage);
+        //console.log(this.currentPage);
         this.cards$ = this.store.select(selectAllCards);
+        this.cards$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+          this.cards = [...val].sort((a, b) => (a.link ? 1 : b.link ? 1 : 0));
+          //console.log(this.cards);
+        });
       } else {
-        console.log(this.currentPage);
+        //console.log(this.currentPage);
         this.cards$ = this.store.select(selectCards);
+        this.cards$
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe((val) => (this.cards = [...val]));
         this.cards$
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((val) => console.log(val));
       }
-      /*if (!this.cachingPage.includes(this.currentPage.toString())) {
-        this.cachingPage.push(this.currentPage.toString());
-      }*/
     });
-
-    /*this.youtubeService
-      .getResultSearch$()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((val) => {
-        this.store.dispatch(CardsApiActions.retrievedCardsList({ cards: val }));*/
-    /*this.store.select(selectCards).subscribe((val) => {
-            this.cards = val;
-            console.log(this.cards);
-          });*/
-    //});
   }
 
   changePage(page: number) {
-    console.log(page);
-    console.log(this.currentPage);
-    if (!this.cachingPage.includes(this.currentPage.toString())) {
-      console.log(this.currentPage);
-      this.cachingPage.push(this.currentPage.toString());
+    //console.log(page);
+    //console.log(this.currentPage);
+    if (localStorage.getItem('cachingPage')) {
+      const obj = localStorage.getItem('cachingPage');
+      if (obj !== null) this.cachingPage = JSON.parse(obj);
     }
-    console.log(this.cachingPage);
+    if (!this.cachingPage.includes(this.currentPage.toString())) {
+      //console.log(this.currentPage);
+      this.cachingPage.push(this.currentPage.toString());
+      localStorage.setItem('cachingPage', JSON.stringify(this.cachingPage));
+    }
+    //console.log(this.cachingPage);
     this.currentPage = page;
-    console.log(this.currentPage);
+    //console.log(this.currentPage);
     this.store.dispatch(
       cardsListsActions.changePage({ token: this.currentPage.toString() })
     );
@@ -116,20 +115,8 @@ export class SearchResultsBlockComponent {
         console.log(this.currentPage);
         this.getCards();
       } else {
-        //this.store.select(selectPageNumber).pipe(takeUntil(this.unsubscribe$))
-        /*this.youtubeService
-        .getSubmit$()
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((val) => {
-          this.search = val;*/
-        console.log(this.search);
-
-        console.log(this.cachingPage);
         this.cachingPage.push(this.currentPage.toString());
-        console.log(this.cachingPage);
-        console.log(this.currentPage);
-
-        console.log(this.search);
+        localStorage.setItem('cachingPage', JSON.stringify(this.cachingPage));
         this.store.dispatch(
           CardsApiActions.getCards({
             search: this.search,
@@ -137,7 +124,7 @@ export class SearchResultsBlockComponent {
             token: this.currentPage.toString(),
           })
         );
-        //this.getCards();
+        this.getCards();
       }
     }
   }
