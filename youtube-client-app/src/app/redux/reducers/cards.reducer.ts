@@ -106,24 +106,6 @@ export const cardsReducer = createReducer(
         return [key, value];
       })
     ),
-    /*state.youtubeCards,
-    ...state.youtubeCards[token]
-      .map((item) => ({ ...item }))
-      .map((item) => {
-        if (item.id === cardId) {
-          return { ...item, favorite: Favorite.True };
-        } else {
-          return item;
-        }
-      }),*/
-    /*youtubeCards: state.youtubeCards
-      .map((item) => ({ ...item }))
-      .map((item) => {
-        if (item.id === cardId) {
-          return { ...item, favorite: Favorite.False };
-        } else {
-          return item;
-        }
-      }),*/
-  }))
+  })),
+  on(CardsApiActions.removeCards, (state) => ({ ...state, cards: { '0': [] } }))
 );

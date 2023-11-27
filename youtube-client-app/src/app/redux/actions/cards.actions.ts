@@ -1,4 +1,4 @@
-import { createActionGroup, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { SearchCards } from '../../youtube/models/search-item.model';
 
 export const CustomCardsActions = createActionGroup({
@@ -21,6 +21,7 @@ export const CardsApiActions = createActionGroup({
       token: string;
     }>(),
     'Remove favorit card': props<{ cardId: string; token: string }>(),
+    'Remove Cards': emptyProps(),
   },
 });
 
