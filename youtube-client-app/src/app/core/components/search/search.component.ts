@@ -36,10 +36,6 @@ export class SearchComponent {
   pageNumber$ = this.store.select(selectPageNumber);
   pageNumber!: string;
   youtubeCards$ = this.store.select(selectYoutubeCards);
-  //subscription$ = new Subject<void>();
-  /*searchForm: FormGroup = new FormGroup({
-    search: new FormControl(''),
-  });*/
   constructor(
     private unsubscribe$: UnsubscribeService,
     private youtubeService: YoutubeService,
@@ -49,17 +45,13 @@ export class SearchComponent {
   ngOnInit() {}
 
   onChange() {
+    this.store.dispatch(CardsApiActions.removeCards());
     this.youtubeService.submit$ = this.search;
     sessionStorage.setItem('search', this.search);
-    //localStorage.setItem('search', this.search);
     console.log(this.search);
     this.store.dispatch(cardsListsActions.changePage({ token: '1' }));
     if (this.search.length > 3) {
-      /*this.customCardsQuantity$;
-      .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((value) => {
-          console.log(value);
-          /*this.pageNumber$.pipe(takeUntil(this.unsubscribe$)).subscribe((v) => {*/
+      localStorage.setItem('cachingPage', JSON.stringify(['1']));
       this.store.dispatch(
         CardsApiActions.getCards({
           search: this.search,
