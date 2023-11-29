@@ -55,6 +55,9 @@ export class AdminComponent {
     });
   }
 
+  get id() {
+    return this.cardForm.get('id');
+  }
   get title() {
     return this.cardForm.get('title');
   }
@@ -111,6 +114,7 @@ export class AdminComponent {
     console.log(this.counter);
     if (this.cardForm.getRawValue() && this.cardForm.value.date !== null) {
       this.newCard = this.cardForm.getRawValue();
+      Object.defineProperty(this.newCard, 'id', { value: this.counter });
       console.log(this.newCard);
       this.store.dispatch(CustomCardsActions.addCard({ card: this.newCard }));
     }
