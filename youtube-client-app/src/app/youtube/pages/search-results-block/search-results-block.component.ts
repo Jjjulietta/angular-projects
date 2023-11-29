@@ -3,7 +3,7 @@ import { SearchCards } from '../../models/search-item.model';
 import { SortingService } from '../../../core/services/sorting.service';
 import { YoutubeService } from '../../services/youtube.service';
 import { SortType } from '../../../core/enums/sort-type';
-import { Observable, takeUntil } from 'rxjs';
+import { first, Observable, take, takeUntil } from 'rxjs';
 import { UnsubscribeService } from 'src/app/core/services/unsubscribe.service';
 import { Store } from '@ngrx/store';
 import {
@@ -72,19 +72,23 @@ export class SearchResultsBlockComponent {
       if (this.currentPage === 1) {
         //console.log(this.currentPage);
         this.cards$ = this.store.select(selectAllCards);
+        //console.log(this.cards);
         this.cards$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
-          this.cards = [...val].sort((a, b) => (a.link ? 1 : b.link ? 1 : 0));
-          //console.log(this.cards);
+          this.cards = [...val].sort(
+            (a, b) => (a.link ? -1 : b.link ? 1 : 0) //a.link ? -1 : 1
+          );
         });
       } else {
         //console.log(this.currentPage);
         this.cards$ = this.store.select(selectCards);
-        this.cards$
+        this.cards$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+          this.cards = [...val];
+          console.log(this.currentPage);
+          console.log(this.cards);
+        });
+        /*this.cards$
           .pipe(takeUntil(this.unsubscribe$))
-          .subscribe((val) => (this.cards = [...val]));
-        this.cards$
-          .pipe(takeUntil(this.unsubscribe$))
-          .subscribe((val) => console.log(val));
+          .subscribe((val) => console.log(val));*/
       }
     });
   }
@@ -124,7 +128,7 @@ export class SearchResultsBlockComponent {
             token: this.currentPage.toString(),
           })
         );
-        this.getCards();
+        //this.getCards();
       }
     }
   }
