@@ -1,0 +1,30 @@
+@import "./../../sass/mixins";
+@import "./../../sass/plaseholder";
+@import "./../../sass/constants";
+
+:host {
+  font-family: $font-family;
+  margin: 1rem;
+}
+
+.profile-header {
+  @extend %flex;
+  flex-wrap: wrap;
+  margin: 1rem;
+  background-color: $color-background-grey;
+  border-radius: 0.5rem;
+  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem $color-primary;
+  padding: 1rem;
+}
+h1 {
+  color: $color-primary;
+  letter-spacing: 0.2rem;
+  text-shadow: 0.06rem 0.1rem 0.1rem $color-grey-dark;
+}
+
+.btn {
+  @extend %btn-primary;
+  @include font(1rem, normal);
+  padding: 0.6rem;
+  letter-spacing: 0.1rem;
+}
