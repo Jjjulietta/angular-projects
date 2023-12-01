@@ -1,0 +1,79 @@
+@import "./../../sass/mixins";
+@import "./../../sass/plaseholder";
+@import "./../../sass/constants";
+
+:host {
+  font-family: $font-family;
+  margin: 1rem;
+}
+
+.profile-header {
+  @extend %flex;
+  flex-wrap: wrap;
+  margin: 1rem;
+  background-color: $color-background-grey;
+  border-radius: 0.5rem;
+  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem $color-primary;
+  padding: 1rem;
+}
+h1 {
+  color: $color-primary;
+  letter-spacing: 0.2rem;
+  text-shadow: 0.06rem 0.1rem 0.1rem $color-grey-dark;
+}
+
+.profile-container {
+  width: 30%;
+  height: 70vh;
+  margin: 1rem;
+  @extend %flex;
+  flex-direction: column;
+
+  background-color: $color-background-one;
+  border-radius: 0.5rem;
+  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem $color-primary;
+  padding: 3%;
+}
+
+.list {
+  @extend %flex;
+  flex-direction: column;
+  width: 100%;
+  height: 70%;
+}
+
+span {
+  margin-left: 1rem;
+}
+
+.list > li {
+  list-style-type: none;
+  align-self: flex-start;
+  color: $color-second;
+  @include font(1.5rem, normal);
+}
+
+.btn {
+  @extend %btn-primary;
+  @include font(1rem, normal);
+  padding: 0.6rem;
+  letter-spacing: 0.1rem;
+}
+.btn-container {
+  @extend %flex;
+  width: 80%;
+}
+.reset {
+  background-color: $color-grey-light;
+}
+
+input {
+  width: 10rem;
+  height: 1.5rem;
+  background-color: $color-white;
+  border-radius: 0.5rem;
+  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem $color-primary;
+  border: none;
+  margin-left: 2rem;
+  vertical-align: middle;
+}
