@@ -6,11 +6,18 @@
 
 %btn-primary {
   background-color: #2f80ed;
-  width: 100%;
+  //@extend %flex;
+  width: auto;
   height: auto;
+  //padding: 0.5rem;
   border-radius: 5px;
   box-shadow: 2px 1px 2px 2px #2f80ed;
   border: none;
   color: #ffffff;
   cursor: pointer;
+  &:hover {
+    transition: all 0.5s;
+    background-color: aqua;
+    color: #2f80ed;
+  }
 }
