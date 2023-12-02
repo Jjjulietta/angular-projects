@@ -1,0 +1,21 @@
+@import "./../../sass/plaseholder";
+@import "./../../sass/constants";
+
+.toast {
+  @extend %toast;
+  font-family: $font-family;
+}
+
+.sucsess-toast {
+  @extend %toast;
+  font-family: $font-family;
+  color: $color-green;
+  border-left: 0.3rem solid $color-green;
+}
+
+.error-toast {
+  @extend %toast;
+  font-family: $font-family;
+  color: $color-red;
+  border-left: 0.3rem solid $color-red;
+}

@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApiInterceptor } from './interceptors/api.interceptor';
@@ -23,6 +23,8 @@ import { authGuard } from './guards/auth.guard';
 import { UnsubscribeService } from './services/unsubscribe.service';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { UpdateUserEffects } from './store/effects/update-user.effect';
+import { ToastComponent } from './toast/toast.component';
+import { ToastService } from './services/toast.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,10 +32,12 @@ import { UpdateUserEffects } from './store/effects/update-user.effect';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     RegistrationComponent,
     LoginComponent,
     ProfileComponent,
     PeopleGroupsComponent,
+    ToastComponent,
     StoreModule.forRoot({ user: userReducer }, {}),
     EffectsModule.forRoot([UserEffects, UpdateUserEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
@@ -47,6 +51,7 @@ import { UpdateUserEffects } from './store/effects/update-user.effect';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HttpService },
     { provide: UnsubscribeService },
+    { provide: ToastService },
   ],
   bootstrap: [AppComponent],
 })
