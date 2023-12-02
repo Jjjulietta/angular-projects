@@ -21,3 +21,24 @@
     color: #2f80ed;
   }
 }
+
+%toast {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0rem;
+  margin: 2rem;
+  display: inline-flex;
+  max-width: 15rem;
+  min-height: 4rem;
+  //max-height: 4rem;
+  box-shadow: 0.3rem 0.3rem 0.8rem #00000040;
+  background-color: rgba(100, 100, 200, 0.2);
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  border-left: 6px solid black;
+  padding: 1.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
