@@ -11,11 +11,16 @@ import { Router, RouterLink } from '@angular/router';
 import { Login } from '../models/login.model.ts';
 import { forbiddenValidator } from '../directive/forbidden-password.directive';
 import { HttpService } from '../services/http.service';
+import { ToastService } from '../services/toast.service';
+import { ToastComponent } from '../toast/toast.component';
+import { UnsubscribeService } from '../services/unsubscribe.service';
+import { takeUntil } from 'rxjs';
+import { ToastMessage, ToastState } from '../models/toast.model';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, ToastComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -32,7 +37,9 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private unsubscribe$: UnsubscribeService,
+    public toastService: ToastService
   ) {
     /*this.authService.user.subscribe((val: Auth) => {
       this.user = val;
@@ -66,14 +73,37 @@ export class LoginComponent {
     if (this.authForm.value.email && this.authForm.value.password) {
       console.log(this.authForm.value.email);
       const bodyLogin = this.authForm.getRawValue();
+      this.authForm.reset();
       console.log(bodyLogin);
-      this.httpService.login(bodyLogin).subscribe((val) => console.log(val));
+      this.httpService
+        .login(bodyLogin)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (val) => {
+            console.log(val);
+            this.toastService.showToast(
+              ToastMessage.SucsessLogin,
+              ToastState.Sucsess
+            );
+            //this.router.navigate(['']);
+          },
+          complete: () => {
+            setTimeout(() => {
+              this.router.navigate(['']);
+            }, 6000);
+          },
+          error: (error) => {
+            console.log(error);
+            this.toastService.showToast(error.message, ToastState.Error);
+            this.authForm.invalid;
+          },
+        });
       /*this.authService.auth(
         this.authForm?.value.login,
         this.authForm?.value.password
       );*/
       // console.log(this.user);
-      this.router.navigate(['']);
+      //this.router.navigate(['']);
     }
   }
 
