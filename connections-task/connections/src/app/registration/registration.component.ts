@@ -11,6 +11,10 @@ import { Router } from '@angular/router';
 import { forbiddenValidator } from '../directive/forbidden-password.directive';
 import { Registration } from '../models/login.model.ts';
 import { HttpService } from '../services/http.service';
+import { ToastService } from '../services/toast.service';
+import { takeUntil } from 'rxjs';
+import { UnsubscribeService } from '../services/unsubscribe.service';
+import { ToastMessage, ToastState } from '../models/toast.model';
 
 @Component({
   selector: 'app-registration',
@@ -26,6 +30,8 @@ export class RegistrationComponent {
     password: new FormControl('', { nonNullable: true }),
   });
   private visibility: boolean = false;
+  disabled: boolean = false;
+  errorType: string | undefined;
   type: string = 'password';
   icon = '../../../../assets/visibility_off_FILL0_wght200_GRAD0_opsz20.svg';
   user: Registration | undefined;
@@ -33,7 +39,9 @@ export class RegistrationComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private unsubscribe$: UnsubscribeService,
+    private toastService: ToastService
   ) {
     /*this.authService.user.subscribe((val: Auth) => {
       this.user = val;
@@ -65,12 +73,38 @@ export class RegistrationComponent {
   }
 
   onSubmit() {
+    this.disabled = true;
     if (this.regForm.value.email && this.regForm.value.password) {
       console.log(this.regForm.value.email);
       const bodyLogin = this.regForm.getRawValue();
       console.log(bodyLogin);
-      this.httpService.signup(bodyLogin).subscribe((val) => console.log(val));
-      this.router.navigate(['']);
+
+      this.httpService
+        .signup(bodyLogin)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (val) => {
+            console.log(val);
+            this.toastService.showToast(
+              ToastMessage.SucsessSignin,
+              ToastState.Sucsess
+            );
+            //this.router.navigate(['']);
+          },
+          complete: () => {
+            setTimeout(() => {
+              this.router.navigate(['signin']);
+            }, 6000);
+          },
+          error: (error) => {
+            console.log(error);
+            this.toastService.showToast(error.message, ToastState.Error);
+            if (error.type === ToastMessage.ErrorType) {
+              this.errorType = error.message;
+            }
+            this.regForm.invalid;
+          },
+        });
     }
   }
 
