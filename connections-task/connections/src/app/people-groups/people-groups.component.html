@@ -4,3 +4,30 @@
     PROFILE
   </button>
 </div>
+<div class="groups-container">
+  <div class="button-container">
+    <button type="button" class="btn update" (click)="updateGroups()">
+      Update
+    </button>
+    <button type="button" class="btn create" (click)="createGroup()">
+      Create
+    </button>
+  </div>
+  <ul class="groups-list" *ngIf="groups$ | async as groups">
+    <li *ngFor="let group of groups">
+      {{ group.name }}
+      <a [routerLink]="['/group/group.id']"></a>
+    </li>
+  </ul>
+</div>
+<div class="popap" *ngIf="isShown">
+  <form
+    [formGroup]="popapForm"
+    class="popap-form"
+    (ngSubmit)="popapForm.valid && createGroupSubmit()"
+  >
+    <label for="groupName" class="label"></label>
+    <input type="text" formControlName="nameGroup" class="input name" />
+    <button type="submit" class="btn submit">submit</button>
+  </form>
+</div>

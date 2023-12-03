@@ -3,6 +3,7 @@
 @import "./../../sass/constants";
 
 :host {
+  position: relative;
   font-family: $font-family;
   margin: 1rem;
 }
@@ -13,13 +14,14 @@
   margin: 1rem;
   background-color: $color-background-grey;
   border-radius: 0.5rem;
-  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem $color-primary;
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
   padding: 1rem;
 }
 h1 {
   color: $color-primary;
   letter-spacing: 0.2rem;
-  text-shadow: 0.06rem 0.1rem 0.1rem $color-grey-dark;
+  @include font(2.3rem, 900, normal);
+  text-shadow: 0.06rem 0.6rem 0.6rem $color-blue;
 }
 
 .btn {
@@ -27,4 +29,52 @@ h1 {
   @include font(1rem, normal);
   padding: 0.6rem;
   letter-spacing: 0.1rem;
+}
+
+.popap {
+  position: absolute;
+  z-index: 10;
+  @extend %flex;
+  left: 20vw;
+  width: auto;
+  height: 5rem;
+  top: 35vh;
+  background-color: $color-background-grey;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0.3rem 0.3rem 0.8rem $color-grey-dark;
+}
+
+.popap-form {
+  display: flex;
+  align-items: center;
+}
+
+input {
+  border: none;
+  border-radius: 0.2rem;
+  height: 1.5rem;
+}
+
+.submit {
+  @include font(0.8rem, normal);
+  padding: 0.3rem;
+}
+
+.groups-container {
+  width: 40%;
+  height: auto;
+  @extend %container;
+}
+
+.button-container {
+  align-self: flex-start;
+  width: 50%;
+  @extend %flex;
+  flex-wrap: wrap;
+  border-bottom: 0.2rem $color-primary;
+}
+
+li {
+  @extend %list;
 }
