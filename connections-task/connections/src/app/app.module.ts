@@ -25,6 +25,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { UpdateUserEffects } from './store/effects/update-user.effect';
 import { ToastComponent } from './toast/toast.component';
 import { ToastService } from './services/toast.service';
+import { GroupsEffects } from './store/effects/groups.effect';
+import { groupReducer } from './store/reducers/groups.reducer';
+import { CreateGroupEffects } from './store/effects/create-group.effect';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,8 +41,13 @@ import { ToastService } from './services/toast.service';
     ProfileComponent,
     PeopleGroupsComponent,
     ToastComponent,
-    StoreModule.forRoot({ user: userReducer }, {}),
-    EffectsModule.forRoot([UserEffects, UpdateUserEffects]),
+    StoreModule.forRoot({ user: userReducer, groups: groupReducer }, {}),
+    EffectsModule.forRoot([
+      UserEffects,
+      UpdateUserEffects,
+      GroupsEffects,
+      CreateGroupEffects,
+    ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [
