@@ -1,3 +1,6 @@
+@import "./constants";
+@import "./mixins";
+
 %flex {
   display: flex;
   align-items: center;
@@ -5,20 +8,20 @@
 }
 
 %btn-primary {
-  background-color: #2f80ed;
+  background-color: $color-primary;
   //@extend %flex;
   width: auto;
   height: auto;
   //padding: 0.5rem;
   border-radius: 5px;
-  box-shadow: 2px 1px 2px 2px #2f80ed;
+  box-shadow: 0.2rem 0.3rem 0.6rem $color-grey-light;
   border: none;
-  color: #ffffff;
+  color: $color-white;
   cursor: pointer;
   &:hover {
     transition: all 0.5s;
     background-color: aqua;
-    color: #2f80ed;
+    color: $color-primary;
   }
 }
 
@@ -41,4 +44,21 @@
   padding: 1.5rem;
   border-radius: 4px;
   font-size: 0.9rem;
+}
+
+%container {
+  @extend %flex;
+  flex-direction: column;
+  margin: 1rem;
+  background-color: $color-background-one;
+  border-radius: 0.5rem;
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
+  padding: 3%;
+}
+
+%list {
+  list-style-type: none;
+  align-self: flex-start;
+  color: $color-primary;
+  @include font(1.5rem, normal);
 }
