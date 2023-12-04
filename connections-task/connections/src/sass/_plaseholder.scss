@@ -29,28 +29,29 @@
   position: absolute;
   z-index: 10;
   top: 0;
-  right: 0rem;
+  right: 35%;
   margin: 2rem;
   display: inline-flex;
-  max-width: 15rem;
-  min-height: 4rem;
+  max-width: 25rem;
+  min-height: 8rem;
   //max-height: 4rem;
   box-shadow: 0.3rem 0.3rem 0.8rem #00000040;
-  background-color: rgba(100, 100, 200, 0.2);
+  background-color: $color-second;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
   border-left: 6px solid black;
   padding: 1.5rem;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-family: $font-family;
+  font-size: 1.2rem;
 }
 
 %container {
   @extend %flex;
   flex-direction: column;
   margin: 1rem;
-  background-color: $color-background-one;
+  background-color: $color-fone;
   border-radius: 0.5rem;
   box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
   padding: 3%;
@@ -59,6 +60,19 @@
 %list {
   list-style-type: none;
   align-self: flex-start;
-  color: $color-primary;
+  color: $color-background-two;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
   @include font(1.5rem, normal);
+  transition: all 0.5s;
+  &:hover {
+    color: $color-second;
+  }
+}
+
+%title {
+  color: $color-second;
+  letter-spacing: 0.2rem;
+  text-shadow: 0.06rem 0.6rem 0.6rem $color-blue;
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
 }
