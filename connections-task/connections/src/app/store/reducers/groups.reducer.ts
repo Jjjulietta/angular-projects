@@ -18,8 +18,7 @@ export const groupReducer = createReducer(
   on(GroupsActions.addGroup, (state, { group }) => ({
     ...state,
     isLoading: false,
-    groups: state.groups,
-    group,
+    groups: state.groups ? state.groups?.concat(group) : null,
   })),
   on(GroupsActions.retrievedGroups, (state, { groups }) => ({
     ...state,
@@ -32,6 +31,8 @@ export const groupReducer = createReducer(
   })),
   on(GroupsActions.deleteGroup, (state, { groupId }) => ({
     ...state,
-    ...state.groups?.filter((item) => item.id !== groupId),
+    groups: state.groups
+      ? state.groups?.filter((item) => item.id !== groupId)
+      : null,
   }))
 );
