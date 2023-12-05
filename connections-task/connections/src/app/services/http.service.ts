@@ -6,7 +6,12 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, tap, throwError } from 'rxjs';
-import { Conversation, ConversationsModel } from '../models/conversation.model';
+import {
+  Conversation,
+  ConversationsModel,
+  Message,
+  MessagesModel,
+} from '../models/conversation.model';
 import { Group, GroupsModel } from '../models/group.model';
 import {
   AuthUser,
@@ -32,6 +37,13 @@ export class HttpService {
   private GROUPS_DELETE = 'groups/delete';
   private USERS = 'users';
   private CONVERSATIONS_LIST = 'conversations/list';
+  private CONVERSATIONS_CREATE = 'conversations/create';
+  private CONVERSATIONS_READ = 'conversations/read';
+  private CONVERSATIONS_APPEND = 'conversations/append';
+  /*private GROUP_LIST = 'group/list';
+  private GROUP_CREATE = 'group/create';
+  private GROUP_READ = 'group/read';
+  private GROUP_APPEND = 'group/append';*/
   //private URL = 'https://tasks.app.rs.school/angular/registration';
   constructor(private httpClient: HttpClient, private toast: ToastService) {}
 
@@ -157,6 +169,59 @@ export class HttpService {
             return obj;
           });
         }),
+        catchError(this.handleError)
+      );
+  }
+
+  createConversation(userId: string) {
+    return this.httpClient
+      .post<{ conversationID: string }>(this.CONVERSATIONS_CREATE, {
+        companion: userId,
+      })
+      .pipe(
+        map((val) => {
+          const obj: Conversation = {
+            id: val.conversationID,
+            companionID: userId,
+          };
+          return obj;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  getMessages(convId: string, date?: number) {
+    const params = new HttpParams()
+      .set('conversationID', convId)
+      .set('since', `${date}`);
+    return this.httpClient
+      .get<MessagesModel>(this.CONVERSATIONS_READ, { params: params })
+      .pipe(
+        map((r) => {
+          console.log(r);
+          return r.Items.map((item) => {
+            const obj: Message = {
+              authorID: item.authorID.S,
+              message: item.message.S,
+              createdAt: item.createdAt.S,
+            };
+            return obj;
+          });
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  sendMessage(convId: string, message: string) {
+    console.log(message);
+    console.log(convId);
+    return this.httpClient
+      .post(this.CONVERSATIONS_APPEND, {
+        conversationID: convId,
+        message: message,
+      })
+      .pipe(
+        tap((r) => console.log(r)),
         catchError(this.handleError)
       );
   }
