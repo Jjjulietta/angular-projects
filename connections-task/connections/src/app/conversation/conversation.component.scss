@@ -1,0 +1,89 @@
+@import "./../../sass/plaseholder";
+@import "./../../sass/constants";
+@import "./../../sass/mixins";
+
+:host {
+  font-family: $font-family;
+  //margin: 1rem;
+}
+.wrapper {
+  background-image: url("./../../assets/1659698090_20-kartinkin-net-p-zastavka-dlya-chata-krasivo-20.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.link {
+  display: inline-block;
+  padding: 0.5rem;
+  @include font(1.5rem, 800, normal);
+  color: $color-background-two;
+  box-shadow: 0.3rem 0.3rem 0.8rem $color-background-one;
+  border-radius: 0.5rem;
+  transition: all 0.5s;
+  cursor: pointer;
+  &:hover {
+    color: $color-red;
+  }
+}
+
+.header-container {
+  @extend %flex;
+  margin-bottom: 1.5rem;
+}
+
+.main-container {
+  display: flex;
+}
+
+.conversations-container {
+  @extend %flex;
+  width: 70%;
+  height: auto;
+  @extend %container;
+  margin: 0 auto;
+  @include font(1rem, normal);
+}
+
+.list-messages {
+  width: 100%;
+  @extend %flex;
+  flex-direction: column;
+}
+
+.input {
+  align-self: flex-end;
+  @extend %flex;
+  //flex-direction: column;
+}
+
+.message {
+  align-self: flex-start;
+  width: 40%;
+  min-height: 1rem;
+  @extend %message;
+}
+
+.input-text {
+  @include font(1rem, normal);
+  background-color: inherit;
+  border: none;
+  width: 70%;
+  height: auto;
+  box-shadow: 0.3rem 0.3rem 0.3rem $color-background-one;
+  color: $color-background-two;
+  &:focus {
+    border: none;
+  }
+}
+.button-container {
+  @extend %flex;
+  flex-direction: column;
+  height: 5rem;
+}
+
+.btn {
+  @extend %btn-secondary;
+  padding: 0.5rem;
+}

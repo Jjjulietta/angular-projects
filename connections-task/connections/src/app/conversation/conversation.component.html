@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <div class="header-container">
+    <a routerLink="/" class="link">BACK TO MAIN</a>
+  </div>
+  <div class="main-container">
+    <div class="button-container">
+      <button type="button" class="btn">UPDATE</button>
+      <button type="button" class="btn">DELETE</button>
+    </div>
+
+    <div class="conversations-container">
+      <ul class="list-messages">
+        <li *ngFor="let message of messages" class="{{ message }}">
+          <div class="message-block">
+            <span class="message-date">{{ message.createdAt | date }}</span>
+            <span class="message-name">{{ message.authorID }}</span>
+            <span class="message-text">{{ message.message }}</span>
+          </div>
+        </li>
+        <li class="{{ message }}">hhhhhh</li>
+        <form class="input" (submit)="sendMessage()">
+          <textarea
+            type="text"
+            [(ngModel)]="text"
+            name="text"
+            class="input-text"
+          ></textarea>
+          <button type="submit" class="btn">submit</button>
+        </form>
+      </ul>
+    </div>
+  </div>
+</div>
