@@ -25,6 +25,24 @@
   }
 }
 
+%btn-secondary {
+  background-color: $color-blue;
+  @extend %flex;
+  width: auto;
+  height: auto;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0.2rem 0.3rem 0.6rem $color-second;
+  border: none;
+  color: $color-white;
+  cursor: pointer;
+  &:hover {
+    transition: all 0.5s;
+    background-color: aqua;
+    color: $color-primary;
+  }
+}
+
 %toast {
   position: absolute;
   z-index: 10;
@@ -54,6 +72,17 @@
   background-color: $color-fone;
   border-radius: 0.5rem;
   box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
+  padding: 3%;
+}
+
+%message {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  color: $color-background-two;
+  margin: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-background-two;
   padding: 3%;
 }
 
