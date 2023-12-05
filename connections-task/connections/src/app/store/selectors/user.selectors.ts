@@ -5,3 +5,4 @@ import { AppState, UserData } from '../store.model';
 export const selectUser = createFeatureSelector<UserData>('user');
 
 export const selectUserData = createSelector(selectUser, (s1) => s1.authUser);
+export const selectUserId = createSelector(selectUser, (s1) => s1.authUser?.id);
