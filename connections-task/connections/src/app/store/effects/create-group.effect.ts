@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { mergeMap, map, catchError, of, exhaustMap, switchMap } from 'rxjs';
 import { Group } from 'src/app/models/group.model';
+import { ToastMessage, ToastState } from 'src/app/models/toast.model';
 import { HttpService } from 'src/app/services/http.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { GroupsActions } from '../actions/groups.action';
 
 @Injectable()
@@ -16,11 +18,16 @@ export class CreateGroupEffects {
           map((val) => {
             console.log(val);
             const obj: Group = {
-              id: val.id,
+              id: val.groupID,
               name: name,
               createdAt: '',
               createdBy: '',
+              myGroup: 'true,',
             };
+            this.toast.showToast(
+              ToastMessage.SiccessCreate,
+              ToastState.Sucsess
+            );
             return GroupsActions.addGroup({ group: obj });
           }),
           catchError((error) =>
@@ -31,5 +38,9 @@ export class CreateGroupEffects {
     )
   );
 
-  constructor(private actions$: Actions, private service: HttpService) {}
+  constructor(
+    private actions$: Actions,
+    private service: HttpService,
+    private toast: ToastService
+  ) {}
 }
