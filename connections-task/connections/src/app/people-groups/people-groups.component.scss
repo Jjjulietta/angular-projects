@@ -5,14 +5,22 @@
 :host {
   position: relative;
   font-family: $font-family;
-  margin: 1rem;
+  margin: 0 auto;
+}
+
+.wrapper {
+  margin: 0 auto;
+  background-image: url("./../../assets/1659698144_64-kartinkin-net-p-zastavka-dlya-chata-krasivo-69.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 1rem;
 }
 
 .profile-header {
   @extend %flex;
   flex-wrap: wrap;
   margin: 1rem;
-  background-color: $color-background-grey;
+  background-color: $color-fone;
   border-radius: 0.5rem;
   box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
   padding: 1rem;
@@ -22,6 +30,13 @@ h1 {
   letter-spacing: 0.2rem;
   @include font(2.3rem, 900, normal);
   text-shadow: 0.06rem 0.6rem 0.6rem $color-blue;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 1rem;
 }
 
 .btn {
@@ -61,20 +76,52 @@ input {
   padding: 0.3rem;
 }
 
-.groups-container {
+.container {
   width: 40%;
   height: auto;
   @extend %container;
+  background-color: $color-fone-second;
+}
+
+.list {
+  overflow-y: scroll;
+  height: 80vh;
+  box-shadow: 0.3rem 0.3rem 0.8rem $color-background-one;
+  width: auto;
+  padding: 10%;
+  border-radius: 0.5rem;
 }
 
 .button-container {
   align-self: flex-start;
-  width: 50%;
+  width: 80%;
   @extend %flex;
   flex-wrap: wrap;
   border-bottom: 0.2rem $color-primary;
+  margin-bottom: 0.8rem;
+}
+
+.title {
+  justify-content: flex-end;
+  @extend %title;
+  @include font(1.5rem, 800, normal);
 }
 
 li {
   @extend %list;
+}
+
+.delete {
+  border-radius: 50%;
+}
+
+button:disabled {
+  background-color: $color-grey-dark;
+  cursor: not-allowed;
+}
+
+.companion {
+  background-color: $color-blue;
+  box-shadow: 0.3rem 0.3rem 0.8rem $color-background-one;
+  border-radius: 0.5rem;
 }
