@@ -8,7 +8,7 @@ export interface ConversationModel {
   companionID: { S: string };
 }
 
-export interface ConversationMessages {
+export interface MessagesModel {
   count: number;
   Items: MessageModel[];
 }
@@ -16,7 +16,7 @@ export interface ConversationMessages {
 export interface MessageModel {
   authorID: { S: string };
   message: { S: string };
-  CreatedAt: { S: string };
+  createdAt: { S: string };
 }
 
 export interface Conversations {
@@ -26,4 +26,10 @@ export interface Conversations {
 export interface Conversation {
   id: string;
   companionID: string;
+}
+
+export interface Message {
+  authorID: string;
+  message: string;
+  createdAt: string;
 }
