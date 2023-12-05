@@ -32,6 +32,20 @@ const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
+  {
+    path: 'group/:groupID',
+    loadComponent: () =>
+      import('./conversation/conversation.component').then(
+        (m) => m.ConversationComponent
+      ),
+  },
+  {
+    path: 'conversation/:conversationID',
+    loadComponent: () =>
+      import('./conversation/conversation.component').then(
+        (m) => m.ConversationComponent
+      ),
+  },
 ];
 
 @NgModule({
