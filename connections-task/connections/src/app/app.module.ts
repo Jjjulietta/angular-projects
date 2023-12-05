@@ -28,6 +28,14 @@ import { ToastService } from './services/toast.service';
 import { GroupsEffects } from './store/effects/groups.effect';
 import { groupReducer } from './store/reducers/groups.reducer';
 import { CreateGroupEffects } from './store/effects/create-group.effect';
+import { PeopleReducer } from './store/reducers/people.reducer';
+import { PeopleEffects } from './store/effects/people.effect';
+import { ConversationComponent } from './conversation/conversation.component';
+import { conversationsReducer } from './store/reducers/conversations.reducer';
+import { ConversationsEffects } from './store/effects/conversations.effect';
+import { CreateConversationEffect } from './store/effects/create-conversation.effect';
+import { messagesReducer } from './store/reducers/messages.reducer';
+import { MessagesEffect } from './store/effects/messages.effect';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,13 +48,27 @@ import { CreateGroupEffects } from './store/effects/create-group.effect';
     LoginComponent,
     ProfileComponent,
     PeopleGroupsComponent,
+    ConversationComponent,
     ToastComponent,
-    StoreModule.forRoot({ user: userReducer, groups: groupReducer }, {}),
+    StoreModule.forRoot(
+      {
+        user: userReducer,
+        groups: groupReducer,
+        people: PeopleReducer,
+        conversations: conversationsReducer,
+        messages: messagesReducer,
+      },
+      {}
+    ),
     EffectsModule.forRoot([
       UserEffects,
       UpdateUserEffects,
       GroupsEffects,
       CreateGroupEffects,
+      PeopleEffects,
+      ConversationsEffects,
+      CreateConversationEffect,
+      MessagesEffect,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
