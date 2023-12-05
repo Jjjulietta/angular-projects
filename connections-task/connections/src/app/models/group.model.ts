@@ -23,4 +23,5 @@ export interface Group {
   name: string;
   createdAt: string;
   createdBy: string;
+  myGroup?: string;
 }
