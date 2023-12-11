@@ -1,5 +1,5 @@
 <div class="form login" *ngIf="authForm">
-  <h1>Login</h1>
+  <h1 class="title">Login</h1>
   <form [formGroup]="authForm" (ngSubmit)="authForm.valid && onSubmit()">
     <div *ngIf="authForm.controls['email'].pristine" class="alert">
       <div>Please enter a login email</div>
@@ -72,6 +72,6 @@
   </form>
   <div>
     or
-    <a [routerLink]="['/signup']">sign up</a>
+    <a [routerLink]="['/signup']" class="link">sign up</a>
   </div>
 </div>

@@ -1,29 +1,33 @@
-<div class="profile-header">
-  <h1>PROFILE</h1>
-  <button type="button" class="btn" (click)="backMain()">back to main</button>
-  <button type="button" class="btn logout" (click)="logout()">Logout</button>
-</div>
-<div class="profile-container">
-  <ul class="list">
-    <li>
-      user id<span>{{ userId }}</span>
-    </li>
-    <li>
-      name<span>{{ userName }}</span>
+<div class="wrapper">
+  <div class="header-component">
+    <h1 class="title">PROFILE</h1>
+    <button type="button" class="btn" (click)="backMain()">back to main</button>
+    <button type="button" class="btn logout" (click)="logout()">Logout</button>
+  </div>
+  <div class="profile-container">
+    <ul class="list">
+      <li>
+        user id:<span class="user-data">{{ userId }}</span>
+      </li>
+      <li>
+        name:<span class="user-data">{{ userName }}</span>
 
-      <input *ngIf="isShown" type="text" [(ngModel)]="nextName" />
-    </li>
-    <li>
-      email<span>{{ userEmail }}</span>
-    </li>
-    <li>
-      date <span>{{ dateLong }}</span>
-    </li>
-  </ul>
-  <div class="btn-container">
-    <button type="button" class="btn" (click)="onClick()">{{ button }}</button>
-    <button type="button" class="btn reset" *ngIf="isShown" (click)="reset()">
-      cancel
-    </button>
+        <input *ngIf="isShown" type="text" [(ngModel)]="nextName" />
+      </li>
+      <li>
+        email:<span class="user-data">{{ userEmail }}</span>
+      </li>
+      <li>
+        date: <span class="user-data">{{ date | date : "medium" }}</span>
+      </li>
+    </ul>
+    <div class="btn-container">
+      <button type="button" class="btn" (click)="onClick()">
+        {{ button }}
+      </button>
+      <button type="button" class="btn reset" *ngIf="isShown" (click)="reset()">
+        cancel
+      </button>
+    </div>
   </div>
 </div>

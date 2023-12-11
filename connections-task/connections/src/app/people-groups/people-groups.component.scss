@@ -3,33 +3,26 @@
 @import "./../../sass/constants";
 
 :host {
-  position: relative;
+  //position: relative;
   font-family: $font-family;
   margin: 0 auto;
 }
 
 .wrapper {
-  margin: 0 auto;
-  background-image: url("./../../assets/1659698144_64-kartinkin-net-p-zastavka-dlya-chata-krasivo-69.jpg");
+  //margin: 0 auto;
+  background-image: var(--wrapper-background-image-main);
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 1rem;
+
+  //padding: 1rem;
 }
 
-.profile-header {
-  @extend %flex;
-  flex-wrap: wrap;
-  margin: 1rem;
-  background-color: $color-fone;
-  border-radius: 0.5rem;
-  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
-  padding: 1rem;
+.header-component {
+  @extend %header;
 }
 h1 {
-  color: $color-primary;
-  letter-spacing: 0.2rem;
   @include font(2.3rem, 900, normal);
-  text-shadow: 0.06rem 0.6rem 0.6rem $color-blue;
+  @extend %title;
 }
 
 .main-container {
@@ -44,20 +37,23 @@ h1 {
   @include font(1rem, normal);
   padding: 0.6rem;
   letter-spacing: 0.1rem;
+  //background-color: var(--background-color-btn-primary);
 }
 
 .popap {
   position: absolute;
   z-index: 10;
   @extend %flex;
+  flex-direction: column;
   left: 20vw;
   width: auto;
   height: 5rem;
-  top: 35vh;
-  background-color: $color-background-grey;
+  top: 45vh;
+  background-color: $color-background-two;
+  color: $color-darkblue;
   padding: 0 1rem;
   border-radius: 0.5rem;
-  box-shadow: 0.3rem 0.3rem 0.8rem $color-grey-dark;
+  box-shadow: 0.06rem 0.6rem 0.06rem var(--color-box-shadow-container);
 }
 
 .popap-form {
@@ -80,13 +76,15 @@ input {
   width: 40%;
   height: auto;
   @extend %container;
-  background-color: $color-fone-second;
+  //background-color: var(--background-color-container); //$color-fone-second;
 }
 
 .list {
   overflow-y: scroll;
   height: 80vh;
-  box-shadow: 0.3rem 0.3rem 0.8rem $color-background-one;
+  /*box-shadow: var(
+    --color-box-shadow-container
+  );*/ //0.3rem 0.3rem 0.8rem $color-background-one;
   width: auto;
   padding: 10%;
   border-radius: 0.5rem;
@@ -115,13 +113,9 @@ li {
   border-radius: 50%;
 }
 
-button:disabled {
-  background-color: $color-grey-dark;
-  cursor: not-allowed;
-}
-
 .companion {
   background-color: $color-blue;
   box-shadow: 0.3rem 0.3rem 0.8rem $color-background-one;
   border-radius: 0.5rem;
+  color: $color-white;
 }

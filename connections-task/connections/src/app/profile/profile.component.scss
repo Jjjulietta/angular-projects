@@ -4,35 +4,32 @@
 
 :host {
   font-family: $font-family;
-  margin: 1rem;
+  //margin: 1rem;
 }
 
-.profile-header {
-  @extend %flex;
-  flex-wrap: wrap;
-  margin: 1rem;
-  background-color: $color-background-grey;
-  border-radius: 0.5rem;
-  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem $color-primary;
-  padding: 1rem;
+.wrapper {
+  background-image: var(
+    --wrapper-background-image-profile
+  ); //url("./../../assets/1659719355_13-kartinkin-net-p-zastavka-dlya-messendzhera-krasivo-14.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.header-component {
+  @extend %header;
 }
 h1 {
-  color: $color-primary;
-  letter-spacing: 0.2rem;
-  text-shadow: 0.06rem 0.1rem 0.1rem $color-grey-dark;
+  @include font(2.3rem, 900, normal);
+  @extend %title;
 }
 
 .profile-container {
-  width: 30%;
-  height: 70vh;
-  margin: 1rem;
-  @extend %flex;
-  flex-direction: column;
-
-  background-color: $color-background-one;
-  border-radius: 0.5rem;
-  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem $color-primary;
-  padding: 3%;
+  width: 50%;
+  height: 60vh;
+  margin: 0.8rem;
+  @extend %container;
+  background-color: var(--background-color-container-second);
 }
 
 .list {
@@ -49,8 +46,8 @@ span {
 .list > li {
   list-style-type: none;
   align-self: flex-start;
-  color: $color-second;
-  @include font(1.5rem, normal);
+  color: var(--color);
+  @include font(1.4rem, normal);
 }
 
 .btn {
@@ -76,4 +73,8 @@ input {
   border: none;
   margin-left: 2rem;
   vertical-align: middle;
+}
+
+.user-data {
+  @include font(1.6rem, 600, italic);
 }

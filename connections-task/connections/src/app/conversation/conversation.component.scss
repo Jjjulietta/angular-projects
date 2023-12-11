@@ -7,10 +7,10 @@
   //margin: 1rem;
 }
 .wrapper {
-  background-image: url("./../../assets/1659698090_20-kartinkin-net-p-zastavka-dlya-chata-krasivo-20.jpg");
+  background-image: var(--wrapper-background-image-dialog);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  margin: 0 auto;
   padding: 1rem;
 }
 
@@ -18,8 +18,8 @@
   display: inline-block;
   padding: 0.5rem;
   @include font(1.5rem, 800, normal);
-  color: $color-background-two;
-  box-shadow: 0.3rem 0.3rem 0.8rem $color-background-one;
+  color: var(--color);
+  box-shadow: 0.3rem 0.3rem 0.8rem var(--color);
   border-radius: 0.5rem;
   transition: all 0.5s;
   cursor: pointer;
@@ -40,10 +40,25 @@
 .conversations-container {
   @extend %flex;
   width: 70%;
-  height: auto;
+  height: 100vh;
   @extend %container;
+  background-color: var(--background-color-container-second);
   margin: 0 auto;
-  @include font(1rem, normal);
+  @include font(0.8rem, normal);
+  overflow-y: scroll;
+}
+
+.message-text {
+  padding-top: 0.5rem;
+  @include font(1rem, 600, normal);
+}
+.message-block {
+  @extend %flex;
+  flex-direction: column;
+  align-items: flex-start;
+  & > * {
+    margin-bottom: 0.2rem;
+  }
 }
 
 .list-messages {
@@ -55,24 +70,35 @@
 .input {
   align-self: flex-end;
   @extend %flex;
+  width: 50%;
   //flex-direction: column;
 }
 
 .message {
   align-self: flex-start;
-  width: 40%;
+  width: 50%;
   min-height: 1rem;
+  vertical-align: left;
   @extend %message;
+  align-items: flex-start;
+}
+
+.me-message {
+  align-items: flex-end;
+}
+.me {
+  align-self: flex-end;
+  align-items: flex-end;
 }
 
 .input-text {
   @include font(1rem, normal);
   background-color: inherit;
   border: none;
-  width: 70%;
+  width: 80%;
   height: auto;
   box-shadow: 0.3rem 0.3rem 0.3rem $color-background-one;
-  color: $color-background-two;
+  color: var(--color);
   &:focus {
     border: none;
   }
@@ -86,4 +112,24 @@
 .btn {
   @extend %btn-secondary;
   padding: 0.5rem;
+}
+
+.popap {
+  position: absolute;
+  top: 45vh;
+  left: 35vw;
+  width: auto;
+  height: auto;
+  background-color: $color-background-two;
+  color: $color-darkblue;
+  @extend %container;
+}
+
+.popap-text {
+  margin-bottom: 1rem;
+}
+
+.btn-container {
+  width: 80%;
+  @extend %flex;
 }

@@ -33,6 +33,10 @@ form {
     margin-bottom: 0.65rem;
   }
 }
+
+.title {
+  color: $color-darkblue;
+}
 .password-container {
   width: 100%;
 }
@@ -106,4 +110,13 @@ label.label.login {
 button:disabled {
   cursor: not-allowed;
   background-color: $color-background-grey;
+}
+
+.link {
+  color: $color-darkblue;
+  cursor: pointer;
+  &:hover {
+    transition: all 0.5s;
+    color: $color-primary;
+  }
 }
