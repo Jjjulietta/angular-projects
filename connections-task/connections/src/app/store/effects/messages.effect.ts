@@ -9,11 +9,13 @@ export class MessagesEffect {
   getMessages$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MessagesActions.getMessages),
-      mergeMap(({ userId, date }) =>
-        this.service.getMessages(userId, date).pipe(
-          map((val) =>
-            MessagesActions.retrievedMessages({ userId, messages: val })
-          ),
+      mergeMap(({ userId, token, date }) =>
+        this.service.getMessages(userId, token, date).pipe(
+          map((val) => {
+            let arr = val.slice(0);
+            arr.sort((a, b) => +a.createdAt - +b.createdAt);
+            return MessagesActions.retrievedMessages({ userId, messages: arr });
+          }),
           catchError((error) =>
             of(MessagesActions.getMessagesError({ error: error.message }))
           )
