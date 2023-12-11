@@ -6,5 +6,18 @@ import { MessagesActions } from '../actions/messages.actions';
 
 @Injectable()
 export class CreateMessagesEffect {
+  addMessages$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MessagesActions.createMessages),
+      mergeMap(({ userId, token, date }) =>
+        this.service.getMessages(userId, token, date).pipe(
+          map((val) => MessagesActions.addMessages({ userId, messages: val })),
+          catchError((error) =>
+            of(MessagesActions.getMessagesError({ error: error.message }))
+          )
+        )
+      )
+    )
+  );
   constructor(private actions$: Actions, private service: HttpService) {}
 }
