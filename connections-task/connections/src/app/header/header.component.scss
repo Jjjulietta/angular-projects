@@ -1,0 +1,19 @@
+@import "./../../sass/constants";
+@import "./../../sass/plaseholder";
+@import "./../../sass/mixins";
+
+.header {
+  @extend %flex;
+  width: 100%;
+  background-image: var(--wrapper-background-image-header);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.app-title {
+  @extend %title;
+  @include font(4rem, normal);
+  //text-shadow: rgb(189, 189, 214);
+  /*background-image: url("./../../assets/icons8-chat-50.png");
+  background-repeat: no-repeat;*/
+}
