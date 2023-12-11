@@ -4,20 +4,32 @@
   </div>
   <div class="main-container">
     <div class="button-container">
-      <button type="button" class="btn">UPDATE</button>
-      <button type="button" class="btn">DELETE</button>
+      <app-button-update [context]="context"></app-button-update>
+      <button type="button" *ngIf="isShown" class="btn" (click)="openPopap()">
+        DELETE
+      </button>
     </div>
 
     <div class="conversations-container">
       <ul class="list-messages">
-        <li *ngFor="let message of messages" class="{{ message }}">
-          <div class="message-block">
-            <span class="message-date">{{ message.createdAt | date }}</span>
-            <span class="message-name">{{ message.authorID }}</span>
+        <li
+          *ngFor="let message of messages"
+          class="{{ message.authorID ? 'message' : 'message me' }}"
+        >
+          <div
+            class="{{
+              message.authorID ? 'message-block' : 'message-block me-message'
+            }}"
+          >
+            <span class="message-date">{{
+              message.createdAt | date : "short"
+            }}</span>
+            <span class="message-name">{{
+              message.authorID ? message.authorID : "me"
+            }}</span>
             <span class="message-text">{{ message.message }}</span>
           </div>
         </li>
-        <li class="{{ message }}">hhhhhh</li>
         <form class="input" (submit)="sendMessage()">
           <textarea
             type="text"
@@ -29,5 +41,12 @@
         </form>
       </ul>
     </div>
+  </div>
+</div>
+<div class="popap" *ngIf="showPopap">
+  <p class="popap-text">are you sure you want to delete the conversation?</p>
+  <div class="btn-container">
+    <button type="button" class="btn" (click)="delete(id)">delete</button>
+    <button type="button" class="btn" (click)="openPopap()">cancel</button>
   </div>
 </div>
