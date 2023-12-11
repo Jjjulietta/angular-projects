@@ -1,3 +1,6 @@
+@import "./sass/theme";
+@import "./sass/constants";
+
 /* You can add global styles to this file, and also import other style files */
 /*Обнуление*/
 *,
@@ -29,4 +32,11 @@ h5,
 h6 {
   font-weight: inherit;
   font-size: inherit;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: $font-family;
 }

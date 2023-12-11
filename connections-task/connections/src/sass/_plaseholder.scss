@@ -8,13 +8,13 @@
 }
 
 %btn-primary {
-  background-color: $color-primary;
+  background-color: var(--background-color-btn-primary);
   //@extend %flex;
   width: auto;
   height: auto;
   //padding: 0.5rem;
   border-radius: 5px;
-  box-shadow: 0.2rem 0.3rem 0.6rem $color-grey-light;
+  box-shadow: 0.2rem 0.3rem 0.6rem var(--color-box-shadow-btn); //$color-grey-light;
   border: none;
   color: $color-white;
   cursor: pointer;
@@ -26,7 +26,7 @@
 }
 
 %btn-secondary {
-  background-color: $color-blue;
+  background-color: var(--background-color-btn-secondary);
   @extend %flex;
   width: auto;
   height: auto;
@@ -69,9 +69,9 @@
   @extend %flex;
   flex-direction: column;
   margin: 1rem;
-  background-color: $color-fone;
+  //background-color: $color-fone;
   border-radius: 0.5rem;
-  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem var(--color-box-shadow-container);
   padding: 3%;
 }
 
@@ -79,17 +79,17 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  color: $color-background-two;
+  color: var(--color);
   margin: 1rem;
   border-radius: 0.5rem;
-  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-background-two;
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem var(--color-box-shadow-container);
   padding: 3%;
 }
 
 %list {
   list-style-type: none;
   align-self: flex-start;
-  color: $color-background-two;
+  color: var(--color);
   cursor: pointer;
   margin-bottom: 0.5rem;
   @include font(1.5rem, normal);
@@ -100,8 +100,20 @@
 }
 
 %title {
-  color: $color-second;
+  color: var(--color-title);
   letter-spacing: 0.2rem;
-  text-shadow: 0.06rem 0.6rem 0.6rem $color-blue;
-  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
+  //text-shadow: 0.06rem 0.6rem 0.6rem var(--color-text-shadow);
+  text-shadow: 0px 0px 5px #b393d3, 0px 0px 10px var(--color-title-shadow),
+    0px 0px 10px #b393d3, 0px 0px 20px var(--color-title-shadow);
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem var(--color-box-shadow-btn);
+  padding: 0.5rem;
+}
+
+%header {
+  @extend %flex;
+  flex-wrap: wrap;
+  //margin: 1rem;
+  border-radius: 0.5rem;
+  //box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
+  padding: 1rem;
 }

@@ -1,0 +1,39 @@
+@import "./constants";
+//@import "./../assets/1659698105_39-kartinkin-net-p-zastavka-dlya-chata-krasivo-41.jpg";
+
+[data-theme="light"] {
+  --wrapper-background-image-main: url("./../assets/owl.jpg");
+  --wrapper-background-image-profile: url("./../assets/1659719355_13-kartinkin-net-p-zastavka-dlya-messendzhera-krasivo-14.png");
+  --wrapper-background-image-dialog: url("./../assets/apple.jpg");
+  --wrapper-background-image-header: url("./../assets/romantic.jpg");
+  //--background-color-container: */
+  --background-color-btn-primary: rgb(29, 29, 121);
+  --background-color-btn-secondary: rgb(84, 32, 114);
+  --background-color-container: rgba(184, 184, 196, 0.2);
+  --background-color-container-second: rgba(229, 229, 240, 0.5);
+  --color-box-shadow-container: rgb(123, 123, 148);
+  --color-box-shadow-btn: #644e8d;
+  --color-text-shadow: rgba(112, 14, 223, 0.5);
+  --color-title-shadow: #edf88d;
+  --color-btn: #e5e5e5;
+  --color-title: rgb(50, 50, 95);
+  --color: rgb(50, 50, 95);
+}
+
+[data-theme="dark"] {
+  --wrapper-background-image-main: url("./../assets/monster.jpg");
+  --wrapper-background-image-profile: url("./../assets/kat2.jpg");
+  --wrapper-background-image-dialog: url("./../assets/sky.jpg");
+  --wrapper-background-image-header: url("./../assets/sky2.jpg");
+  --background-color-btn-primary: #2f80ed;
+  --background-color-btn-secondary: rgb(139, 139, 172);
+  --background-color-container: rgba(82, 82, 88, 0.2);
+  --background-color-container-second: rgba(30, 30, 37, 0.5);
+  --color-box-shadow-container: rgb(139, 139, 172);
+  --color-box-shadow-btn: #929292;
+  --color-text-shadow: rgb(139, 139, 172);
+  --color-title-shadow: #b393d3;
+  --color-btn: #e5e5e5;
+  --color-title: #edf88d; // #ecbee9; // #5ea2ff;
+  --color: #e5e5e5;
+}
