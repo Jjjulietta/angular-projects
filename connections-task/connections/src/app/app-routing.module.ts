@@ -17,13 +17,6 @@ const routes: Routes = [
         (m) => m.RegistrationComponent
       ),
   },
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
-  {
-    path: 'profile',
-    loadComponent: () =>
-      import('./profile/profile.component').then((m) => m.ProfileComponent),
-    canActivate: [authGuard],
-  },
   {
     path: 'main',
     loadComponent: () =>
@@ -32,18 +25,41 @@ const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
+
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./profile/profile.component').then((m) => m.ProfileComponent),
+    canActivate: [authGuard],
+  },
   {
     path: 'group/:groupID',
     loadComponent: () =>
       import('./conversation/conversation.component').then(
         (m) => m.ConversationComponent
       ),
+    canActivate: [authGuard],
   },
   {
     path: 'conversation/:conversationID',
     loadComponent: () =>
       import('./conversation/conversation.component').then(
         (m) => m.ConversationComponent
+      ),
+    canActivate: [authGuard],
+  },
+  {
+    path: '',
+    redirectTo: '/main',
+    pathMatch: 'full',
+    //canActivate: [authGuard],
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./not-found/not-found.component').then(
+        (m) => m.NotFoundComponent
       ),
   },
 ];

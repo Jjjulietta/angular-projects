@@ -36,6 +36,12 @@ import { ConversationsEffects } from './store/effects/conversations.effect';
 import { CreateConversationEffect } from './store/effects/create-conversation.effect';
 import { messagesReducer } from './store/reducers/messages.reducer';
 import { MessagesEffect } from './store/effects/messages.effect';
+import { ButtonUpdateComponent } from './button-update/button-update.component';
+import { CreateMessagesEffect } from './store/effects/create-messages.effect';
+import { ThemeComponent } from './theme/theme.component';
+import { HeaderComponent } from './header/header.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,7 +55,11 @@ import { MessagesEffect } from './store/effects/messages.effect';
     ProfileComponent,
     PeopleGroupsComponent,
     ConversationComponent,
+    ButtonUpdateComponent,
     ToastComponent,
+    ThemeComponent,
+    HeaderComponent,
+    NotFoundComponent,
     StoreModule.forRoot(
       {
         user: userReducer,
@@ -69,6 +79,7 @@ import { MessagesEffect } from './store/effects/messages.effect';
       ConversationsEffects,
       CreateConversationEffect,
       MessagesEffect,
+      CreateMessagesEffect,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
@@ -80,6 +91,7 @@ import { MessagesEffect } from './store/effects/messages.effect';
     },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HttpService },
+    { provide: AuthService },
     { provide: UnsubscribeService },
     { provide: ToastService },
   ],
