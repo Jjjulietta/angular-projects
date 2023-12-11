@@ -16,6 +16,7 @@ import { ToastComponent } from '../toast/toast.component';
 import { UnsubscribeService } from '../services/unsubscribe.service';
 import { takeUntil } from 'rxjs';
 import { ToastMessage, ToastState } from '../models/toast.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,8 @@ export class LoginComponent {
     private router: Router,
     private httpService: HttpService,
     private unsubscribe$: UnsubscribeService,
-    public toastService: ToastService
+    public toastService: ToastService,
+    private authService: AuthService
   ) {
     /*this.authService.user.subscribe((val: Auth) => {
       this.user = val;
@@ -75,7 +77,8 @@ export class LoginComponent {
       const bodyLogin = this.authForm.getRawValue();
       this.authForm.reset();
       console.log(bodyLogin);
-      this.httpService
+      this.authService.auth(bodyLogin);
+      /*this.httpService
         .login(bodyLogin)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
