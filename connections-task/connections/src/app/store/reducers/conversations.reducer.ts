@@ -33,5 +33,11 @@ export const conversationsReducer = createReducer(
     conversations: state.conversations
       ? state.conversations?.concat(conversation)
       : null,
+  })),
+  on(ConversationsActions.deleteConversation, (state, { convId }) => ({
+    ...state,
+    conversations: state.conversations
+      ? state.conversations.filter((item) => item.id !== convId)
+      : null,
   }))
 );

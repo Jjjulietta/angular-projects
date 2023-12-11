@@ -9,5 +9,6 @@ export const ConversationsActions = createActionGroup({
     'Get Conversations': emptyProps,
     'Retrieved Conversations': props<{ items: Conversation[] }>(),
     'Get Conversations Error': props<{ error: string }>(),
+    'Delete Conversation': props<{ convId: string }>(),
   },
 });
