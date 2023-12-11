@@ -20,7 +20,12 @@ import {
   User,
   UserProfile,
 } from '../models/login.model.ts';
-import { People, PeopleModel, UserModel } from '../models/people.model';
+import {
+  People,
+  PeopleModel,
+  UserModel,
+  UserModelTwo,
+} from '../models/people.model';
 import { ToastState } from '../models/toast.model';
 import { PeopleData, UserData } from '../store/store.model';
 import { ToastService } from './toast.service';
@@ -40,10 +45,11 @@ export class HttpService {
   private CONVERSATIONS_CREATE = 'conversations/create';
   private CONVERSATIONS_READ = 'conversations/read';
   private CONVERSATIONS_APPEND = 'conversations/append';
-  /*private GROUP_LIST = 'group/list';
-  private GROUP_CREATE = 'group/create';
-  private GROUP_READ = 'group/read';
-  private GROUP_APPEND = 'group/append';*/
+  private CONVERSATIONS_DELETE = 'conversations/delete';
+  //private GROUP_LIST = 'group/list';
+  //private GROUP_CREATE = 'group/create';
+  private GROUPS_READ = 'groups/read';
+  private GROUPS_APPEND = 'groups/append';
   //private URL = 'https://tasks.app.rs.school/angular/registration';
   constructor(private httpClient: HttpClient, private toast: ToastService) {}
 
@@ -67,9 +73,9 @@ export class HttpService {
     return this.httpClient.post<AuthUser>(`${this.LOGIN}`, body).pipe(
       tap((r) => {
         console.log(r);
-        const obj = Object.assign(r);
+        const obj: AuthUser = Object.assign(r);
         obj.email = body.email;
-        localStorage.setItem('authUser', JSON.stringify(obj));
+        return obj;
       }),
       catchError(this.handleError)
     );
@@ -116,7 +122,7 @@ export class HttpService {
             createdAt: item.createdAt.S,
             createdBy: item.createdBy.S,
           };
-          console.log(obj);
+          //console.log(obj);
           return obj;
         });
       }),
@@ -149,6 +155,9 @@ export class HttpService {
         console.log(r);
         return r.Items.map((item) => {
           const obj: UserModel = { name: item.name.S, id: item.uid.S };
+          /*const obj: UserModelTwo = {
+            [item.uid.S]: { id: item.uid.S, name: item.name.S },
+          };*/
           return obj;
         });
       }),
@@ -190,38 +199,59 @@ export class HttpService {
       );
   }
 
-  getMessages(convId: string, date?: number) {
-    const params = new HttpParams()
-      .set('conversationID', convId)
-      .set('since', `${date}`);
-    return this.httpClient
-      .get<MessagesModel>(this.CONVERSATIONS_READ, { params: params })
-      .pipe(
-        map((r) => {
-          console.log(r);
-          return r.Items.map((item) => {
-            const obj: Message = {
-              authorID: item.authorID.S,
-              message: item.message.S,
-              createdAt: item.createdAt.S,
-            };
-            return obj;
-          });
-        }),
-        catchError(this.handleError)
-      );
+  getMessages(convId: string, token: string, date?: number) {
+    let params = new HttpParams();
+    if (date) {
+      params = new HttpParams().set(token, convId).set('since', `${date}`);
+    } else {
+      params = new HttpParams().set(token, convId);
+    }
+    let url: string = '';
+    token === 'conversationID'
+      ? (url = this.CONVERSATIONS_READ)
+      : (url = this.GROUPS_READ);
+    return this.httpClient.get<MessagesModel>(url, { params: params }).pipe(
+      map((r) => {
+        console.log(r);
+        return r.Items.map((item) => {
+          const obj: Message = {
+            authorID: item.authorID.S,
+            message: item.message.S,
+            createdAt: item.createdAt.S,
+          };
+          return obj;
+        });
+      }),
+      catchError(this.handleError)
+    );
   }
 
-  sendMessage(convId: string, message: string) {
+  sendMessage(convId: string, message: string, token: string) {
     console.log(message);
     console.log(convId);
+    let url: string = '';
+    let body = {};
+    if (token === 'conversationID') {
+      url = this.CONVERSATIONS_APPEND;
+      body = { conversationID: convId, message: message };
+    } else {
+      url = this.GROUPS_APPEND;
+      body = { groupID: convId, message: message };
+    }
+    return this.httpClient.post(url, body).pipe(
+      tap((r) => console.log(r)),
+      catchError(this.handleError)
+    );
+  }
+
+  deleteConversations(convId: string) {
     return this.httpClient
-      .post(this.CONVERSATIONS_APPEND, {
-        conversationID: convId,
-        message: message,
+      .delete(this.CONVERSATIONS_DELETE, {
+        observe: 'response',
+        params: { conversationID: convId },
       })
       .pipe(
-        tap((r) => console.log(r)),
+        tap((r) => console.log(r.status)),
         catchError(this.handleError)
       );
   }
