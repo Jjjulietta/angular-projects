@@ -3,7 +3,10 @@ export enum ToastMessage {
   SucsessSignin = 'You have successfully registered!',
   SucsessDelete = 'Group successfully deleted',
   SiccessCreate = 'Group successfulley created',
+  SucsessDeleteConv = 'Conversation successfully deleted',
+  SiccessCreateConv = 'Conversation successfulley created',
   Error = 'error',
+
   ErrorType = 'PrimaryDuplicationException',
 }
 

@@ -12,7 +12,7 @@ export interface Registration {
 export interface AuthUser {
   token: string;
   uid: string;
-  email: string;
+  email?: string;
 }
 
 export interface User {
