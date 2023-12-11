@@ -1,0 +1,11 @@
+<div class="container">
+  <button
+    type="button"
+    class="{{ context }}"
+    [disabled]="disabled"
+    (click)="update()"
+  >
+    UPDATE
+  </button>
+  <span *ngIf="cliced" class="timer">{{ timer }}s</span>
+</div>

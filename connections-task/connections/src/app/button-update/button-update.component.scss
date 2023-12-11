@@ -1,0 +1,38 @@
+@import "./../../sass/plaseholder";
+@import "./../../sass/mixins";
+@import "./../../sass/constants";
+@import "./../../sass/theme";
+
+.container {
+  @extend %flex;
+  & > * {
+    margin-right: 0.5rem;
+  }
+}
+
+.group {
+  @extend %btn-primary;
+  @include font(1rem, normal);
+  padding: 0.6rem;
+  letter-spacing: 0.1rem;
+  background-color: var(--background-color-btn-primary);
+}
+
+.timer {
+  display: block;
+  padding: 0.2rem;
+  color: var(--color); //$color-primary;
+  box-shadow: 0.03rem 0.3rem 0.3rem 0.3rem $color-background-one;
+  border-radius: 50%;
+}
+
+button:disabled {
+  background-color: $color-grey-dark;
+  cursor: not-allowed;
+}
+
+.conversation {
+  @extend %btn-secondary;
+  padding: 0.5rem;
+  //background-color: var(--background-color-btn-secondary);
+}
