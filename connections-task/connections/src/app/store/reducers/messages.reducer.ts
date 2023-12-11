@@ -23,23 +23,23 @@ export const messagesReducer = createReducer(
     ...state,
     error: error,
   })),
-  on(MessagesActions.createMessages, (state, { userId, message }) => ({
+  on(MessagesActions.createMessages, (state, { userId, token, date }) => ({
     ...state,
     isLoading: true,
   })),
-  on(MessagesActions.addMessages, (state, { userId, conversation }) => ({
+  on(MessagesActions.addMessages, (state, { userId, messages }) => ({
     ...state,
     isLoading: false,
     messages: state.messages
       ? Object.fromEntries(
           Object.entries(state.messages).map(([key, value]) => {
             if (key === userId) {
-              return [key, value.push(conversation)];
+              return [key, value.concat(messages[0])];
             } else {
               return [key, value];
             }
           })
         )
-      : { [userId]: conversation },
+      : { [userId]: messages },
   }))
 );
