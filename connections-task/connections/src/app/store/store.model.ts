@@ -1,7 +1,7 @@
 import { Conversation, Message } from '../models/conversation.model';
 import { Group } from '../models/group.model';
 import { AuthUser, User } from '../models/login.model.ts';
-import { UserModel } from '../models/people.model';
+import { UserModel, UserModelTwo } from '../models/people.model';
 
 export interface AppState {
   user: UserData;
@@ -27,6 +27,8 @@ export interface PeopleData {
   isLoading: boolean;
   people: UserModel[] | null;
   error: string | null;
+  names: UserModelTwo | null;
+  //names: UserModelTwo[] | null;
 }
 
 export interface ConversationsData {
