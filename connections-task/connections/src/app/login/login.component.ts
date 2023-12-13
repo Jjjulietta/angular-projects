@@ -15,7 +15,7 @@ import { ToastService } from '../services/toast.service';
 import { ToastComponent } from '../toast/toast.component';
 import { UnsubscribeService } from '../services/unsubscribe.service';
 import { takeUntil } from 'rxjs';
-import { ToastMessage, ToastState } from '../models/toast.model';
+import { ErrorMessages, ToastMessage, ToastState } from '../models/toast.model';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -34,6 +34,8 @@ export class LoginComponent {
   type: string = 'password';
   icon = '../../../../assets/visibility_off_FILL0_wght200_GRAD0_opsz20.svg';
   user: Login | undefined;
+  errorType: string | undefined;
+  disabled: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -49,6 +51,9 @@ export class LoginComponent {
   }
 
   ngOnInit() {
+    if (localStorage.getItem('emails')) {
+      localStorage.removeItem('emails');
+    }
     this.authForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -72,14 +77,15 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.disabled = true;
     if (this.authForm.value.email && this.authForm.value.password) {
       console.log(this.authForm.value.email);
-      const bodyLogin = this.authForm.getRawValue();
-      this.authForm.reset();
+      const bodyLogin: Login = this.authForm.getRawValue();
+      //this.authForm.reset();
       console.log(bodyLogin);
-      this.authService.auth(bodyLogin);
-      /*this.httpService
-        .login(bodyLogin)
+      this.authService
+        .auth(bodyLogin)
+
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
           next: (val) => {
@@ -91,14 +97,21 @@ export class LoginComponent {
             //this.router.navigate(['']);
           },
           complete: () => {
+            this.authForm.reset();
+            this.disabled = false;
             setTimeout(() => {
               this.router.navigate(['']);
             }, 6000);
           },
-          error: (error) => {
+          error: (error: ErrorMessages) => {
             console.log(error);
             this.toastService.showToast(error.message, ToastState.Error);
-            this.authForm.invalid;
+            if (error.type === ToastMessage.ErrorTypeNotFound) {
+              console.log(error.type);
+              this.errorType = error.message;
+            }
+            //this.disabled = false;
+            //this.authForm.invalid;
           },
         });
       /*this.authService.auth(
@@ -124,5 +137,9 @@ export class LoginComponent {
       this.icon =
         '../../../../assets/visibility_FILL0_wght200_GRAD0_opsz20.svg';
     }
+  }
+
+  onChange() {
+    this.disabled = false;
   }
 }
