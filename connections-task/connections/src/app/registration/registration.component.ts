@@ -15,6 +15,7 @@ import { ToastService } from '../services/toast.service';
 import { takeUntil } from 'rxjs';
 import { UnsubscribeService } from '../services/unsubscribe.service';
 import { ToastMessage, ToastState } from '../models/toast.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration',
@@ -50,7 +51,11 @@ export class RegistrationComponent {
 
   ngOnInit() {
     this.regForm = new FormGroup({
-      name: new FormControl('', Validators.required),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/[\p{L}\s]+$/gu),
+        Validators.maxLength(40),
+      ]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
@@ -96,10 +101,11 @@ export class RegistrationComponent {
               this.router.navigate(['signin']);
             }, 6000);
           },
-          error: (error) => {
-            console.log(error);
+          error: (error: { type: string; message: string }) => {
+            console.log(error.message);
             this.toastService.showToast(error.message, ToastState.Error);
-            if (error.type === ToastMessage.ErrorType) {
+            if (error.message === ToastMessage.ErrorType) {
+              console.log(error.message);
               this.errorType = error.message;
             }
             this.regForm.invalid;

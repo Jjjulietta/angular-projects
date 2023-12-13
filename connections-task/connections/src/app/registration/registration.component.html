@@ -25,10 +25,17 @@
       </div>
       <div
         *ngIf="
-          name?.errors?.['name']"
+          name?.errors?.['pattern']"
         class="alert-invalid"
       >
-        The name is invalid
+        The name can only contain letters (any language) or spaces
+      </div>
+      <div
+        *ngIf="
+          name?.errors?.['maxLength']"
+        class="alert-invalid"
+      >
+        The name can contain maximum 40 characters
       </div>
     </div>
     <div *ngIf="regForm.controls['email'].pristine" class="alert">
@@ -60,6 +67,9 @@
       >
         The email is invalid
       </div>
+    </div>
+    <div *ngIf="errorType" class="alert-invalid">
+      {{ errorType }}
     </div>
     <div *ngIf="regForm.controls['password'].pristine" class="alert">
       <div>Please enter a password</div>
@@ -96,7 +106,7 @@
       </div>
     </div>
 
-    <button type="submit" class="btn" [disabled]="regForm.invalid">
+    <button type="submit" class="btn" [disabled]="regForm.invalid || disabled">
       Sign Up
     </button>
   </form>
