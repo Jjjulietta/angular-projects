@@ -13,6 +13,7 @@ import { UserActions } from '../store/actions/user.actions';
 import { Options } from '../models/options.model';
 import { UnsubscribeService } from '../services/unsubscribe.service';
 import { takeUntil } from 'rxjs';
+import { TimerService } from '../services/timer.service';
 
 @Component({
   selector: 'app-profile',
@@ -45,7 +46,6 @@ export class ProfileComponent {
 
   ngOnInit() {
     this.userData();
-    //this.getUser();
   }
   getUser() {
     const str = localStorage.getItem('authUser');
@@ -64,9 +64,9 @@ export class ProfileComponent {
         this.userEmail = val.email;
         this.userName = val.name;
         this.date = val.date;
-        console.log(this.userName);
+        /*console.log(this.userName);
         console.log(this.date?.getFullYear());
-        this.date !== null ? this.getDate(this.date) : '';
+        this.date !== null ? this.getDate(this.date) : '';*/
       } else {
         this.getUser();
       }
@@ -85,7 +85,7 @@ export class ProfileComponent {
     }
   }
 
-  getDate(date: Date) {
+  /*getDate(date: Date) {
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
@@ -100,7 +100,7 @@ export class ProfileComponent {
     let dateNew = new Date(year, month, day, weekday);
     let str: string = dateNew.toLocaleDateString('en-US', options);
     this.dateLong = str;
-  }
+  }*/
 
   backMain() {
     this.router.navigate(['']);
@@ -115,6 +115,8 @@ export class ProfileComponent {
 
   logout() {
     localStorage.clear();
+    sessionStorage.clear();
+    location.reload();
     this.router.navigate(['signin']);
   }
 }
