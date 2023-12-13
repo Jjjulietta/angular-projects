@@ -67,9 +67,14 @@
       >
         The email is invalid
       </div>
+      <div *ngIf="email?.errors?.['forbiddenEmail']" class="alert-invalid">
+        {{ email?.errors?.['forbiddenEmail']}}
+      </div>
     </div>
-    <div *ngIf="errorType" class="alert-invalid">
-      {{ errorType }}
+    <div *ngIf="errorType" class="alert-block">
+      <div *ngIf="errorType" class="alert-invalid">
+        {{ errorType }}
+      </div>
     </div>
     <div *ngIf="regForm.controls['password'].pristine" class="alert">
       <div>Please enter a password</div>
@@ -110,4 +115,8 @@
       Sign Up
     </button>
   </form>
+  <div>
+    or
+    <a [routerLink]="['/signin']" class="link">log in</a>
+  </div>
 </div>
