@@ -78,3 +78,38 @@ input {
 .user-data {
   @include font(1.6rem, 600, italic);
 }
+
+@media (max-width: 800px) {
+  .profile-container {
+    width: 70%;
+    margin: 0.6rem;
+  }
+  h1 {
+    @include font(2rem, 800, normal);
+  }
+  .list > li {
+    @include font(1.2rem, normal);
+  }
+  .user-data {
+    @include font(1.4rem, 600, italic);
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-container {
+    width: 90%;
+    height: 55vh;
+    margin: 0.6rem;
+  }
+  h1 {
+    @include font(1.5rem, 600, normal);
+    margin-bottom: 0.4rem;
+  }
+
+  .list > li {
+    @include font(1rem, normal);
+  }
+  .user-data {
+    @include font(1.2rem, 600, italic);
+  }
+}

@@ -20,7 +20,7 @@ h1 {
 
 .form {
   background-color: $color-background-two;
-  width: 30%;
+  width: 25rem;
   height: 25%;
   padding: 1.5rem;
   border-radius: 0.7rem;
@@ -118,5 +118,17 @@ button:disabled {
   &:hover {
     transition: all 0.5s;
     color: $color-primary;
+  }
+}
+
+@media (max-width: 500px) {
+  .form {
+    width: 20rem;
+    @include font(0.8rem, normal);
+    padding: 1rem;
+  }
+  h1 {
+    @include font(1rem, bold);
+    margin-bottom: 0.4rem;
   }
 }

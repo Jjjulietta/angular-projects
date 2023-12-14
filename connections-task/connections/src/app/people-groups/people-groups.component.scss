@@ -39,6 +39,18 @@ h1 {
   letter-spacing: 0.1rem;
   //background-color: var(--background-color-btn-primary);
 }
+.timer {
+  display: block;
+  padding: 0.2rem;
+  color: var(--color); //$color-primary;
+  box-shadow: 0.03rem 0.3rem 0.3rem 0.3rem $color-background-one;
+  border-radius: 50%;
+}
+
+button:disabled {
+  background-color: $color-grey-dark;
+  cursor: not-allowed;
+}
 
 .popap {
   position: absolute;
@@ -118,4 +130,43 @@ li {
   box-shadow: 0.3rem 0.3rem 0.8rem $color-background-one;
   border-radius: 0.5rem;
   color: $color-white;
+}
+
+@media (max-width: 700px) {
+  h1 {
+    @include font(2rem, 800, normal);
+  }
+  .title {
+    @include font(1rem, 700, normal);
+  }
+  li {
+    @include font(1rem, 600, normal);
+  }
+  .container {
+    width: 45%;
+  }
+  .btn {
+    margin-bottom: 0.4rem;
+  }
+}
+
+@media (max-width: 500px) {
+  h1 {
+    @include font(1.5rem, 700, normal);
+  }
+  .title {
+    @include font(1rem, 600, normal);
+  }
+  .main-container {
+    flex-wrap: wrap;
+  }
+  li {
+    @include font(1.2rem, 600, normal);
+  }
+  .container {
+    width: 80%;
+  }
+  .btn {
+    margin-bottom: 0.4rem;
+  }
 }
