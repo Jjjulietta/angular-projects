@@ -1,50 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, takeUntil } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Login } from '../models/login.model.ts';
-import { ToastMessage, ToastState } from '../models/toast.model';
 import { HttpService } from './http.service';
 import { ToastService } from './toast.service';
-import { UnsubscribeService } from './unsubscribe.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   isAuth: boolean = false;
+  emailsDuplicate = new BehaviorSubject<string[]>([]);
 
   constructor(
     private httpService: HttpService,
     public toastService: ToastService,
-    private unsubscribe$: UnsubscribeService,
     public router: Router
   ) {}
+
+  set emails$(val: string[]) {
+    this.emailsDuplicate.next(val);
+  }
+
+  getEmailsDuplicate$() {
+    return this.emailsDuplicate.asObservable();
+  }
+
   auth(bodyLogin: Login) {
-    this.httpService
-      .login(bodyLogin)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: (val) => {
-          console.log(val);
-          localStorage.setItem('authUser', JSON.stringify(val));
-          this.isAuth = true;
-          this.toastService.showToast(
-            ToastMessage.SucsessLogin,
-            ToastState.Sucsess
-          );
-          //this.router.navigate(['']);
-        },
-        complete: () => {
-          setTimeout(() => {
-            this.router.navigate(['']);
-          }, 6000);
-        },
-        error: (error) => {
-          console.log(error);
-          this.toastService.showToast(error.message, ToastState.Error);
-          //this.authForm.invalid;
-        },
-      });
+    return this.httpService.login(bodyLogin);
   }
 
   checkAuth() {
