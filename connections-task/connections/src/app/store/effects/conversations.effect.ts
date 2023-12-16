@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { on } from '@ngrx/store';
 import { catchError, map, mergeMap, of } from 'rxjs';
+import { ErrorMessages } from 'src/app/models/toast.model';
 import { HttpService } from 'src/app/services/http.service';
 import { ConversationsActions } from '../actions/conversations.actions';
 
@@ -12,10 +12,10 @@ export class ConversationsEffects {
       ofType(ConversationsActions.getConversations),
       mergeMap(() =>
         this.service.getConversations().pipe(
-          map((val) =>
-            ConversationsActions.retrievedConversations({ items: val })
-          ),
-          catchError((error) =>
+          map((val) => {
+            return ConversationsActions.retrievedConversations({ items: val });
+          }),
+          catchError((error: ErrorMessages) =>
             of(
               ConversationsActions.getConversationsError({
                 error: error.message,

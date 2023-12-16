@@ -25,7 +25,7 @@ export class CreateGroupEffects {
               myGroup: 'true,',
             };
             this.toast.showToast(
-              ToastMessage.SiccessCreate,
+              ToastMessage.SucsessCreate,
               ToastState.Sucsess
             );
             return GroupsActions.addGroup({ group: obj });
