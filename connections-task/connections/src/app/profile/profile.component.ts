@@ -13,10 +13,15 @@ import {
 import { Router } from '@angular/router';
 import { AuthUser } from '../models/login.model.ts';
 import { Store } from '@ngrx/store';
-import { selectUserData } from '../store/selectors/user.selectors';
+import {
+  selectUserData,
+  selectUserError,
+} from '../store/selectors/user.selectors';
 import { UserActions } from '../store/actions/user.actions';
 import { UnsubscribeService } from '../services/unsubscribe.service';
 import { takeUntil } from 'rxjs';
+import { ToastService } from '../services/toast.service';
+import { ToastMessage, ToastState } from '../models/toast.model';
 
 @Component({
   selector: 'app-profile',
@@ -30,6 +35,7 @@ export class ProfileComponent {
   user$ = this.store.select(selectUserData);
   userId: string | null = '';
   userName: string | null = '';
+  error = this.store.select(selectUserError);
   nextName: string = '';
   userEmail: string | null = '';
   date: Date | null = null;
@@ -44,6 +50,7 @@ export class ProfileComponent {
     private store: Store,
     private cd: ChangeDetectorRef,
     private unsubscribe$: UnsubscribeService,
+    private toast: ToastService,
     private fb: FormBuilder
   ) {}
 
@@ -59,6 +66,17 @@ export class ProfileComponent {
           Validators.maxLength(40),
         ],
       ],
+    });
+    this.error.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+      if (val && val !== null && val !== '') {
+        console.log(val);
+        this.toast.showToast(val, ToastState.Error);
+      } else if (val && val !== null && val == '') {
+        console.log(val);
+        this.toast.showToast(ToastMessage.Error, ToastState.Error);
+      } else {
+        this.toast.showToast(ToastMessage.Error, ToastState.Error);
+      }
     });
   }
 
