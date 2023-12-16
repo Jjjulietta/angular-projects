@@ -3,7 +3,13 @@ import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { mergeMap, map, catchError, of, exhaustMap, switchMap } from 'rxjs';
 import { Group } from 'src/app/models/group.model';
 import { AuthUser } from 'src/app/models/login.model.ts';
+import {
+  ErrorMessages,
+  ToastMessage,
+  ToastState,
+} from 'src/app/models/toast.model';
 import { HttpService } from 'src/app/services/http.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { GroupsActions } from '../actions/groups.action';
 
 @Injectable()
@@ -31,9 +37,13 @@ export class GroupsEffects {
                 });
               console.log(id);
             }
+            this.toast.showToast(
+              ToastMessage.SucsessUpdateGroup,
+              ToastState.Sucsess
+            );
             return GroupsActions.retrievedGroups({ groups: arr });
           }),
-          catchError((error) =>
+          catchError((error: ErrorMessages) =>
             of(GroupsActions.getGroupsError({ error: error.message }))
           )
         );
@@ -41,5 +51,9 @@ export class GroupsEffects {
     )
   );
 
-  constructor(private actions$: Actions, private service: HttpService) {}
+  constructor(
+    private actions$: Actions,
+    private service: HttpService,
+    private toast: ToastService
+  ) {}
 }
