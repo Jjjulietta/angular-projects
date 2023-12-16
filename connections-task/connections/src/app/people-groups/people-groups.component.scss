@@ -54,23 +54,46 @@ button:disabled {
 
 .popap {
   position: absolute;
-  z-index: 10;
-  @extend %flex;
-  flex-direction: column;
-  left: 20vw;
-  width: auto;
-  height: 5rem;
   top: 45vh;
+  left: 35vw;
+  width: auto;
+  height: auto;
   background-color: $color-background-two;
   color: $color-darkblue;
-  padding: 0 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0.06rem 0.6rem 0.06rem var(--color-box-shadow-container);
+  @extend %container;
+}
+
+.popap-text {
+  margin-bottom: 1rem;
+  @include font(1rem, normal);
 }
 
 .popap-form {
   display: flex;
   align-items: center;
+  flex-direction: column;
+}
+
+.popap-btn {
+  @include font(0.8rem, normal);
+}
+.alert {
+  align-self: flex-start;
+  @include font(0.8rem, normal);
+  color: $color-primary;
+}
+
+.alert-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.alert-invalid {
+  color: red;
+  @include font(0.7rem, regular);
+  font-family: $font-family;
 }
 
 input {
@@ -88,15 +111,11 @@ input {
   width: 40%;
   height: auto;
   @extend %container;
-  //background-color: var(--background-color-container); //$color-fone-second;
 }
 
 .list {
   overflow-y: scroll;
   height: 80vh;
-  /*box-shadow: var(
-    --color-box-shadow-container
-  );*/ //0.3rem 0.3rem 0.8rem $color-background-one;
   width: auto;
   padding: 10%;
   border-radius: 0.5rem;

@@ -1,6 +1,6 @@
 <div class="wrapper">
-  <div class="profile-header">
-    <h1>CONNECTIONS</h1>
+  <div class="header-component">
+    <h1>GROUPS & PEOPLE</h1>
     <button type="button" class="btn logout" (click)="openProfile()">
       PROFILE
     </button>
@@ -11,12 +11,12 @@
         <button
           type="button"
           class="btn update"
-          [disabled]="disabled"
-          (click)="updateGroups()"
+          [disabled]="disabledGroup"
+          (click)="updateGroup()"
         >
           Update
         </button>
-        <span *ngIf="cliced">{{ timer | async }}</span>
+        <span *ngIf="timerGroup" class="timer">{{ timerGroup }}s</span>
         <button type="button" class="btn create" (click)="createGroup()">
           Create
         </button>
@@ -24,7 +24,7 @@
       </div>
       <ul class="list" *ngIf="groups$ | async as groups">
         <li *ngFor="let group of groups">
-          <a routerLink="/group/:{{ group.id }}">
+          <a routerLink="/group/:{{ group.id }},{{ group.myGroup }}">
             <img
               class="icon"
               src="./../../assets/group_FILL1_wght400_GRAD0_opsz24.svg"
@@ -37,10 +37,25 @@
             type="button"
             class="btn delete"
             *ngIf="group.myGroup"
-            (click)="deleteGroup(group.id)"
+            (click)="openPopap()"
           >
             x
           </button>
+          <div class="popap" *ngIf="showPopap">
+            <p class="popap-text">are you sure you want to delete the group?</p>
+            <div class="btn-container">
+              <button
+                type="button"
+                class="btn popap-btn"
+                (click)="deleteGroup(group.id)"
+              >
+                delete
+              </button>
+              <button type="button" class="btn popap-btn" (click)="openPopap()">
+                cancel
+              </button>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -52,14 +67,48 @@
       >
         <label for="groupName" class="label"></label>
         <input type="text" formControlName="nameGroup" class="input name" />
-        <button type="submit" class="btn submit">submit</button>
+        <div
+          *ngIf="nameGroup?.invalid && (nameGroup?.dirty || nameGroup?.touched)"
+          class="alert-block"
+        >
+          <div
+            *ngIf="
+          nameGroup?.errors?.['required']"
+            class="alert-invalid"
+          >
+            Please enter group name
+          </div>
+          <div
+            *ngIf="
+          nameGroup?.errors?.['pattern']"
+            class="alert-invalid"
+          >
+            The group name can only contain letters, digits or spaces
+          </div>
+          <div
+            *ngIf="
+          nameGroup?.errors?.['maxLength']"
+            class="alert-invalid"
+          >
+            The name can contain maximum 30 characters
+          </div>
+        </div>
+        <button type="submit" class="btn submit" [disabled]="popapForm.invalid">
+          submit
+        </button>
       </form>
     </div>
     <div class="container people">
       <div class="button-container">
-        <button type="button" class="btn update" (click)="updatePeople()">
+        <button
+          type="button"
+          class="btn update"
+          [disabled]="disabled"
+          (click)="updatePeople()"
+        >
           Update
         </button>
+        <span *ngIf="timer" class="timer">{{ timer }}s</span>
         <h2 class="title groups">PEOPLE</h2>
       </div>
       <div *ngIf="companion$ | async as companions">
@@ -80,10 +129,7 @@
           </li>
 
           <li *ngFor="let user of people" class="people">
-            <a
-              routerLink="/conversation/:{{ conversationId }}"
-              (click)="createConversation(user.id)"
-            >
+            <a (click)="createConversation(user.id)">
               <img
                 class="icon"
                 src="./../../assets/person_FILL1_wght400_GRAD0_opsz24.svg"

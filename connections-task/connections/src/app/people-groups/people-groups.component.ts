@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { Group } from '../models/group.model';
 import { Store } from '@ngrx/store';
 import {
   selectErrorGroup,
@@ -13,32 +12,22 @@ import {
 } from '../store/selectors/groups.selectors';
 import { GroupsActions } from '../store/actions/groups.action';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { HttpService } from '../services/http.service';
-import {
-  audit,
-  auditTime,
-  fromEvent,
-  generate,
-  interval,
-  mergeMap,
-  Observable,
-  take,
-  takeUntil,
-} from 'rxjs';
+import { delay, interval, Observable, take, takeUntil } from 'rxjs';
 import { UnsubscribeService } from '../services/unsubscribe.service';
-import { UserModel } from '../models/people.model';
-import { selectPeople } from '../store/selectors/people.selectors';
+import {
+  selectPeople,
+  selectUsersError,
+} from '../store/selectors/people.selectors';
 import { PeopleActions } from '../store/actions/people.actions';
 import { ToastService } from '../services/toast.service';
 import { ToastMessage, ToastState } from '../models/toast.model';
 import { ToastComponent } from '../toast/toast.component';
-import { initialState } from '../store/reducers/user.reduser';
 import {
   selectCompanions,
   selectConversations,
@@ -46,6 +35,7 @@ import {
   selectUserId,
 } from '../store/selectors/conversations.selectors';
 import { ConversationsActions } from '../store/actions/conversations.actions';
+import { TimerService } from '../services/timer.service';
 
 @Component({
   selector: 'app-people-groups',
@@ -53,22 +43,27 @@ import { ConversationsActions } from '../store/actions/conversations.actions';
   imports: [CommonModule, RouterLink, ReactiveFormsModule, ToastComponent],
   templateUrl: './people-groups.component.html',
   styleUrls: ['./people-groups.component.scss'],
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PeopleGroupsComponent {
   groups$ = this.store.select(selectGroups);
-  //groups!: Group[];
   users$ = this.store.select(selectPeople);
   people$ = this.store.select(selectPeopleAuther);
-  //people!: UserModel[];
-  error$ = this.store.select(selectErrorGroup);
+  errorGroup$ = this.store.select(selectErrorGroup);
+  errorUsers$ = this.store.select(selectUsersError);
+
   companion$ = this.store.select(selectCompanions);
   conversationId!: string;
-  isShown: boolean = false;
-  cliced: boolean = false;
+  context: string = 'group';
   disabled: boolean = false;
-  timer!: Observable<number>;
+  disabledGroup: boolean = false;
+  isShown: boolean = false;
+  showPopap: boolean = false;
   userItem: string = 'user';
+  timer: number | undefined;
+  timer$!: Observable<number>;
+  timerGroup: number | undefined;
   popapForm: FormGroup = new FormGroup({
     nameGroup: new FormControl('', { nonNullable: true }),
   });
@@ -78,6 +73,7 @@ export class PeopleGroupsComponent {
     private service: HttpService,
     private unsubscribe$: UnsubscribeService,
     private toast: ToastService,
+    private timerService: TimerService,
     private cd: ChangeDetectorRef
   ) {
     this.groups$.subscribe((val) => {
@@ -97,22 +93,95 @@ export class PeopleGroupsComponent {
         this.store.dispatch(ConversationsActions.getConversations());
       }
     });
+    //this.timer$ = this.timerService.getTimer$();
   }
 
   ngOnInit() {
+    this.cd.detectChanges();
+    //this.timer$ = this.timerService.getTimer$();
+    this.timerService
+      .getDisablePeople$()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => (this.disabled = val));
+    this.timerService
+      .getTimerPeople$()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => {
+        console.log(val);
+        this.cd.markForCheck();
+        //this.cd.detectChanges();
+        this.timer = val;
+
+        //this.cd.markForCheck();
+      });
+
+    this.timerService
+      .getDisable$()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (val) => {
+          console.log(val);
+          this.cd.markForCheck();
+          this.disabledGroup = val;
+          this.cd.detectChanges();
+        },
+      });
+    this.timerService
+      .getTimer$()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (val) => {
+          this.cd.markForCheck();
+          this.timerGroup = val;
+          this.cd.detectChanges();
+        },
+      });
     this.popapForm = new FormGroup({
       nameGroup: new FormControl('', [
+        Validators.required,
         Validators.maxLength(30),
-        //Validators.pattern('/'),
+        Validators.pattern(/^[\p{L}\d\s]*$/iu),
       ]),
     });
 
-    this.error$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+    this.errorUsers$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
       if (val !== null) {
-        this.toast.showToast(val, ToastState.Error);
+        this.timer = undefined;
+        this.timerService.timerPeople$ = 0;
+        this.disabled = false;
+        this.timerService.disablePeople$ = false;
+        if (val && val !== null && val !== '') {
+          console.log(val);
+          this.toast.showToast(val, ToastState.Error);
+        } else if (val && val !== null && val == '') {
+          console.log(val);
+          this.toast.showToast(ToastMessage.Error, ToastState.Error);
+        } else {
+          this.toast.showToast(ToastMessage.Error, ToastState.Error);
+        }
+      }
+    });
+    this.errorGroup$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+      if (val !== null) {
+        console.log(val);
+        this.timerGroup = undefined;
+        this.timerService.timer$ = 0;
+        this.disabledGroup = false;
+        this.timerService.disable$ = false;
+        if (val && val !== null && val !== '') {
+          console.log(val);
+          this.toast.showToast(val, ToastState.Error);
+        } else if (val && val !== null && val == '') {
+          console.log(val);
+          this.toast.showToast(ToastMessage.Error, ToastState.Error);
+        } else {
+          this.toast.showToast(ToastMessage.Error, ToastState.Error);
+        }
       }
     });
   }
+
+  showToast() {}
 
   get nameGroup() {
     return this.popapForm.get('nameGroup');
@@ -122,43 +191,42 @@ export class PeopleGroupsComponent {
     this.router.navigate(['profile']);
   }
 
-  updateGroups() {
-    this.disabled = true;
-    this.cliced = true;
+  updateGroup() {
+    this.disabledGroup = true;
 
-    /*result.subscribe(
-      {
-      next: (value) => {
-        this.timer = value;
-        console.log(this.timer);
-      },
-      complete: () => console.log('Complete!'),
-    }
-    );*/
-
-    const click = fromEvent(document, 'click');
-    click.pipe(auditTime(6000)).subscribe(() => {
-      this.cliced = false;
-      this.disabled = false;
+    console.log(this.disabledGroup);
+    this.timerService.disable$ = this.disabledGroup;
+    console.log(this.timerGroup);
+    this.timerGroup = 60;
+    const sourse = interval(1000).pipe(take(60));
+    this.store.dispatch(GroupsActions.getGroups());
+    sourse.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+      this.cd.markForCheck();
+      if (this.timerGroup) {
+        this.timerGroup -= 1;
+        this.timerService.timer$ = this.timerGroup;
+        if (this.timerGroup === 0) {
+          console.log(this.timer);
+          this.disabledGroup = false;
+          this.timerService.disable$ = false;
+        }
+        console.log(this.timerGroup);
+        this.cd.detectChanges();
+      }
     });
-
-    /*const sourse = interval(1000).pipe(take(4));
-    sourse.subscribe((val) => (this.timer = val));*/
-    this.timer = generate({
-      initialState: 6000,
-      condition: (x) => x >= 0,
-      iterate: (x) => x - 1000,
-      resultSelector: (x: number) => x,
-    });
-    //source.subscribe((val) => (this.timer = val));
   }
 
   createGroup() {
-    this.isShown = true;
+    this.isShown = !this.isShown;
+  }
+
+  openPopap() {
+    this.showPopap = !this.showPopap;
   }
 
   deleteGroup(id: string) {
     console.log(id);
+
     this.service
       .deleteGroup(id)
       .pipe(takeUntil(this.unsubscribe$))
@@ -166,6 +234,7 @@ export class PeopleGroupsComponent {
         console.log(val);
         if (val.ok) {
           console.log(val.status);
+          this.showPopap = false;
           this.toast.showToast(ToastMessage.SucsessDelete, ToastState.Sucsess);
           this.store.dispatch(GroupsActions.deleteGroup({ groupId: id }));
         } else {
@@ -175,15 +244,36 @@ export class PeopleGroupsComponent {
       });
   }
 
-  updatePeople() {}
+  updatePeople() {
+    this.disabled = true;
+
+    console.log(this.disabled);
+    this.timerService.disablePeople$ = this.disabled;
+    this.timer = 60;
+    const sourse = interval(1000).pipe(take(60));
+    this.store.dispatch(PeopleActions.getPeople());
+    sourse.subscribe((val) => {
+      this.cd.markForCheck();
+      if (this.timer) {
+        this.cd.detectChanges();
+        this.timer -= 1;
+        this.timerService.timerPeople$ = this.timer;
+        if (this.timer === 0) {
+          console.log(this.timer);
+          this.disabled = false;
+          this.timerService.disablePeople$ = false;
+        }
+        console.log(this.timer);
+        this.cd.detectChanges();
+      }
+    });
+  }
 
   createGroupSubmit() {
     const name: string = this.popapForm.value.nameGroup;
     console.log(name);
     this.store.dispatch(GroupsActions.createGroup({ name }));
     this.isShown = false;
-    //this.cd.markForCheck();
-    //this.groups$.subscribe((val)=> ) = this.store.select(selectGroups);
   }
 
   getConversationId(userId: string) {
@@ -206,8 +296,9 @@ export class PeopleGroupsComponent {
     this.store.dispatch(ConversationsActions.createConversations({ userId }));
     this.store
       .select(selectConversations)
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this.unsubscribe$), delay(10000))
       .subscribe((val) => {
+        console.log(val);
         val?.forEach((item) => {
           if (item.companionID === userId) {
             this.conversationId = item.id;
