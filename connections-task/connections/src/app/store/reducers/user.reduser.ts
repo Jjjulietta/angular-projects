@@ -12,10 +12,13 @@ export const initialState: UserData = {
 
 export const userReducer = createReducer(
   initialState,
-  on(UserActions.addUser, (state, { user }) => ({ ...state, user })),
+  on(UserActions.addUser, (state, { name }) => ({ ...state, isLoading: true })),
   on(UserActions.updateUser, (state, { name }) => ({
     ...state,
-    user: Object.defineProperty(state.authUser, 'name', { value: name }),
+    isLoading: false,
+    authUser: state.authUser ? { ...state.authUser, name: name } : null,
+
+    //Object.defineProperty(state.authUser, 'name', { value: name })
   })),
   on(UserActions.getUser, (state, action) => ({ ...state, isLoading: true })),
   on(UserActions.retrievedUser, (state, { user }) => ({
