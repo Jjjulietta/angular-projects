@@ -111,4 +111,8 @@ dist
 /coverage
 /libpeerconnection.log
 testem.log
+<<<<<<< HEAD:.gitignore
 /typings
+=======
+/typings
+>>>>>>> main:youtube/.gitignore
