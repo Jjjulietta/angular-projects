@@ -31,6 +31,11 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.groupID {
+  @extend %btn-secondary;
+  padding: 0.5rem;
+}
+
 .conversation {
   @extend %btn-secondary;
   padding: 0.5rem;
