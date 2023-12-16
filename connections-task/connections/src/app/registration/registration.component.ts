@@ -63,7 +63,7 @@ export class RegistrationComponent {
     this.regForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,
-        Validators.pattern(/[\p{L}\s]+$/gu),
+        Validators.pattern(/[^\p{L}\s]*$/u),
         Validators.maxLength(40),
       ]),
       email: new FormControl('', [
