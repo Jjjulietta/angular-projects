@@ -102,3 +102,13 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Miscellaneous
+.angular
+.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
