@@ -108,7 +108,7 @@ input {
 }
 
 .container {
-  width: 40%;
+  width: 45%;
   height: auto;
   @extend %container;
 }
@@ -116,8 +116,8 @@ input {
 .list {
   overflow-y: scroll;
   height: 80vh;
-  width: auto;
-  padding: 10%;
+  width: 90%;
+  //padding: 5%;
   border-radius: 0.5rem;
 }
 

@@ -111,8 +111,8 @@
         <span *ngIf="timer" class="timer">{{ timer }}s</span>
         <h2 class="title groups">PEOPLE</h2>
       </div>
-      <div *ngIf="companion$ | async as companions">
-        <ul class="list" *ngIf="people$ | async as people">
+      <div *ngIf="companion$ | async as companions" class="list">
+        <ul *ngIf="people$ | async as people">
           <li *ngFor="let companion of companions" class="companion">
             <a
               routerLink="/conversation/:{{ conversationId }}"
@@ -127,7 +127,6 @@
               </span>
             </a>
           </li>
-
           <li *ngFor="let user of people" class="people">
             <a (click)="createConversation(user.id)">
               <img
