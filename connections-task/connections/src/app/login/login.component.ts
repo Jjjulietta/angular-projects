@@ -44,11 +44,7 @@ export class LoginComponent {
     private unsubscribe$: UnsubscribeService,
     public toastService: ToastService,
     private authService: AuthService
-  ) {
-    /*this.authService.user.subscribe((val: Auth) => {
-      this.user = val;
-    });*/
-  }
+  ) {}
 
   ngOnInit() {
     if (localStorage.getItem('emails')) {
@@ -62,10 +58,6 @@ export class LoginComponent {
       ]),
     });
     this.authForm.controls;
-    /* this.authForm = new FormGroup({
-        login: new FormControl('', Validators.required),
-        password: new FormControl('', Validators.required),
-      }); */
   }
 
   get email() {
@@ -81,7 +73,6 @@ export class LoginComponent {
     if (this.authForm.value.email && this.authForm.value.password) {
       console.log(this.authForm.value.email);
       const bodyLogin: Login = this.authForm.getRawValue();
-      //this.authForm.reset();
       console.log(bodyLogin);
       this.authService
         .auth(bodyLogin)
@@ -90,6 +81,7 @@ export class LoginComponent {
         .subscribe({
           next: (val) => {
             console.log(val);
+            localStorage.setItem('authUser', JSON.stringify(val));
             this.toastService.showToast(
               ToastMessage.SucsessLogin,
               ToastState.Sucsess
@@ -110,16 +102,8 @@ export class LoginComponent {
               console.log(error.type);
               this.errorType = error.message;
             }
-            //this.disabled = false;
-            //this.authForm.invalid;
           },
         });
-      /*this.authService.auth(
-        this.authForm?.value.login,
-        this.authForm?.value.password
-      );*/
-      // console.log(this.user);
-      //this.router.navigate(['']);
     }
   }
 
