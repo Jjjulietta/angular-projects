@@ -11,8 +11,35 @@
       </li>
       <li>
         name:<span class="user-data">{{ userName }}</span>
-
-        <input *ngIf="isShown" type="text" [(ngModel)]="nextName" />
+        <form [formGroup]="formName">
+          <input *ngIf="isShown" type="text" formControlName="name" required />
+          <div
+            *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+            class="alert-block"
+          >
+            <div
+              *ngIf="
+            name?.errors?.['required']"
+              class="alert-invalid"
+            >
+              Please enter your name
+            </div>
+            <div
+              *ngIf="
+            name?.errors?.['pattern']"
+              class="alert-invalid"
+            >
+              The name can only contain letters (any language) or spaces
+            </div>
+            <div
+              *ngIf="
+            name?.errors?.['maxLength']"
+              class="alert-invalid"
+            >
+              The name can contain maximum 40 characters
+            </div>
+          </div>
+        </form>
       </li>
       <li>
         email:<span class="user-data">{{ userEmail }}</span>
@@ -22,7 +49,12 @@
       </li>
     </ul>
     <div class="btn-container">
-      <button type="button" class="btn" (click)="onClick()">
+      <button
+        type="button"
+        class="btn"
+        (click)="onClick()"
+        [disabled]="button === 'save' ? formName.invalid : false"
+      >
         {{ button }}
       </button>
       <button type="button" class="btn reset" *ngIf="isShown" (click)="reset()">

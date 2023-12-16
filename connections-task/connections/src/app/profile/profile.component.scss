@@ -75,6 +75,30 @@ input {
   vertical-align: middle;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  background-color: $color-background-grey;
+}
+
+.alert {
+  align-self: flex-start;
+  @include font(0.8rem, regular);
+  color: $color-primary;
+}
+
+.alert-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.alert-invalid {
+  color: red;
+  @include font(0.7rem, regular);
+  font-family: $font-family;
+}
+
 .user-data {
   @include font(1.6rem, 600, italic);
 }
