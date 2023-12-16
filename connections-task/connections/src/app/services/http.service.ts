@@ -26,8 +26,6 @@ import {
   UserModel,
   UserModelTwo,
 } from '../models/people.model';
-import { ToastState } from '../models/toast.model';
-import { PeopleData, UserData } from '../store/store.model';
 import { ToastService } from './toast.service';
 
 @Injectable({
@@ -46,11 +44,9 @@ export class HttpService {
   private CONVERSATIONS_READ = 'conversations/read';
   private CONVERSATIONS_APPEND = 'conversations/append';
   private CONVERSATIONS_DELETE = 'conversations/delete';
-  //private GROUP_LIST = 'group/list';
-  //private GROUP_CREATE = 'group/create';
+
   private GROUPS_READ = 'groups/read';
   private GROUPS_APPEND = 'groups/append';
-  //private URL = 'https://tasks.app.rs.school/angular/registration';
   constructor(private httpClient: HttpClient, private toast: ToastService) {}
 
   signup(body: Registration) {
@@ -58,7 +54,7 @@ export class HttpService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
     console.log(body);
-    return this.httpClient.post(`${this.REGISTRATION}`, body, httpOptions).pipe(
+    return this.httpClient.post(`${this.REGISTRATION}`, body).pipe(
       tap((r) => {
         console.log(r);
       }),
@@ -97,18 +93,14 @@ export class HttpService {
   }
 
   updateUser(name: string) {
-    return this.httpClient.put<UserProfile>(this.PROFILE, { name }).pipe(
-      map((r) => {
-        const obj: User = {
-          id: r.uid.S,
-          email: r.email.S,
-          name: r.name.S,
-          date: new Date(+r.createdAt.S),
-        };
-        return obj;
-      }),
-      catchError(this.handleError)
-    );
+    return this.httpClient
+      .put(this.PROFILE, { name }, { observe: 'response' })
+      .pipe(
+        tap((r) => {
+          console.log(r);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   getGroups() {
@@ -152,12 +144,10 @@ export class HttpService {
   getPeople() {
     return this.httpClient.get<People>(this.USERS).pipe(
       map((r) => {
-        console.log(r);
+        //console.log(r);
         return r.Items.map((item) => {
           const obj: UserModel = { name: item.name.S, id: item.uid.S };
-          /*const obj: UserModelTwo = {
-            [item.uid.S]: { id: item.uid.S, name: item.name.S },
-          };*/
+
           return obj;
         });
       }),
@@ -260,12 +250,18 @@ export class HttpService {
     if (error.status === 0) {
       console.log('An error occurred:', error.error);
     } else {
+      console.log(error.error);
       console.error(
         // error.error.error.message
         `Backend returned code ${error.status}, body was: `,
         error.error.message
       );
     }
-    return throwError(() => new Error(error.error.message));
+    return throwError(() => {
+      return {
+        type: error.error.type,
+        message: error.error.message,
+      };
+    });
   }
 }
