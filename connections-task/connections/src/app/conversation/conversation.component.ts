@@ -1,8 +1,14 @@
-import { Component, inject, Inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { delay, Observable, takeUntil } from 'rxjs';
+import { delay, interval, Observable, take, takeUntil } from 'rxjs';
 import { Message } from '../models/conversation.model';
 import {
   selectMessageError,
@@ -24,6 +30,7 @@ import { PeopleActions } from '../store/actions/people.actions';
 import { ConversationsActions } from '../store/actions/conversations.actions';
 import { ToastService } from '../services/toast.service';
 import { ToastState, ToastMessage } from '../models/toast.model';
+import { TimerService } from '../services/timer.service';
 
 @Component({
   selector: 'app-conversation',
@@ -31,6 +38,8 @@ import { ToastState, ToastMessage } from '../models/toast.model';
   imports: [CommonModule, RouterLink, FormsModule, ButtonUpdateComponent],
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  //providers: [TimerService],
 })
 export class ConversationComponent {
   route = inject(ActivatedRoute);
@@ -52,18 +61,25 @@ export class ConversationComponent {
   category!: string;
   date!: number;
   id!: string; //= this.route.snapshot.params['conversationID'];
+  disabledGroup: boolean = false;
+  disabledConversation: boolean = false;
+  timerGroup?: number;
+  timerConversation?: number;
 
   constructor(
     private store: Store,
+    private cd: ChangeDetectorRef,
     private unsubscribe$: UnsubscribeService,
     private service: HttpService,
     private toast: ToastService,
+    private timerService: TimerService,
     private router: Router
   ) {
     //let userId = '';
     if (this.route.snapshot.paramMap.has('groupID')) {
       console.log('group');
       this.category = 'groupID';
+      this.context = 'groupID';
       this.group = true;
       //this.category = this.route.snapshot.paramMap.get('groupID');
 
@@ -79,6 +95,7 @@ export class ConversationComponent {
     } else {
       console.log('conversations');
       this.category = 'conversationID';
+      this.context = 'conversation';
       this.conversations = true;
 
       //this.category = this.route.snapshot.paramMap.get('conversationID');
@@ -110,9 +127,10 @@ export class ConversationComponent {
     );
     this.store
       .select(selectMessages)
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this.unsubscribe$), delay(3000))
       .subscribe((val) => {
-        if (val && val[this.id]) {
+        console.log(val);
+        if (val && val[this.id] && val[this.id].length !== 0) {
           console.log(this.id);
           //console.log(userId);
           console.log(val);
@@ -138,14 +156,78 @@ export class ConversationComponent {
   }
 
   ngOnInit() {
+    if (this.context === 'groupID') {
+      this.timerService
+        .getDisableGroup$()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (val) => {
+            console.log(val);
+            this.cd.markForCheck();
+            this.disabledGroup = val;
+            console.log(this.disabledGroup);
+            this.cd.detectChanges();
+          },
+        });
+      this.timerService
+        .getTimerGroup$()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (val) => {
+            this.cd.markForCheck();
+            this.timerGroup = val;
+            this.cd.detectChanges();
+          },
+        });
+    }
+
+    if (this.context === 'conversation') {
+      this.timerService
+        .getDisableConversation$()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (val) => {
+            console.log(val);
+            this.cd.markForCheck();
+            this.disabledConversation = val;
+            console.log(this.disabledConversation);
+            this.cd.detectChanges();
+          },
+        });
+      this.timerService
+        .getTimerConversation$()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (val) => {
+            this.cd.markForCheck();
+            this.timerConversation = val;
+            this.cd.detectChanges();
+          },
+        });
+    }
     if (this.conversations || this.myGroup) this.isShown = true;
     this.error$.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
-      if (val !== null && val !== '') {
-        console.log(val);
-        this.toast.showToast(val, ToastState.Error);
-      } else if (val !== null && val == '') {
-        console.log(val);
-        this.toast.showToast(ToastMessage.Error, ToastState.Error);
+      if (val !== null) {
+        if (this.timerGroup) {
+          this.timerGroup = undefined;
+          this.timerService.timerGroup$ = 0;
+          this.disabledGroup = false;
+          this.timerService.disableGroup$ = false;
+        } else if (this.timerConversation) {
+          this.timerConversation = undefined;
+          this.disabledConversation = false;
+          this.timerService.disableConversation$ = false;
+          this.timerService.timerConversation$ = 0;
+        }
+        if (val && val !== null && val !== '') {
+          console.log(val);
+          this.toast.showToast(val, ToastState.Error);
+        } else if (val && val !== null && val == '') {
+          console.log(val);
+          this.toast.showToast(ToastMessage.Error, ToastState.Error);
+        } else {
+          this.toast.showToast(ToastMessage.Error, ToastState.Error);
+        }
       }
     });
   }
@@ -172,7 +254,54 @@ export class ConversationComponent {
     console.log(this.date);
   }
 
-  updateMessages() {}
+  updateMessages() {
+    console.log(this.category);
+    this.store.dispatch(
+      MessagesActions.getMessages({ userId: this.id, token: this.category })
+    );
+    if (this.context === 'groupID') {
+      this.disabledGroup = true;
+      this.timerService.disableGroup$ = this.disabledGroup;
+      this.timerGroup = 60;
+      const sourse = interval(1000).pipe(take(60));
+      sourse.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+        this.cd.markForCheck();
+        if (this.timerGroup) {
+          this.timerGroup -= 1;
+          this.timerService.timerGroup$ = this.timerGroup;
+          if (this.timerGroup === 0) {
+            console.log(this.timerGroup);
+            this.disabledGroup = false;
+
+            this.timerService.disableGroup$ = false;
+          }
+          console.log(this.timerGroup);
+          this.cd.detectChanges();
+        }
+      });
+    }
+    if (this.context === 'conversation') {
+      this.disabledConversation = true;
+      this.timerService.disableConversation$ = this.disabledConversation;
+
+      this.timerConversation = 60;
+      const sourse = interval(1000).pipe(take(60));
+      sourse.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
+        this.cd.markForCheck();
+        if (this.timerConversation) {
+          this.timerConversation -= 1;
+          this.timerService.timerConversation$ = this.timerConversation;
+          if (this.timerConversation === 0) {
+            console.log(this.timerConversation);
+            this.disabledConversation = false;
+            this.timerService.disableConversation$ = false;
+          }
+          console.log(this.timerConversation);
+          this.cd.detectChanges();
+        }
+      });
+    }
+  }
 
   openPopap() {
     this.showPopap = !this.showPopap;

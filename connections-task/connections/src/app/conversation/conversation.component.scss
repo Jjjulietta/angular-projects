@@ -48,6 +48,22 @@
   overflow-y: scroll;
 }
 
+.timer {
+  display: block;
+  padding: 0.2rem;
+  margin-left: 0.5rem;
+  color: var(--color); //$color-primary;
+  box-shadow: 0.03rem 0.3rem 0.3rem 0.3rem $color-background-one;
+  border-radius: 50%;
+}
+
+button:disabled {
+  background-color: $color-grey-dark;
+  cursor: not-allowed;
+}
+.update-container {
+  display: flex;
+}
 .message-text {
   padding-top: 0.5rem;
   @include font(1rem, 600, normal);

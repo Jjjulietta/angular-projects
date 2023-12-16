@@ -4,7 +4,22 @@
   </div>
   <div class="main-container">
     <div class="button-container">
-      <app-button-update [context]="context"></app-button-update>
+      <div class="update-container">
+        <button
+          type="button"
+          class="btn"
+          [disabled]="
+            context === 'groupID' ? disabledGroup : disabledConversation
+          "
+          (click)="updateMessages()"
+        >
+          UPDATE
+        </button>
+        <span *ngIf="timerGroup" class="timer">{{ timerGroup }}s</span>
+        <span *ngIf="timerConversation" class="timer"
+          >{{ timerConversation }}s</span
+        >
+      </div>
       <button type="button" *ngIf="isShown" class="btn" (click)="openPopap()">
         DELETE
       </button>
