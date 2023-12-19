@@ -1,0 +1,43 @@
+<div *ngIf="card" class="card-item">
+  <img [src]="card.img" alt="img-card" class="card-img" />
+  <div class="info-block">
+    <div class="info views">
+      <img
+        src="./../../../assets/viewed.svg"
+        alt="img-viewed"
+        class="img-info"
+      />
+      <span class="info-count">{{ card.statistics?.viewCount }}</span>
+    </div>
+    <div class="info likes">
+      <img src="./../../../assets/liked.svg" alt="img-liked" class="img-info" />
+      <span class="info-count">{{ card.statistics?.likeCount }}</span>
+    </div>
+    <div class="info dislikes">
+      <img src="./../../../assets/dislike.svg" alt="" class="img-info" />
+      <span class="info-count">{{ card.statistics?.dislikeCount }}</span>
+    </div>
+    <div class="info group">
+      <img src="./../../../assets/Group 9.svg" alt="" class="img-info" />
+      <span class="info-count">{{ card.statistics?.commentCount }}</span>
+    </div>
+  </div>
+  <div class="card-title">{{ card.title }}</div>
+  <!--<button class="card-btn">more...</button>-->
+  <div class="btn-container">
+    <app-custom-button (click)="openCard()">more..</app-custom-button>
+    <div *ngIf="card.link">
+      <button type="button" class="remove-btn" (click)="removeCard(card.id!)">
+        remove
+      </button>
+    </div>
+    <div *ngIf="card.statistics">
+      <app-custom-button-favorite
+        (click)="changeFavorite()"
+        [custom]="custom"
+        [favorite]="favorite"
+      ></app-custom-button-favorite>
+    </div>
+  </div>
+  <div appHighlight [date]="date" class="line"></div>
+</div>

@@ -1,0 +1,83 @@
+@import "./../../../../sass/constants";
+@import "./../../../../sass/mixins";
+@import "./../../../../sass/plaseholder";
+
+* {
+  box-sizing: border-box;
+}
+
+.card-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-family: $font-family, sans-serif;
+  width: 14.6rem;
+  height: 20.4rem;
+  background-color: $color-background-one;
+  border-radius: 0.5rem;
+  box-shadow: 0.125rem 0.3rem 0.25rem rgba(0, 0, 0, 0.2);
+  padding: 0.6rem;
+}
+
+.info-block {
+  @extend %flex;
+  @include font(0.625rem, regular);
+  width: 80%;
+}
+
+.info {
+  @extend %flex;
+}
+
+.card-img {
+  width: 11rem;
+  height: 8rem;
+}
+
+.card-title {
+  text-align: center;
+  color: $color-grey-dark;
+  @include font(1rem, bold);
+}
+
+.card-btn {
+  width: 7.5rem;
+  height: 2rem;
+  @extend %btn-primary;
+  transition: all 0.5s;
+  &:hover {
+    background-color: $color-second;
+    box-shadow: none;
+  }
+}
+
+.remove-btn {
+  @extend %btn-primary;
+  background-color: $color-grey-light;
+  transition: all 0.5s;
+  &:hover {
+    transition: all 0.5s;
+    background-color: $color-second;
+  }
+}
+
+.img-info {
+  margin-right: 0.2rem;
+}
+
+.line {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0.3rem;
+  border-radius: 0px 0px 0.5rem 0.5rem;
+}
+
+.btn-container {
+  @extend %flex;
+  & > * {
+    margin-right: 10px;
+  }
+}

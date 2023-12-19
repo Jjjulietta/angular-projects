@@ -1,0 +1,37 @@
+<!--<header class="header">-->
+<div class="header-container">
+  <div class="search-container">
+    <img src="./../../assets/logo.svg" alt="header-logo" />
+    <app-search></app-search>
+    <button
+      type="button"
+      (click)="toggleFilterBlock()"
+      class="header-setting-btn"
+    >
+      <img
+        src="./../../assets/search_settings.svg"
+        alt="header-search-btn"
+        class="header-setting-img"
+      />
+    </button>
+    <!--<button
+        type="button"
+        (click)="toggleFilterBlock()"
+        class="header-setting-btn"
+      >
+        <img
+          src="./../../assets/search_settings.svg"
+          alt="header-search-btn"
+          class="header-setting-img"
+        />
+      </button>-->
+  </div>
+  <app-login></app-login>
+  <app-custom-button-favorite
+    [favorite]="favorite"
+    [custom]="custom"
+    (click)="openFavoritePage()"
+  ></app-custom-button-favorite>
+</div>
+<app-filter-block *ngIf="isShown"></app-filter-block>
+<!--</header>-->

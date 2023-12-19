@@ -1,0 +1,11 @@
+<form class="search-block">
+  <input
+    [(ngModel)]="search"
+    name="search"
+    type="text"
+    placeholder="What are you want to find out?"
+    class="search-input"
+    id="search"
+    (input)="onChange()"
+  />
+</form>

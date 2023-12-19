@@ -1,0 +1,91 @@
+@import "./../../../../sass/plaseholder";
+@import "./../../../../sass/constants";
+@import "./../../../../sass/mixins";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1.25rem;
+  font-family: $font-family;
+}
+
+.details-container {
+  display: flex;
+  width: 90%;
+}
+
+.details-btn {
+  align-self: flex-start;
+}
+
+.card-details {
+  display: flex;
+  border-radius: 0.3rem;
+  background-color: $color-background-one;
+  box-shadow: 0.15rem 0.3rem 0.3rem 0.15rem $color-grey-light,
+    0 0.15rem 0.2rem 0.15rem $color-second;
+}
+
+.description-container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.details-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+h3 {
+  @include font(1.5rem, bold);
+  text-align: left;
+}
+
+.details-date {
+  @include font(0.7rem, regular);
+  color: $color-grey-light;
+  line-height: 180%;
+}
+
+.desc-title {
+  @include font(0.9rem, regular);
+  margin-bottom: 0.25rem;
+}
+
+.desc-text {
+  @include font(0.8rem, regular);
+  color: $color-grey-light;
+  height: 280px;
+  overflow-y: scroll;
+}
+
+.info-block {
+  @extend %flex;
+  @include font(0.7rem, regular);
+  align-self: center;
+  width: 50%;
+}
+
+.info {
+  @extend %flex;
+}
+
+.img-info {
+  margin-right: 0.25rem;
+}
+
+.line {
+  position: relative;
+  bottom: -2.2rem;
+  left: -2rem;
+  height: 0.3rem;
+  border-radius: 0px 0px 0.5rem 0px;
+  width: 115%;
+}

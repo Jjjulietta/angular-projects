@@ -1,0 +1,91 @@
+<div class="form card">
+  <h1>Create new card</h1>
+  <form [formGroup]="cardForm" (ngSubmit)="createCard()">
+    <label for="title" class="label card">Title *</label>
+    <input formControlName="title" type="text" class="input card" required />
+    <div
+      *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+      class="alert-block"
+    >
+      <div
+        *ngIf="
+          title?.errors?.['required']"
+        class="alert-invalid"
+      >
+        Please enter a title
+      </div>
+      <div
+        *ngIf="
+          title?.errors?.['minlength']"
+        class="alert-invalid"
+      >
+        The title is too short
+      </div>
+      <div
+        *ngIf="
+          title?.errors?.['maxlength']"
+        class="alert-invalid"
+      >
+        The title is too long
+      </div>
+    </div>
+
+    <label for="description" class="label card">Description</label>
+    <input formControlName="description" type="text" class="input card" />
+    <div
+      *ngIf="
+          description?.errors?.['maxlength']"
+      class="alert-invalid"
+    >
+      The description is too long
+    </div>
+    <label for="img" class="label card">Img *</label>
+    <input formControlName="img" type="text" class="input card" required />
+    <div
+      *ngIf="img?.errors?.['required'] && (img?.dirty || img?.touched)"
+      class="alert-invalid"
+    >
+      Please enter a link to the image
+    </div>
+    <label for="link" class="label card">Link video *</label>
+    <input formControlName="link" type="text" class="input card" required />
+    <div
+      *ngIf="link?.errors?.['required'] && (link?.dirty || link?.touched)"
+      class="alert-invalid"
+    >
+      Please enter a link to the video
+    </div>
+    <label for="date" class="label card">Date *</label>
+    <input formControlName="date" type="date" class="input card" required />
+    <div
+      *ngIf="date?.invalid && (date?.dirty || date?.touched)"
+      class="alert-block"
+    >
+      <div *ngIf="date?.errors?.['required']" class="alert-invalid">
+        Please enter a creation date
+      </div>
+      <div *ngIf="date?.errors?.['forbiddenDate'] " class="alert-invalid">
+        The date is invalid
+      </div>
+    </div>
+    <div formArrayName="tags" class="card-array">
+      <h3>Tags</h3>
+      <button type="button" class="btn" (click)="addTags()">Add tag</button>
+
+      <div *ngFor="let tag of tags.controls; let i = index">
+        <label for="tag-{{ i }}" class="label card">tag *</label>
+        <input
+          id="tag-{{ i }}"
+          type="text"
+          [formControlName]="i"
+          class="input card"
+          required
+        />
+      </div>
+    </div>
+    <button type="button" class="btn reset" (click)="resetAll()">reset</button>
+    <button type="submit" [disabled]="cardForm.invalid" class="btn submit">
+      Create card
+    </button>
+  </form>
+</div>

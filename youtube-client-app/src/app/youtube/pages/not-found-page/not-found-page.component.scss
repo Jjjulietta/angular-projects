@@ -1,0 +1,28 @@
+@import "./../../../../sass/mixins";
+@import "./../../../../sass/constants";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 30%;
+}
+
+.img-not-found {
+  width: 20%;
+  height: 20%;
+  padding-right: 5%;
+}
+
+.not-found-text {
+  font-family: $font-family;
+  @include font(1.2rem, 600);
+  color: $color-grey-light;
+}

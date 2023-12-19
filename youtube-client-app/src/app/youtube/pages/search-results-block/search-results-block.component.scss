@@ -1,0 +1,11 @@
+@import "./../../../../sass/constants";
+
+.search-result-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  background-color: $color-white;
+  padding: 2rem;
+}
