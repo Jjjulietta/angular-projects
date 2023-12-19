@@ -13,6 +13,8 @@
 - 404 page
 - Style theme
 
+[Link to deployment](https://connections-app-jul.netlify.app/signin)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.4.
 
 ## Development server
