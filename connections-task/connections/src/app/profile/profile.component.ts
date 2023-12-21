@@ -22,6 +22,7 @@ import { UnsubscribeService } from '../services/unsubscribe.service';
 import { takeUntil } from 'rxjs';
 import { ToastService } from '../services/toast.service';
 import { ToastMessage, ToastState } from '../models/toast.model';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-profile',
@@ -51,6 +52,7 @@ export class ProfileComponent {
     private cd: ChangeDetectorRef,
     private unsubscribe$: UnsubscribeService,
     private toast: ToastService,
+    private httpService: HttpService,
     private fb: FormBuilder
   ) {}
 
@@ -68,14 +70,16 @@ export class ProfileComponent {
       ],
     });
     this.error.pipe(takeUntil(this.unsubscribe$)).subscribe((val) => {
-      if (val && val !== null && val !== '') {
-        console.log(val);
-        this.toast.showToast(val, ToastState.Error);
-      } else if (val && val !== null && val == '') {
-        console.log(val);
-        this.toast.showToast(ToastMessage.Error, ToastState.Error);
-      } else {
-        this.toast.showToast(ToastMessage.Error, ToastState.Error);
+      if (val !== null) {
+        if (val && val !== null && val !== '') {
+          console.log(val);
+          this.toast.showToast(val, ToastState.Error);
+        } else if (val && val !== null && val == '') {
+          console.log(val);
+          this.toast.showToast(ToastMessage.Error, ToastState.Error);
+        } else {
+          this.toast.showToast(ToastMessage.Error, ToastState.Error);
+        }
       }
     });
   }
@@ -128,14 +132,27 @@ export class ProfileComponent {
 
   reset() {
     this.isShown = false;
+    this.button = 'edit';
+    this.name?.valid;
   }
 
   editName() {}
 
   logout() {
-    localStorage.clear();
-    sessionStorage.clear();
-    location.reload();
-    this.router.navigate(['signin']);
+    this.httpService
+      .logout()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => {
+        console.log(val);
+        if (val.ok) {
+          localStorage.clear();
+          sessionStorage.clear();
+          location.reload();
+          this.toast.showToast(ToastMessage.SucsessLogout, ToastState.Sucsess);
+          this.router.navigate(['signin']);
+        } else {
+          this.toast.showToast(ToastMessage.Error, ToastState.Error);
+        }
+      });
   }
 }

@@ -51,8 +51,9 @@
             [(ngModel)]="text"
             name="text"
             class="input-text"
+            required
           ></textarea>
-          <button type="submit" class="btn">submit</button>
+          <button type="submit" class="btn" [disabled]="!text">submit</button>
         </form>
       </ul>
     </div>

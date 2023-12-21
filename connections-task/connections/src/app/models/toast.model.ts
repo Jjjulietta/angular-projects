@@ -1,5 +1,6 @@
 export enum ToastMessage {
   SucsessLogin = 'You have sucsessfully logged in',
+  SucsessLogout = 'You have sucsessfully logout',
   SucsessSignin = 'You have sucsessfully registered!',
   SucsessDelete = 'Group sucsessfully deleted',
   SucsessUpdateGroup = 'Group list sucsessfully updated',

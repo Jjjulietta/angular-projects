@@ -14,7 +14,7 @@
         <form [formGroup]="formName">
           <input *ngIf="isShown" type="text" formControlName="name" required />
           <div
-            *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+            *ngIf="name?.invalid && (name?.dirty || name?.touched) && isShown"
             class="alert-block"
           >
             <div
@@ -33,7 +33,7 @@
             </div>
             <div
               *ngIf="
-            name?.errors?.['maxLength']"
+            name?.errors?.['maxlength']"
               class="alert-invalid"
             >
               The name can contain maximum 40 characters

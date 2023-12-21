@@ -34,6 +34,7 @@ import { ToastService } from './toast.service';
 export class HttpService {
   private REGISTRATION = 'registration';
   private LOGIN = 'login';
+  private LOGOUT = 'logout';
   private PROFILE = 'profile';
   private GROUPS_LIST = 'groups/list';
   private GROUPS_CREATE = 'groups/create';
@@ -73,6 +74,13 @@ export class HttpService {
         obj.email = body.email;
         return obj;
       }),
+      catchError(this.handleError)
+    );
+  }
+
+  logout() {
+    return this.httpClient.delete(this.LOGOUT, { observe: 'response' }).pipe(
+      tap((r) => console.log(r)),
       catchError(this.handleError)
     );
   }
