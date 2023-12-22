@@ -120,36 +120,75 @@ export class ConversationComponent {
       }
     });
 
+    this.messages$
+      .pipe(takeUntil(this.unsubscribe$), delay(3000))
+      .subscribe((val) => {
+        console.log(val);
+        if (val === null || !val[this.id]) {
+          console.log(val);
+          this.store.dispatch(
+            MessagesActions.getMessages({
+              userId: this.id,
+              token: this.category,
+            })
+          );
+        }
+      });
+
+    /*this.store
+      .select(selectMessages)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => {
+        if (val === null) {
+          console.log(val);
+          this.store.dispatch(
+            MessagesActions.getMessages({
+              userId: this.id,
+              token: this.category,
+            })
+          );
+        }
+      });*/
     console.log(this.category);
     //const date = new Date().getTime();
-    this.store.dispatch(
+    /*this.store.dispatch(
       MessagesActions.getMessages({ userId: this.id, token: this.category })
-    );
+    );*/
     this.store
       .select(selectMessages)
       .pipe(takeUntil(this.unsubscribe$), delay(3000))
       .subscribe((val) => {
         console.log(val);
-        if (val && val[this.id] && val[this.id].length !== 0) {
-          console.log(this.id);
-          //console.log(userId);
-          console.log(val);
-          console.log(val[this.id]);
-          const l = val[this.id].length;
-          this.date = +val[this.id][l - 1].createdAt;
-          console.log(this.date);
-          const messagesUsers = val[this.id];
-          this.names$.pipe(takeUntil(this.unsubscribe$)).subscribe(
-            (values) =>
-              (this.messages = messagesUsers
-                .map((item) => ({ ...item }))
-                .map((i) =>
-                  Object.defineProperty(i, 'authorID', {
-                    value: values![i.authorID],
-                  })
-                ))
+        if (val) {
+          if (val && val[this.id] && val[this.id].length !== 0) {
+            this.cd.markForCheck();
+            console.log(this.id);
+            //console.log(userId);
+            console.log(val);
+            console.log(val[this.id]);
+            const l = val[this.id].length;
+            this.date = +val[this.id][l - 1].createdAt;
+            console.log(this.date);
+            const messagesUsers = val[this.id];
+            this.names$.pipe(takeUntil(this.unsubscribe$)).subscribe(
+              (values) =>
+                (this.messages = messagesUsers
+                  .map((item) => ({ ...item }))
+                  .map((i) =>
+                    Object.defineProperty(i, 'authorID', {
+                      value: values![i.authorID],
+                    })
+                  ))
+            );
+          }
+        } /*else {
+          this.store.dispatch(
+            MessagesActions.getMessages({
+              userId: this.id,
+              token: this.category,
+            })
           );
-        }
+        }*/
       });
 
     //this.messages = val[userId];
@@ -256,8 +295,13 @@ export class ConversationComponent {
 
   updateMessages() {
     console.log(this.category);
+    console.log(this.date);
     this.store.dispatch(
-      MessagesActions.getMessages({ userId: this.id, token: this.category })
+      MessagesActions.updateMessages({
+        userId: this.id,
+        token: this.category,
+        date: this.date,
+      })
     );
     if (this.context === 'groupID') {
       this.disabledGroup = true;

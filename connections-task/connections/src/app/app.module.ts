@@ -42,6 +42,7 @@ import { ThemeComponent } from './theme/theme.component';
 import { HeaderComponent } from './header/header.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './services/auth.service';
+import { UpdateMessagesEffect } from './store/effects/update-messages.effect';
 
 @NgModule({
   declarations: [AppComponent],
@@ -80,6 +81,7 @@ import { AuthService } from './services/auth.service';
       CreateConversationEffect,
       MessagesEffect,
       CreateMessagesEffect,
+      UpdateMessagesEffect,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],

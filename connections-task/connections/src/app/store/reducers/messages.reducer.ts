@@ -27,6 +27,10 @@ export const messagesReducer = createReducer(
     ...state,
     isLoading: true,
   })),
+  on(MessagesActions.updateMessages, (state, { userId, token, date }) => ({
+    ...state,
+    isLoading: true,
+  })),
   on(MessagesActions.addMessages, (state, { userId, messages }) => ({
     ...state,
     isLoading: false,

@@ -13,6 +13,7 @@ export const MessagesActions = createActionGroup({
       userId: string;
       messages: Message[] /*conversation: Message */;
     }>(),
+    'Update Messages': props<{ userId: string; token: string; date: number }>(),
     'Get Messages': props<{ userId: string; token: string; date?: number }>(),
     'Retrieved Messages': props<{ userId: string; messages: Message[] }>(),
     'Get Messages Error': props<{ error: string }>(),
