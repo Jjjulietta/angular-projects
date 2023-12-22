@@ -76,7 +76,7 @@ export class ConversationComponent {
     private router: Router
   ) {
     //let userId = '';
-    if (this.route.snapshot.paramMap.has('groupID')) {
+    /* if (this.route.snapshot.paramMap.has('groupID')) {
       console.log('group');
       this.category = 'groupID';
       this.context = 'groupID';
@@ -124,7 +124,145 @@ export class ConversationComponent {
       .pipe(takeUntil(this.unsubscribe$), delay(3000))
       .subscribe((val) => {
         console.log(val);
-        if (val === null || !val[this.id]) {
+        console.log(this.id);
+        if (val !== null) {
+          console.log(val[this.id]);
+        }
+        if (val === null || val[this.id] === undefined) {
+          console.log(val);
+          this.store.dispatch(
+            MessagesActions.getMessages({
+              userId: this.id,
+              token: this.category,
+            })
+          );
+        }
+      });
+
+    /*this.store
+      .select(selectMessages)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => {
+        if (val === null) {
+          console.log(val);
+          this.store.dispatch(
+            MessagesActions.getMessages({
+              userId: this.id,
+              token: this.category,
+            })
+          );
+        }
+      });*/
+    console.log(this.category);
+    //const date = new Date().getTime();
+    /*this.store.dispatch(
+      MessagesActions.getMessages({ userId: this.id, token: this.category })
+    );*/
+    /*this.store
+      .select(selectMessages)
+      .pipe(takeUntil(this.unsubscribe$), delay(3000))
+      .subscribe((val) => {
+        console.log(val);
+        if (val) {
+          if (val && val[this.id] && val[this.id].length !== 0) {
+            this.cd.markForCheck();
+            console.log(this.id);
+            //console.log(userId);
+            console.log(val);
+            console.log(val[this.id]);
+            const l = val[this.id].length;
+            this.date = +val[this.id][l - 1].createdAt;
+            console.log(this.date);
+            const messagesUsers = val[this.id];
+            this.names$.pipe(takeUntil(this.unsubscribe$)).subscribe(
+              (values) =>
+                (this.messages = messagesUsers
+                  .map((item) => ({ ...item }))
+                  .map((i) =>
+                    Object.defineProperty(i, 'authorID', {
+                      value: values![i.authorID],
+                    })
+                  ))
+            );
+          }
+        } /*else {
+          this.store.dispatch(
+            MessagesActions.getMessages({
+              userId: this.id,
+              token: this.category,
+            })
+          );
+        }*/
+    //});
+
+    //this.messages = val[userId];
+  }
+
+  ngOnInit() {
+    if (this.route.snapshot.paramMap.has('groupID')) {
+      console.log('group');
+      this.category = 'groupID';
+      this.context = 'groupID';
+      this.group = true;
+      //this.category = this.route.snapshot.paramMap.get('groupID');
+
+      let userId = this.route.snapshot.params['groupID'];
+      const i = userId.indexOf(',');
+      this.id = userId.slice(1, i);
+      const my = userId.slice(i + 1);
+      if (my === 'true') {
+        console.log('true');
+        this.myGroup = true;
+      }
+      console.log(this.id);
+    } else {
+      console.log('conversations');
+      this.category = 'conversationID';
+      this.context = 'conversation';
+      this.conversations = true;
+
+      //this.category = this.route.snapshot.paramMap.get('conversationID');
+      let userId = this.route.snapshot.params['conversationID'];
+      console.log(userId);
+      this.id = userId.slice(1);
+      console.log(this.id);
+    }
+
+    this.store
+      .select(selectGroups)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => {
+        if (val === null) {
+          this.store.dispatch(GroupsActions.getGroups());
+        }
+      });
+    this.store
+      .select(selectPeople)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => {
+        if (val === null) {
+          this.store.dispatch(PeopleActions.getPeople());
+        }
+      });
+    this.store
+      .select(selectCompanions)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((val) => {
+        console.log(val);
+        if (!val) {
+          this.store.dispatch(ConversationsActions.getConversations());
+        }
+      });
+
+    this.messages$
+      .pipe(takeUntil(this.unsubscribe$), delay(3000))
+      .subscribe((val) => {
+        console.log(val);
+        console.log(this.id);
+        if (val !== null) {
+          console.log(val[this.id]);
+        }
+        if (val === null || val[this.id] === undefined) {
           console.log(val);
           this.store.dispatch(
             MessagesActions.getMessages({
@@ -192,9 +330,6 @@ export class ConversationComponent {
       });
 
     //this.messages = val[userId];
-  }
-
-  ngOnInit() {
     if (this.context === 'groupID') {
       this.timerService
         .getDisableGroup$()

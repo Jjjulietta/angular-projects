@@ -296,7 +296,7 @@ export class PeopleGroupsComponent {
     this.store.dispatch(ConversationsActions.createConversations({ userId }));
     this.store
       .select(selectConversations)
-      .pipe(takeUntil(this.unsubscribe$), delay(10000))
+      .pipe(takeUntil(this.unsubscribe$)) //delay(1000))
       .subscribe((val) => {
         console.log(val);
         val?.forEach((item) => {
