@@ -1,0 +1,191 @@
+@import "./../../sass/mixins";
+@import "./../../sass/plaseholder";
+@import "./../../sass/constants";
+
+:host {
+  //position: relative;
+  font-family: $font-family;
+  margin: 0 auto;
+}
+
+.wrapper {
+  //margin: 0 auto;
+  background-image: var(--wrapper-background-image-main);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  //padding: 1rem;
+}
+
+.header-component {
+  @extend %header;
+}
+h1 {
+  @include font(2.3rem, 900, normal);
+  @extend %title;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 1rem;
+}
+
+.btn {
+  @extend %btn-primary;
+  @include font(1rem, normal);
+  padding: 0.6rem;
+  letter-spacing: 0.1rem;
+  //background-color: var(--background-color-btn-primary);
+}
+.timer {
+  display: block;
+  padding: 0.2rem;
+  color: var(--color); //$color-primary;
+  box-shadow: 0.03rem 0.3rem 0.3rem 0.3rem $color-background-one;
+  border-radius: 50%;
+}
+
+button:disabled {
+  background-color: $color-grey-dark;
+  cursor: not-allowed;
+}
+
+.popap {
+  position: absolute;
+  top: 45vh;
+  left: 35vw;
+  width: auto;
+  height: auto;
+  background-color: $color-background-two;
+  color: $color-darkblue;
+  @extend %container;
+}
+
+.popap-text {
+  margin-bottom: 1rem;
+  @include font(1rem, normal);
+}
+
+.popap-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.popap-btn {
+  @include font(0.8rem, normal);
+}
+.alert {
+  align-self: flex-start;
+  @include font(0.8rem, normal);
+  color: $color-primary;
+}
+
+.alert-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.alert-invalid {
+  color: red;
+  @include font(0.7rem, regular);
+  font-family: $font-family;
+}
+
+input {
+  border: none;
+  border-radius: 0.2rem;
+  height: 1.5rem;
+}
+
+.submit {
+  @include font(0.8rem, normal);
+  padding: 0.3rem;
+}
+
+.container {
+  width: 45%;
+  height: auto;
+  @extend %container;
+}
+
+.list {
+  overflow-y: scroll;
+  height: 80vh;
+  width: 90%;
+  //padding: 5%;
+  border-radius: 0.5rem;
+}
+
+.button-container {
+  align-self: flex-start;
+  width: 80%;
+  @extend %flex;
+  flex-wrap: wrap;
+  border-bottom: 0.2rem $color-primary;
+  margin-bottom: 0.8rem;
+}
+
+.title {
+  justify-content: flex-end;
+  @extend %title;
+  @include font(1.5rem, 800, normal);
+}
+
+li {
+  @extend %list;
+}
+
+.delete {
+  border-radius: 50%;
+}
+
+.companion {
+  background-color: $color-blue;
+  box-shadow: 0.3rem 0.3rem 0.8rem $color-background-one;
+  border-radius: 0.5rem;
+  color: $color-white;
+}
+
+@media (max-width: 700px) {
+  h1 {
+    @include font(2rem, 800, normal);
+  }
+  .title {
+    @include font(1rem, 700, normal);
+  }
+  li {
+    @include font(1rem, 600, normal);
+  }
+  .container {
+    width: 45%;
+  }
+  .btn {
+    margin-bottom: 0.4rem;
+  }
+}
+
+@media (max-width: 500px) {
+  h1 {
+    @include font(1.5rem, 700, normal);
+  }
+  .title {
+    @include font(1rem, 600, normal);
+  }
+  .main-container {
+    flex-wrap: wrap;
+  }
+  li {
+    @include font(1.2rem, 600, normal);
+  }
+  .container {
+    width: 80%;
+  }
+  .btn {
+    margin-bottom: 0.4rem;
+  }
+}

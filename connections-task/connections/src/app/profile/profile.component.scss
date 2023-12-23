@@ -1,0 +1,139 @@
+@import "./../../sass/mixins";
+@import "./../../sass/plaseholder";
+@import "./../../sass/constants";
+
+:host {
+  font-family: $font-family;
+  //margin: 1rem;
+}
+
+.wrapper {
+  background-image: var(
+    --wrapper-background-image-profile
+  ); //url("./../../assets/1659719355_13-kartinkin-net-p-zastavka-dlya-messendzhera-krasivo-14.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.header-component {
+  @extend %header;
+}
+h1 {
+  @include font(2.3rem, 900, normal);
+  @extend %title;
+}
+
+.profile-container {
+  width: 50%;
+  height: 60vh;
+  margin: 0.8rem;
+  @extend %container;
+  background-color: var(--background-color-container-second);
+}
+
+.list {
+  @extend %flex;
+  flex-direction: column;
+  width: 100%;
+  height: 70%;
+}
+
+span {
+  margin-left: 1rem;
+}
+
+.list > li {
+  list-style-type: none;
+  align-self: flex-start;
+  color: var(--color);
+  @include font(1.4rem, normal);
+}
+
+.btn {
+  @extend %btn-primary;
+  @include font(1rem, normal);
+  padding: 0.6rem;
+  letter-spacing: 0.1rem;
+}
+.btn-container {
+  @extend %flex;
+  width: 80%;
+}
+.reset {
+  background-color: $color-grey-light;
+}
+
+input {
+  width: 10rem;
+  height: 1.5rem;
+  background-color: $color-white;
+  border-radius: 0.5rem;
+  box-shadow: 0.06rem 0.06rem 0.06rem 0.06rem $color-primary;
+  border: none;
+  margin-left: 2rem;
+  vertical-align: middle;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  background-color: $color-background-grey;
+}
+
+.alert {
+  align-self: flex-start;
+  @include font(0.8rem, regular);
+  color: $color-primary;
+}
+
+.alert-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.alert-invalid {
+  color: red;
+  @include font(0.7rem, regular);
+  font-family: $font-family;
+}
+
+.user-data {
+  @include font(1.6rem, 600, italic);
+}
+
+@media (max-width: 800px) {
+  .profile-container {
+    width: 70%;
+    margin: 0.6rem;
+  }
+  h1 {
+    @include font(2rem, 800, normal);
+  }
+  .list > li {
+    @include font(1.2rem, normal);
+  }
+  .user-data {
+    @include font(1.4rem, 600, italic);
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-container {
+    width: 90%;
+    height: 55vh;
+    margin: 0.6rem;
+  }
+  h1 {
+    @include font(1.5rem, 600, normal);
+    margin-bottom: 0.4rem;
+  }
+
+  .list > li {
+    @include font(1rem, normal);
+  }
+  .user-data {
+    @include font(1.2rem, 600, italic);
+  }
+}

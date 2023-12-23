@@ -1,0 +1,33 @@
+<div class="container">
+  <!--<button
+    *ngIf="context === 'group'"
+    type="button"
+    class="{{ context }}"
+    [disabled]="disabled"
+    (click)="update()"
+  >
+    Update
+  </button>-->
+  <button
+    *ngIf="context === 'groupID'"
+    type="button"
+    class="{{ context }}"
+    [disabled]="disabledGroup"
+    (click)="update()"
+  >
+    UPDATE
+  </button>
+  <button
+    *ngIf="context === 'conversation'"
+    type="button"
+    class="{{ context }}"
+    [disabled]="disabledConversation"
+    (click)="updateConversation()"
+  >
+    UPDATE
+  </button>
+
+  <!--<span *ngIf="timer" class="timer">{{ timer }}s</span>-->
+  <span *ngIf="timerGroup" class="timer">{{ timerGroup }}s</span>
+  <span *ngIf="timerConversation" class="timer">{{ timerConversation }}s</span>
+</div>

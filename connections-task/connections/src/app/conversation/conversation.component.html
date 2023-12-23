@@ -1,0 +1,68 @@
+<div class="wrapper">
+  <div class="header-container">
+    <a routerLink="/" class="link">BACK TO MAIN</a>
+  </div>
+  <div class="main-container">
+    <div class="button-container">
+      <div class="update-container">
+        <button
+          type="button"
+          class="btn"
+          [disabled]="
+            context === 'groupID' ? disabledGroup : disabledConversation
+          "
+          (click)="updateMessages()"
+        >
+          UPDATE
+        </button>
+        <span *ngIf="timerGroup" class="timer">{{ timerGroup }}s</span>
+        <span *ngIf="timerConversation" class="timer"
+          >{{ timerConversation }}s</span
+        >
+      </div>
+      <button type="button" *ngIf="isShown" class="btn" (click)="openPopap()">
+        DELETE
+      </button>
+    </div>
+
+    <div class="conversations-container">
+      <ul class="list-messages">
+        <li
+          *ngFor="let message of messages"
+          class="{{ message.authorID ? 'message' : 'message me' }}"
+        >
+          <div
+            class="{{
+              message.authorID ? 'message-block' : 'message-block me-message'
+            }}"
+          >
+            <span class="message-date">{{
+              message.createdAt | date : "short"
+            }}</span>
+            <span class="message-name">{{
+              message.authorID ? message.authorID : "me"
+            }}</span>
+            <span class="message-text">{{ message.message }}</span>
+          </div>
+        </li>
+        <form class="input" (submit)="sendMessage()">
+          <textarea
+            type="text"
+            [(ngModel)]="text"
+            name="text"
+            class="input-text"
+            required
+          ></textarea>
+          <button type="submit" class="btn" [disabled]="!text">submit</button>
+        </form>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="popap" *ngIf="showPopap">
+  <p class="popap-text">are you sure you want to delete the conversation?</p>
+  <div class="btn-container">
+    <button type="button" class="btn" (click)="delete(id)">delete</button>
+    <button type="button" class="btn" (click)="openPopap()">cancel</button>
+  </div>
+</div>

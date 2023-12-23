@@ -1,0 +1,65 @@
+<div class="wrapper">
+  <div class="header-component">
+    <h1 class="title">PROFILE</h1>
+    <button type="button" class="btn" (click)="backMain()">back to main</button>
+    <button type="button" class="btn logout" (click)="logout()">Logout</button>
+  </div>
+  <div class="profile-container">
+    <ul class="list">
+      <li>
+        user id:<span class="user-data">{{ userId }}</span>
+      </li>
+      <li>
+        name:<span class="user-data">{{ userName }}</span>
+        <form [formGroup]="formName">
+          <input *ngIf="isShown" type="text" formControlName="name" required />
+          <div
+            *ngIf="name?.invalid && (name?.dirty || name?.touched) && isShown"
+            class="alert-block"
+          >
+            <div
+              *ngIf="
+            name?.errors?.['required']"
+              class="alert-invalid"
+            >
+              Please enter your name
+            </div>
+            <div
+              *ngIf="
+            name?.errors?.['pattern']"
+              class="alert-invalid"
+            >
+              The name can only contain letters (any language) or spaces
+            </div>
+            <div
+              *ngIf="
+            name?.errors?.['maxlength']"
+              class="alert-invalid"
+            >
+              The name can contain maximum 40 characters
+            </div>
+          </div>
+        </form>
+      </li>
+      <li>
+        email:<span class="user-data">{{ userEmail }}</span>
+      </li>
+      <li>
+        date: <span class="user-data">{{ date | date : "medium" }}</span>
+      </li>
+    </ul>
+    <div class="btn-container">
+      <button
+        type="button"
+        class="btn"
+        (click)="onClick()"
+        [disabled]="button === 'save' ? formName.invalid : false"
+      >
+        {{ button }}
+      </button>
+      <button type="button" class="btn reset" *ngIf="isShown" (click)="reset()">
+        cancel
+      </button>
+    </div>
+  </div>
+</div>

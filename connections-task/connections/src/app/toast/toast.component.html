@@ -1,0 +1,6 @@
+<div
+  [@toastTrigger]="(toastService.showToast$ | async) ? 'open' : 'close'"
+  class="{{ toastService.state$ | async }}"
+>
+  <div>{{ toastService.toastMessage$ | async }}</div>
+</div>

@@ -1,0 +1,119 @@
+@import "./constants";
+@import "./mixins";
+
+%flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+%btn-primary {
+  background-color: var(--background-color-btn-primary);
+  //@extend %flex;
+  width: auto;
+  height: auto;
+  //padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0.2rem 0.3rem 0.6rem var(--color-box-shadow-btn); //$color-grey-light;
+  border: none;
+  color: $color-white;
+  cursor: pointer;
+  &:hover {
+    transition: all 0.5s;
+    background-color: aqua;
+    color: $color-primary;
+  }
+}
+
+%btn-secondary {
+  background-color: var(--background-color-btn-secondary);
+  @extend %flex;
+  width: auto;
+  height: auto;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0.2rem 0.3rem 0.6rem $color-second;
+  border: none;
+  color: $color-white;
+  cursor: pointer;
+  &:hover {
+    transition: all 0.5s;
+    background-color: aqua;
+    color: $color-primary;
+  }
+}
+
+%toast {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 35%;
+  margin: 2rem;
+  display: inline-flex;
+  max-width: 25rem;
+  min-height: 8rem;
+  //max-height: 4rem;
+  box-shadow: 0.3rem 0.3rem 0.8rem #00000040;
+  background-color: $color-second;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  border-left: 6px solid black;
+  padding: 1.5rem;
+  border-radius: 4px;
+  font-family: $font-family;
+  font-size: 1.2rem;
+}
+
+%container {
+  @extend %flex;
+  flex-direction: column;
+  margin: 1rem;
+  //background-color: $color-fone;
+  border-radius: 0.5rem;
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem var(--color-box-shadow-container);
+  padding: 3%;
+}
+
+%message {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  color: var(--color);
+  margin: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem var(--color-box-shadow-container);
+  padding: 3%;
+}
+
+%list {
+  list-style-type: none;
+  align-self: flex-start;
+  color: var(--color);
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  @include font(1.5rem, normal);
+  transition: all 0.5s;
+  &:hover {
+    color: $color-second;
+  }
+}
+
+%title {
+  color: var(--color-title);
+  letter-spacing: 0.2rem;
+  //text-shadow: 0.06rem 0.6rem 0.6rem var(--color-text-shadow);
+  text-shadow: 0px 0px 5px #b393d3, 0px 0px 10px var(--color-title-shadow),
+    0px 0px 10px #b393d3, 0px 0px 20px var(--color-title-shadow);
+  box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem var(--color-box-shadow-btn);
+  padding: 0.5rem;
+}
+
+%header {
+  @extend %flex;
+  flex-wrap: wrap;
+  //margin: 1rem;
+  border-radius: 0.5rem;
+  //box-shadow: 0.06rem 0.6rem 0.6rem 0.06rem $color-blue;
+  padding: 1rem;
+}
